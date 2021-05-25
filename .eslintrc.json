@@ -1,0 +1,151 @@
+{
+	"root": true,
+	"ignorePatterns": [
+		"projects/**/*"
+	],
+	"overrides": [
+		{
+			"files": [
+				"*.ts",
+				"*.js"
+			],
+			"parserOptions": {
+				"project": [
+					"tsconfig.json",
+					"e2e/tsconfig.json"
+				],
+				"createDefaultProgram": true
+			},
+			"extends": [
+				"plugin:@angular-eslint/recommended",
+				"plugin:@angular-eslint/template/process-inline-templates"
+			],
+			"rules": {
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"type": "attribute",
+						"prefix": "app",
+						"style": "camelCase"
+					}
+				],
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"type": "element",
+						"prefix": "app",
+						"style": "kebab-case"
+					}
+				],
+				"@angular-eslint/no-output-on-prefix": "off",
+				"@typescript-eslint/indent": [
+					"error",
+					"tab",
+					{
+						"SwitchCase": 1
+					}
+				],
+				"@typescript-eslint/no-unused-expressions": [
+					"error",
+					{
+						"allowTernary": true
+					}
+				],
+				"@typescript-eslint/no-unused-vars": [
+					"warn",
+					{
+						"argsIgnorePattern": "^_"
+					}
+				],
+				"@typescript-eslint/naming-convention": [
+					"error",
+					{
+						"selector": [
+							"enumMember"
+						],
+						"format": [
+							"PascalCase"
+						]
+					}
+				],
+				"no-empty-function": [
+					"error",
+					{
+						"allow": [
+							"constructors"
+						]
+					}
+				],
+				"no-tabs": [
+					"error",
+					{
+						"allowIndentationTabs": true
+					}
+				],
+				"linebreak-style": [
+					"error",
+					"windows"
+				],
+				"comma-dangle": [
+					"error",
+					"always-multiline"
+				],
+				"object-curly-newline": [
+					"error",
+					{
+						"ImportDeclaration": {
+							"multiline": true,
+							"minProperties": 4
+						}
+					}
+				],
+				"object-curly-spacing": [
+					"error",
+					"always"
+				],
+				"prefer-arrow/prefer-arrow-functions": "off",
+				"semi": [
+					"error",
+					"always"
+				],
+				"comma-spacing": [
+					"error",
+					{
+						"after": true
+					}
+				],
+				"space-before-blocks": [
+					"error",
+					"always"
+				],
+				"array-bracket-spacing": [
+					"error",
+					"never"
+				],
+				"no-console": [
+					"warn",
+					{
+						"allow": [
+							""
+						]
+					}
+				],
+				"no-multiple-empty-lines": [
+					"error",
+					{
+						"max": 1
+					}
+				]
+			}
+		},
+		{
+			"files": [
+				"*.html"
+			],
+			"extends": [
+				"plugin:@angular-eslint/template/recommended"
+			],
+			"rules": {}
+		}
+	]
+}
