@@ -1,9 +1,15 @@
 <div class="row">
-	<div class="col-12">
-		<cb-autocomplete [form]="form"
-			[control]="search"
-			[label]="'Starting from'"
-			[placeholder]="'Enter starting city...'">
-		</cb-autocomplete>
+	<div class="col-6">
+		<cb-card [header]="constants.search"
+			[subheader]="constants.searchForTrips">
+			<form [formGroup]="form"
+				(ngSubmit)="search()">
+				<cb-autocomplete [form]="form"
+					[control]="control('fromCity')"
+					[label]="'From city'"
+					[placeholder]="'Enter starting city...'">
+				</cb-autocomplete>
+			</form>
+		</cb-card>
 	</div>
 </div>
