@@ -1,0 +1,14 @@
+<form *ngIf="form"
+	[formGroup]="form">
+	<mat-form-field>
+		<mat-label>{{ label }}</mat-label>
+		<input type="text"
+			[placeholder]="placeholder"
+			matInput
+			[formControlName]="formControlName"
+			[matAutocomplete]="auto">
+		<mat-autocomplete #auto="matAutocomplete">
+
+		</mat-autocomplete>
+	</mat-form-field>
+</form>

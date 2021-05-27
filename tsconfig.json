@@ -5,6 +5,7 @@
 		"baseUrl": "./",
 		"outDir": "./dist/out-tsc",
 		"forceConsistentCasingInFileNames": true,
+		"strictPropertyInitialization": false,
 		"strict": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
@@ -19,7 +20,17 @@
 		"lib": [
 			"es2018",
 			"dom"
-		]
+		],
+		"paths": {
+			"@components/*": [
+				"src/app/shared/components/*",
+				"src/app/trips/components/*"
+			],
+			"@modules/*": [
+				"src/app/*",
+				"src/app/trips/*"
+			]
+		}
 	},
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,

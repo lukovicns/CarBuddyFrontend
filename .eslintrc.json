@@ -135,6 +135,10 @@
 					{
 						"max": 1
 					}
+				],
+				"quotes": [
+					"error",
+					"single"
 				]
 			}
 		},
