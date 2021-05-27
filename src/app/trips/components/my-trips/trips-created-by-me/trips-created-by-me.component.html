@@ -1,0 +1,20 @@
+<ng-container *ngIf="data; else loading">
+	<ng-container *ngIf="data.length; else noTrips">
+		<cb-table-with-actions [data]="data"
+			[columns]="columns"
+			[actions]="actions"
+			[pagination]="pagination"
+			(onPageChange)="changePage($event)"
+			(onHandleAction)="handleAction($event)">
+		</cb-table-with-actions>
+	</ng-container>
+
+	<ng-template #noTrips>
+		<cb-empty-result-with-link [message]="constants.noTripsCreatedByMeFound"></cb-empty-result-with-link>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<cb-button-loader class="center mt-20"></cb-button-loader>
+	<p class="text-center">Loading...</p>
+</ng-template>

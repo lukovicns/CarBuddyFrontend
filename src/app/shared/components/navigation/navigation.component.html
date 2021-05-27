@@ -1,0 +1,58 @@
+<mat-toolbar class="navbar"
+	color="primary">
+	<div>
+		<img src="favicon.ico" />
+		<a class="brand no-select">CarBuddy</a>
+	</div>
+
+	<ng-container *ngIf="(isUserLoggedIn$ | async); else notLoggedIn">
+		<div class="left-items">
+			<cb-navigation-button [routes]="['search']"
+				[tooltip]="constants.searchTrips"
+				icon="search">
+			</cb-navigation-button>
+
+			<cb-navigation-button [routes]="['my-trips']"
+				[tooltip]="constants.myTrips"
+				icon="commute">
+			</cb-navigation-button>
+
+			<cb-navigation-button [routes]="['trips', 'add']"
+				[tooltip]="constants.addTrip"
+				icon="add">
+			</cb-navigation-button>
+		</div>
+
+		<cb-navigation-button-with-badge *ngIf="(isDriver$ | async)"
+			[routes]="['trip-requests']"
+			[tooltip]="constants.tripRequests"
+			[badgeCounter]="(tripRequestsCount$ | async)!"
+			icon="notifications">
+		</cb-navigation-button-with-badge>
+
+		<cb-navigation-button-with-badge [routes]="['inbox']"
+			[tooltip]="constants.inbox"
+			[badgeCounter]="(messagesCount$ | async)!"
+			icon="email">
+		</cb-navigation-button-with-badge>
+
+		<cb-icon-button (onClick)="logout()"
+			[tooltip]="constants.logout"
+			icon="logout">
+		</cb-icon-button>
+	</ng-container>
+
+	<ng-template #notLoggedIn>
+		<div>
+			<cb-navigation-button [routes]="['auth', 'login']"
+				[tooltip]="constants.login"
+				icon="power_settings_new">
+			</cb-navigation-button>
+
+			<cb-navigation-button [routes]="['auth', 'register']"
+				[tooltip]="constants.register"
+				icon="account_circle">
+			</cb-navigation-button>
+		</div>
+	</ng-template>
+</mat-toolbar>

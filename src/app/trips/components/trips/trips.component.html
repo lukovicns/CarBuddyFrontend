@@ -1,0 +1,37 @@
+<div class="row mt-40">
+	<ng-container *ngIf="trips$ | async as trips; else loading">
+		<ng-container *ngIf="trips.length; else noTrips">
+			<div *ngFor="let trip of trips"
+				class="row center mb-20">
+				<cb-card class="col-lg-5 col-md-9 col-sm-12">
+					<cb-trip-details content
+						[trip]="trip">
+						<a mat-flat-button
+							[routerLink]="['/trips', trip.id]">
+							{{ constants.readMore }}
+						</a>
+					</cb-trip-details>
+				</cb-card>
+			</div>
+
+			<div *ngIf="pagination$ | async as pagination"
+				class="row center mb-20">
+				<div class="col-lg-5 col-md-7 col-sm-12">
+					<cb-paginator [pagination]="pagination"
+						(onPageChange)="getTrips($event)">
+					</cb-paginator>
+				</div>
+			</div>
+		</ng-container>
+
+		<ng-template #noTrips>
+			<cb-empty-result-with-link [message]="constants.noTripsFound">
+			</cb-empty-result-with-link>
+		</ng-template>
+	</ng-container>
+
+	<ng-template #loading>
+		<cb-button-loader class="center"></cb-button-loader>
+		<p class="text-center">Loading...</p>
+	</ng-template>
+</div>

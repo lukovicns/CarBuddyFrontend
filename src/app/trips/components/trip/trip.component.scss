@@ -1,0 +1,23 @@
+@import "colors";
+
+:host ::ng-deep {
+	cb-trip-details > .row:first-of-type {
+		margin-top: 20px;
+	}
+
+	cb-card > mat-card > hr.divider {
+		display: none;
+	}
+
+	cb-driver-rating cb-textarea .mat-form-field {
+		width: 100%;
+	}
+}
+
+.inactive-trip {
+	color: red;
+	font-style: italic;
+	text-align: center;
+	margin: 20px 0 0;
+	font-size: 18px;
+}

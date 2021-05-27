@@ -1,0 +1,22 @@
+<div class="row center mt-40">
+	<div class="col-lg-9 col-12">
+		<ng-container *ngIf="data$ | async as data; else loading">
+			<ng-container *ngIf="data.length; else noTrips">
+				<cb-table-with-actions [data]="data"
+					[columns]="columns"
+					[actions]="actions"
+					(onHandleAction)="handleAction($event)">
+				</cb-table-with-actions>
+			</ng-container>
+
+			<ng-template #noTrips>
+				<cb-empty-result [message]="constants.noPendingTripRequests"></cb-empty-result>
+			</ng-template>
+		</ng-container>
+
+		<ng-template #loading>
+			<cb-button-loader class="center mt-20"></cb-button-loader>
+			<p class="text-center">Loading...</p>
+		</ng-template>
+	</div>
+</div>

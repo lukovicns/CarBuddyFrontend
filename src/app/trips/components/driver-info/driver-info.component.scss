@@ -1,0 +1,18 @@
+@import "colors";
+
+mat-icon {
+	position: relative;
+	left: 3px;
+	top: 5px;
+	color: $yellow;
+}
+
+.driver-details {
+	position: relative;
+	bottom: 4px;
+}
+
+.no-ratings {
+	color: $darkGray;
+	font-style: italic;
+}

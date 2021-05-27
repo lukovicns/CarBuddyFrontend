@@ -1,0 +1,29 @@
+<div class="row">
+	<div class="col-2">
+		<cb-avatar [image]="driver.photo"
+			[imageAlt]="driver.fullName">
+		</cb-avatar>
+	</div>
+	<div class="col-10">
+		<div class="row driver-details">
+			<div class="col-12">
+				<a *ngIf="driver.id; else noLink"
+					routerLink="/drivers/{{ driver.id }}">
+					{{ driver.firstName }}
+				</a>
+				<ng-template #noLink>{{ driver.firstName }}</ng-template>
+			</div>
+			<div class="col-12">
+				<ng-container *ngIf="driver.rating; else noRatings">
+					<span>{{ driver.rating }}</span>
+					<mat-icon>star_rate</mat-icon>
+				</ng-container>
+				<ng-template #noRatings>
+					<span class="no-ratings">
+						{{ constants.driverHasNoRatings }}
+					</span>
+				</ng-template>
+			</div>
+		</div>
+	</div>
+</div>

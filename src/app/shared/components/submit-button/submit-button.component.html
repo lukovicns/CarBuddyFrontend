@@ -1,0 +1,11 @@
+<button mat-flat-button
+	type="submit"
+	color="primary"
+	[disabled]="isDisabled || isPending">
+	<span [class.hidden]="isPending">
+		{{ label }}
+	</span>
+	<ng-container *ngIf="isPending">
+		<cb-button-loader></cb-button-loader>
+	</ng-container>
+</button>

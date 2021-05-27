@@ -1,0 +1,18 @@
+<ng-container *ngIf="data; else loading">
+	<ng-container *ngIf="data.length; else noHistory">
+		<cb-table [data]="data"
+			[columns]="columns"
+			[pagination]="pagination"
+			(onPageChange)="changePage($event)">
+		</cb-table>
+	</ng-container>
+
+	<ng-template #noHistory>
+		<cb-empty-result-with-link [message]="constants.noHistoryFound"></cb-empty-result-with-link>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<cb-button-loader class="center mt-20"></cb-button-loader>
+	<p class="text-center">Loading...</p>
+</ng-template>

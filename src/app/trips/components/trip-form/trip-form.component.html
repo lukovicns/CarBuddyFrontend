@@ -1,0 +1,71 @@
+<form [formGroup]="form"
+	(ngSubmit)="onSave.emit()">
+	<div class="row">
+		<ng-content select="[addCar]"></ng-content>
+
+		<div class="col-6">
+			<cb-places-autocomplete [form]="form"
+				[control]="control('fromCity')"
+				[label]="constants.fromCity"
+				[placeholder]="constants.fromCityPlaceholder">
+			</cb-places-autocomplete>
+		</div>
+
+		<div class="col-6">
+			<cb-places-autocomplete [form]="form"
+				[control]="control('toCity')"
+				[label]="constants.toCity"
+				[placeholder]="constants.toCityPlaceholder">
+			</cb-places-autocomplete>
+		</div>
+
+		<div class="col-12">
+			<cb-date-picker [form]="form"
+				[control]="control('date')"
+				[label]="constants.startDate"
+				[placeholder]="constants.startDatePlaceholder"
+				[startDate]="tomorrow"
+				[minDate]="tomorrow"
+				[maxDate]="twoWeeks">
+			</cb-date-picker>
+		</div>
+
+		<div class="col-6">
+			<cb-time-picker [form]="form"
+				[control]="control('startTime')"
+				[label]="constants.startTime">
+			</cb-time-picker>
+		</div>
+
+		<div class="col-6">
+			<cb-time-picker [form]="form"
+				[control]="control('arriveTime')"
+				[label]="constants.arriveTime">
+			</cb-time-picker>
+		</div>
+
+		<div class="col-12">
+			<cb-form-field [form]="form"
+				[control]="control('price')"
+				[label]="constants.price"
+				[placeholder]="constants.pricePlaceholder"
+				type="number">
+			</cb-form-field>
+		</div>
+
+		<div class="col-6">
+			<cb-submit-button [label]="constants.save"
+				[isDisabled]="form.invalid || isSubmitButtonDisabled"
+				[isPending]="isPending">
+			</cb-submit-button>
+		</div>
+
+		<div *ngIf="isEditOperation"
+			class="col-6">
+			<cb-flat-button color="warn"
+				(onClick)="onCancel.emit()">
+				{{ constants.cancel }}
+			</cb-flat-button>
+		</div>
+	</div>
+</form>

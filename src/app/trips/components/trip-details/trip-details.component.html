@@ -1,0 +1,25 @@
+<ng-container *ngFor="let row of rows">
+	<div class="row">
+		<div class="col-6">{{ row.name }}:</div>
+		<div class="col-6"
+			[class]="row.class">
+			{{ row.value }}
+		</div>
+	</div>
+	<hr>
+</ng-container>
+
+<ng-container *ngIf="!isTripCreatedByMe">
+	<div class="row mb-10">
+		<div class="col-6">{{ constants.driverInfo }}:</div>
+		<div class="col-6">
+			<cb-driver-info [driver]="trip.driver"></cb-driver-info>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-12">
+			<ng-content></ng-content>
+		</div>
+	</div>
+</ng-container>

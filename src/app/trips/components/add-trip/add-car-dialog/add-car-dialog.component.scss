@@ -1,0 +1,17 @@
+:host ::ng-deep {
+	cb-form-field > .mat-form-field {
+		width: 100%;
+	}
+}
+
+.col-12:last-of-type {
+	margin-top: 15px;
+}
+
+.cancel {
+	margin-left: 15px;
+}
+
+.label {
+	margin-left: 2px;
+}

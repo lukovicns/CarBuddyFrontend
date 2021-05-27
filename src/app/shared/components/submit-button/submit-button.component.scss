@@ -1,0 +1,18 @@
+@import "colors";
+
+button {
+	height: 37.5px;
+	min-width: 75px;
+}
+
+:host ::ng-deep cb-button-loader .loader {
+	position: relative;
+	bottom: 32px;
+	margin: 0 auto;
+	border: 6px solid $lightGray;
+	border-top: 6px solid $lightestBlue;
+}
+
+.hidden {
+	visibility: hidden;
+}

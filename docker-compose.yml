@@ -1,0 +1,11 @@
+version: "3"
+services:
+  app:
+    container_name: CarBuddyFrontend
+    image: CarBuddyFrontend
+    build: .
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules/

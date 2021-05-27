@@ -1,0 +1,7 @@
+<cb-table-with-actions [data]="(data$ | async)!"
+	[columns]="columns"
+	[actions]="actions"
+	[selectedRow]="selectedConversation?.id || null"
+	(onSelect)="selectConversation($event)"
+	(onHandleAction)="handleAction($event)">
+</cb-table-with-actions>

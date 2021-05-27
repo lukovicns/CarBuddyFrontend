@@ -1,0 +1,9 @@
+<h3>{{ constants.editTrip }}</h3>
+<hr />
+
+<cb-trip-form [form]="form"
+	[isEditOperation]="true"
+	[isPending]="(isPending$ | async)!"
+	(onSave)="editTrip()"
+	(onCancel)="close()">
+</cb-trip-form>

@@ -1,0 +1,15 @@
+<ng-container *ngIf="driver$ | async as driver; else loading">
+	<div class="row center mt-40 pb-40">
+		<div class="col-lg-6 col-md-8">
+			<cb-card>
+				<ng-container content>
+					<cb-driver-info [driver]="driver"></cb-driver-info>
+				</ng-container>
+			</cb-card>
+		</div>
+	</div>
+</ng-container>
+
+<ng-template #loading>
+	<cb-progress-bar></cb-progress-bar>
+</ng-template>

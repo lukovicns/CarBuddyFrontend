@@ -1,0 +1,36 @@
+@import "colors";
+
+cb-submit-button,
+cb-icon-button,
+cb-flat-button,
+span {
+	float: right;
+}
+
+cb-submit-button,
+cb-flat-button,
+span {
+	position: relative;
+	top: 10px;
+}
+
+.chat-button {
+	float: left;
+	position: relative;
+	top: 10px;
+	background-color: $greenDarker;
+	color: $lightestGray;
+
+	mat-icon {
+		font-size: 21px;
+		position: relative;
+		top: 2px;
+		right: 6px;
+	}
+}
+
+:host ::ng-deep cb-send-message {
+	form {
+		margin-top: 30px;
+	}
+}

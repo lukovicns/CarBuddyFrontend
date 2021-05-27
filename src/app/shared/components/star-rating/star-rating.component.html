@@ -1,0 +1,13 @@
+<fieldset class="rate">
+	<ng-container *ngFor="let value of ratings">
+		<input type="radio"
+			[id]="'rating' + value"
+			name="rating"
+			[value]="value"
+			(click)="onRate.emit(value / 2)" />
+		<label [for]="'rating' + value"
+			[class.half]="value % 2 !== 0"
+			[title]="value / 2">
+		</label>
+	</ng-container>
+</fieldset>

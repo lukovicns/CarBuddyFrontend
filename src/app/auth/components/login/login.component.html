@@ -1,0 +1,27 @@
+<cb-card-form [form]="form"
+	[header]="constants.login"
+	[subheader]="constants.loginHere"
+	(onSubmit)="login()">
+	<div class="col-12">
+		<cb-form-field [form]="form"
+			[control]="control('email')"
+			[label]="constants.email"
+			[placeholder]="constants.emailPlaceholder"
+			type="email">
+		</cb-form-field>
+	</div>
+	<div class="col-12">
+		<cb-form-field [form]="form"
+			[control]="control('password')"
+			[label]="constants.password"
+			[placeholder]="constants.passwordPlaceholder"
+			type="password">
+		</cb-form-field>
+	</div>
+	<div class="col-12">
+		<cb-submit-button [label]="constants.login"
+			[isDisabled]="form.invalid"
+			[isPending]="(isPending$ | async)!">
+		</cb-submit-button>
+	</div>
+</cb-card-form>

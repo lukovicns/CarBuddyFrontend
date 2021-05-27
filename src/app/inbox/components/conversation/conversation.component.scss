@@ -1,0 +1,50 @@
+@import "colors";
+
+:host ::ng-deep {
+	mat-card {
+		height: 500px;
+
+		mat-card-header {
+			border-bottom: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
+		}
+
+		mat-card-content {
+			overflow-y: auto;
+			overflow-x: hidden;
+			height: 295px;
+
+			&::-webkit-scrollbar {
+				width: 0.7em;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: $darkGray;
+				border-radius: 5px;
+			}
+		}
+
+		mat-card-actions {
+			position: sticky;
+			background-color: white;
+			bottom: 0;
+		}
+	}
+
+	cb-submit-icon-button {
+		position: relative;
+		right: 20px;
+		top: 15px;
+	}
+
+	cb-progress-bar > .mat-progress-bar {
+		top: 80px;
+	}
+}
+
+cb-avatar {
+	margin-right: 5px;
+}
+
+.col-12:first-of-type {
+	margin-bottom: 20px;
+}

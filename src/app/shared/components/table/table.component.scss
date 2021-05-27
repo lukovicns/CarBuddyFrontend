@@ -1,0 +1,25 @@
+@import "colors";
+
+.table-wrapper {
+	box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+	padding: 0;
+}
+
+:host ::ng-deep {
+	table {
+		width: 100%;
+
+		thead > tr:first-of-type {
+			border-bottom: 0.2px solid $lightGray;
+		}
+
+		tbody > tr:hover {
+			background-color: $lightestGray;
+			cursor: pointer;
+		}
+	}
+}
+
+a {
+	color: black;
+}

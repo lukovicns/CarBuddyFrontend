@@ -25,7 +25,7 @@
 					"error",
 					{
 						"type": "attribute",
-						"prefix": "app",
+						"prefix": "cb",
 						"style": "camelCase"
 					}
 				],
@@ -33,7 +33,7 @@
 					"error",
 					{
 						"type": "element",
-						"prefix": "app",
+						"prefix": "cb",
 						"style": "kebab-case"
 					}
 				],
@@ -68,6 +68,50 @@
 						]
 					}
 				],
+				"@typescript-eslint/type-annotation-spacing": [
+					"error",
+					{
+						"overrides": {
+							"colon": {
+								"before": false,
+								"after": true
+							},
+							"arrow": {
+								"before": true,
+								"after": true
+							}
+						}
+					}
+				],
+				"array-bracket-spacing": [
+					"error",
+					"never"
+				],
+				"comma-dangle": [
+					"error",
+					"always-multiline"
+				],
+				"comma-spacing": [
+					"error",
+					{
+						"after": true
+					}
+				],
+				"eol-last": "error",
+				"indent": [
+					"error",
+					"tab",
+					{
+						"SwitchCase": 1
+					}
+				],
+				"linebreak-style": [
+					"error",
+					"windows"
+				],
+				"no-console": [
+					"warn"
+				],
 				"no-empty-function": [
 					"error",
 					{
@@ -76,20 +120,21 @@
 						]
 					}
 				],
+				"no-mixed-spaces-and-tabs": "error",
+				"no-multiple-empty-lines": [
+					"error",
+					{
+						"max": 1
+					}
+				],
+				"no-multi-spaces": "error",
 				"no-tabs": [
 					"error",
 					{
 						"allowIndentationTabs": true
 					}
 				],
-				"linebreak-style": [
-					"error",
-					"windows"
-				],
-				"comma-dangle": [
-					"error",
-					"always-multiline"
-				],
+				"no-trailing-spaces": "error",
 				"object-curly-newline": [
 					"error",
 					{
@@ -103,38 +148,18 @@
 					"error",
 					"always"
 				],
-				"prefer-arrow/prefer-arrow-functions": "off",
+				// "prefer-arrow/prefer-arrow-functions": "off",
 				"semi": [
 					"error",
 					"always"
-				],
-				"comma-spacing": [
-					"error",
-					{
-						"after": true
-					}
 				],
 				"space-before-blocks": [
 					"error",
 					"always"
 				],
-				"array-bracket-spacing": [
+				"quotes": [
 					"error",
-					"never"
-				],
-				"no-console": [
-					"warn",
-					{
-						"allow": [
-							""
-						]
-					}
-				],
-				"no-multiple-empty-lines": [
-					"error",
-					{
-						"max": 1
-					}
+					"single"
 				]
 			}
 		},

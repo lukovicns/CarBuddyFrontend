@@ -1,1 +1,109 @@
-/* You can add global styles to this file, and also import other style files */
+@import "colors";
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
+	background-color: #f7f7f7;
+}
+
+hr {
+	border: 0;
+	height: 1px;
+	background: #333;
+	background-image: linear-gradient(to right, #ccc, #333, #ccc);
+	margin-bottom: 0 0 20px;
+}
+
+a {
+	color: $greenDarker;
+	text-decoration: none;
+
+	&:hover {
+		color: $greenDark;
+	}
+}
+
+.no-select {
+	user-select: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.mt-20 {
+	margin-top: 20px;
+}
+
+.mt-40 {
+	margin-top: 40px;
+}
+
+.mr-15 {
+	margin-right: 15px;
+}
+
+.mb-10 {
+	margin-bottom: 10px;
+}
+
+.mb-20 {
+	margin-bottom: 20px;
+}
+
+.pb-40 {
+	padding-bottom: 40px;
+}
+
+.right {
+	float: right;
+}
+
+.success {
+	color: $greenDarker;
+}
+
+.warn {
+	color: $orange;
+}
+
+.success-message {
+	color: $lightestGray;
+	background-color: $greenDarker;
+}
+
+.error-message {
+	color: $lightestGray;
+	background-color: $red;
+}
+
+.warn-message {
+	color: $lightestGray;
+	background-color: $darkOrange;
+}
+
+.mat-dialog-overlay .mat-dialog-container {
+	padding: 15px;
+}
+
+.bold {
+	font-weight: 500;
+}

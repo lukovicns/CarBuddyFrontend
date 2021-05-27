@@ -1,0 +1,52 @@
+<cb-card-form [form]="form"
+	[header]="constants.register"
+	[subheader]="constants.registerHere"
+	(onSubmit)="register()">
+	<div class="col-6">
+		<cb-form-field [form]="form"
+			[control]="control('firstName')"
+			[label]="constants.firstName"
+			[placeholder]="constants.firstNamePlaceholder">
+		</cb-form-field>
+	</div>
+	<div class="col-6">
+		<cb-form-field [form]="form"
+			[control]="control('lastName')"
+			[label]="constants.lastName"
+			[placeholder]="constants.lastNamePlaceholder">
+		</cb-form-field>
+	</div>
+	<div class="col-12">
+		<cb-form-field [form]="form"
+			[control]="control('email')"
+			[label]="constants.email"
+			[placeholder]="constants.emailPlaceholder"
+			type="email">
+		</cb-form-field>
+	</div>
+	<div class="col-12">
+		<cb-form-field [form]="form"
+			[control]="control('password')"
+			[label]="constants.password"
+			[placeholder]="constants.passwordPlaceholder"
+			type="password">
+		</cb-form-field>
+	</div>
+	<div class="col-6">
+		<cb-form-field [form]="form"
+			[control]="control('age')"
+			[label]="constants.age"
+			[placeholder]="constants.agePlaceholder"
+			type="number">
+		</cb-form-field>
+	</div>
+	<div class="col-6">
+		<cb-upload-form-field (onFileSelected)="selectPhoto($event)"></cb-upload-form-field>
+	</div>
+	<div class="col-12">
+		<cb-submit-button [label]="constants.register"
+			[isDisabled]="form.invalid"
+			[isPending]="(isPending$ | async)!">
+		</cb-submit-button>
+	</div>
+</cb-card-form>

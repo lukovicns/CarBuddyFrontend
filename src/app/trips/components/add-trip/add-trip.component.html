@@ -1,0 +1,11 @@
+<cb-card-form [form]="form"
+	[header]="constants.addTrip">
+	<cb-trip-form [form]="form"
+		[isSubmitButtonDisabled]="(hasCar$ | async) !== true"
+		[isPending]="(isPending$ | async)!"
+		(onSave)="addTrip()">
+		<cb-add-car *ngIf="(hasCar$ | async) === false"
+			addCar>
+		</cb-add-car>
+	</cb-trip-form>
+</cb-card-form>

@@ -1,0 +1,36 @@
+<ng-container *ngIf="trip; else loading">
+	<div class="row center mt-40 pb-40">
+		<div class="col-lg-6 col-md-8">
+			<cb-card imageUrl="assets/images/maps.jpg"
+				imageAlt="Maps">
+				<ng-container content>
+					<!-- <cb-map [origin]="trip.fromCity"
+						[destination]="trip.toCity">
+					</cb-map> -->
+
+					<cb-trip-details [trip]="trip">
+						<cb-trip-actions *ngIf="isTripActive; else noLongerActive"
+							[trip]="trip">
+						</cb-trip-actions>
+
+						<ng-template #noLongerActive>
+							<p class="inactive-trip">This trip is no longer active.</p>
+						</ng-template>
+
+						<ng-container *ngIf="(canRate$ | async) === true">
+							<hr />
+							<div class="mb-10">{{ constants.rate }}:</div>
+							<cb-driver-rating [firstName]="trip.driverFirstName"
+								(onSubmit)="rate($event)">
+							</cb-driver-rating>
+						</ng-container>
+					</cb-trip-details>
+				</ng-container>
+			</cb-card>
+		</div>
+	</div>
+</ng-container>
+
+<ng-template #loading>
+	<cb-progress-bar></cb-progress-bar>
+</ng-template>

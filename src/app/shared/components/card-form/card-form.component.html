@@ -1,0 +1,18 @@
+<div class="row center mt-40">
+	<div class="col-lg-6 col-12">
+		<cb-card>
+			<span header>{{ header }}</span>
+			<span *ngIf="subheader"
+				subheader>
+				{{ subheader }}
+			</span>
+			<form content
+				[formGroup]="form"
+				(ngSubmit)="onSubmit.emit()">
+				<div class="row">
+					<ng-content></ng-content>
+				</div>
+			</form>
+		</cb-card>
+	</div>
+</div>

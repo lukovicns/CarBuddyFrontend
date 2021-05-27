@@ -1,0 +1,23 @@
+<mat-form-field [formGroup]="form">
+	<mat-label>{{ label }}</mat-label>
+	<input matInput
+		type="text"
+		[min]="minDate"
+		[max]="maxDate"
+		[formControlName]="formControlName"
+		[placeholder]="placeholder"
+		[matDatepicker]="datepicker">
+	<mat-datepicker-toggle matSuffix
+		[for]="datepicker">
+	</mat-datepicker-toggle>
+	<mat-datepicker #datepicker></mat-datepicker>
+	<mat-error *ngIf="control.errors?.required || control.errors?.matDatepickerParse">
+		{{ errorMessages.invalidDate }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.matDatepickerMin as minDateError">
+		{{ errorMessages.minDate(label, minDateError.min.format('DD/MM/YYYY')) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.matDatepickerMax as maxDateError">
+		{{ errorMessages.maxDate(label, maxDateError.max.format('DD/MM/YYYY')) }}
+	</mat-error>
+</mat-form-field>

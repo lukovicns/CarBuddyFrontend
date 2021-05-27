@@ -1,0 +1,15 @@
+:host ::ng-deep {
+	cb-textarea > mat-form-field {
+		width: 100%;
+
+		.mat-form-field-wrapper {
+			padding-bottom: 0;
+		}
+	}
+
+	cb-submit-icon-button > cb-button-loader > .loader {
+		position: relative;
+		left: 6px;
+		top: 6px;
+	}
+}

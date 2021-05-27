@@ -1,0 +1,11 @@
+<button mat-icon-button
+	[routerLink]="routes"
+	routerLinkActive="active"
+	[routerLinkActiveOptions]="{ exact: true }">
+	<mat-icon [matTooltip]="tooltip"
+		[matBadge]="badgeCounter"
+		[matBadgeHidden]="badgeCounter <= 0"
+		matBadgeColor="warn">
+		{{ icon }}
+	</mat-icon>
+</button>

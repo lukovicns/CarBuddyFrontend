@@ -1,0 +1,14 @@
+<input #fileUpload
+	type="file"
+	accept="image/*"
+	class="hidden"
+	(change)="selectFile($event)">
+<div class="file-upload">
+	<button mat-mini-fab
+		color="primary"
+		type="button"
+		(click)="fileUpload.click()">
+		<mat-icon>attach_file</mat-icon>
+	</button>
+	{{ fileName || constants.noFileUploadedYet }}
+</div>

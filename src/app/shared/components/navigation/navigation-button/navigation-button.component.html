@@ -1,0 +1,8 @@
+<button mat-icon-button
+	[routerLink]="routes"
+	routerLinkActive="active"
+	[routerLinkActiveOptions]="{ exact: true }">
+	<mat-icon [matTooltip]="tooltip">
+		{{ icon }}
+	</mat-icon>
+</button>

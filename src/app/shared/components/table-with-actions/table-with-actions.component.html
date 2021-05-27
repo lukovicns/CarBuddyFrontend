@@ -1,0 +1,45 @@
+<div class="table-wrapper no-select">
+	<table mat-table
+		[dataSource]="dataSource">
+		<ng-container *ngFor="let column of columns"
+			[matColumnDef]="column.name">
+			<th mat-header-cell
+				*matHeaderCellDef>
+				{{ column.label }}
+			</th>
+			<td mat-cell
+				*matCellDef="let row"
+				[class.active]="isSelectedRow(row.id)"
+				(click)="row.url ? navigateTo(row.url) : onSelect.emit(row.id)">
+				{{ row[column.name] }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<th mat-header-cell
+				*matHeaderCellDef>
+				Actions
+			</th>
+			<td mat-cell
+				*matCellDef="let row"
+				[class.active]="isSelectedRow(row.id)">
+				<cb-dropdown-menu [items]="actions"
+					(onHandleAction)="onHandleAction.emit({ key: $event, row: row })">
+				</cb-dropdown-menu>
+			</td>
+		</ng-container>
+
+		<tr mat-header-row
+			*matHeaderRowDef="displayedColumns">
+		</tr>
+
+		<tr mat-row
+			*matRowDef="let row; columns: displayedColumns;">
+		</tr>
+	</table>
+
+	<cb-paginator *ngIf="pagination"
+		[pagination]="pagination"
+		(onPageChange)="onPageChange.emit($event)">
+	</cb-paginator>
+</div>

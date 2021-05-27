@@ -1,0 +1,26 @@
+<ng-container *ngIf="conversations$ | async as conversations; else loading">
+	<ng-container *ngIf="conversations.length; else emptyInbox">
+		<div class="row center">
+			<div class="col-5">
+				<cb-conversations [conversations]="conversations"
+					[selectedConversation]="selectedConversation">
+				</cb-conversations>
+			</div>
+			<div class="col-5">
+				<cb-conversation [selectedConversation]="selectedConversation"></cb-conversation>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-template #emptyInbox>
+		<cb-empty-result [message]="constants.emptyInbox"></cb-empty-result>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<div class="row">
+		<cb-loader class="center">
+			{{ constants.loadingInbox }}
+		</cb-loader>
+	</div>
+</ng-template>

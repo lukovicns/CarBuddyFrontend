@@ -1,0 +1,25 @@
+:host ::ng-deep {
+	cb-driver-info {
+		.row:first-of-type {
+			margin-bottom: 30px;
+		}
+
+		cb-avatar > img {
+			width: 80px;
+		}
+	}
+
+	cb-card {
+		hr.divider {
+			display: none;
+		}
+
+		mat-card-content.mat-card-content {
+			margin: 0;
+		}
+
+		cb-textarea .mat-form-field .mat-form-field-wrapper {
+			padding-bottom: 7px;
+		}
+	}
+}

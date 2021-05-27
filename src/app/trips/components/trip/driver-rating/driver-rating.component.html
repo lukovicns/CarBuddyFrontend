@@ -1,0 +1,29 @@
+<form [formGroup]="form"
+	(ngSubmit)="save()"
+	spellcheck="false"
+	autocomplete="false">
+	<div class="row">
+		<div class="col-12">
+			<cb-star-rating (onRate)="rate($event)"></cb-star-rating>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<cb-textarea [form]="form"
+				[control]="comment"
+				[label]="constants.defaultLabel"
+				[placeholder]="constants.defaultLabel">
+			</cb-textarea>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-12">
+			<cb-submit-button [label]="constants.rateDriver(firstName)"
+				[isPending]="(isPending$ | async)!"
+				[isDisabled]="evaluation === 0">
+			</cb-submit-button>
+		</div>
+	</div>
+</form>

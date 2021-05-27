@@ -1,0 +1,13 @@
+<button mat-flat-button
+	type="button"
+	[color]="color"
+	[disabled]="isDisabled || isPending"
+	(click)="onClick.emit()">
+	<ng-container *ngIf="isPending; else notPending">
+		<cb-button-loader></cb-button-loader>
+	</ng-container>
+
+	<ng-template #notPending>
+		<ng-content></ng-content>
+	</ng-template>
+</button>

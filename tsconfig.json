@@ -5,6 +5,7 @@
 		"baseUrl": "./",
 		"outDir": "./dist/out-tsc",
 		"forceConsistentCasingInFileNames": true,
+		"strictPropertyInitialization": false,
 		"strict": true,
 		"noImplicitReturns": true,
 		"noFallthroughCasesInSwitch": true,
@@ -19,7 +20,65 @@
 		"lib": [
 			"es2018",
 			"dom"
-		]
+		],
+		"paths": {
+			"@components/*": [
+				"src/app/auth/components/*",
+				"src/app/shared/components/*",
+				"src/app/trips/components/*",
+				"src/app/inbox/components/*",
+			],
+			"@classes/*": [
+				"src/app/auth/classes/*"
+			],
+			"@constants/*": [
+				"src/app/shared/constants/*"
+			],
+			"@form-field/*": [
+				"src/app/shared/components/form-field/*"
+			],
+			"@guards/*": [
+				"src/app/core/guards/*"
+			],
+			"@interceptors/*": [
+				"src/app/core/interceptors/*"
+			],
+			"@models/*": [
+				"src/app/trips/models/*",
+				"src/app/core/models/*",
+				"src/app/shared/models/*",
+				"src/app/inbox/models/*",
+			],
+			"@services/*": [
+				"src/app/auth/services/*",
+				"src/app/shared/services/*",
+				"src/app/trips/services/*",
+				"src/app/core/services/*",
+				"src/app/inbox/services/*",
+				"src/app/store/services/*",
+			],
+			"@shared/*": [
+				"src/app/shared/*"
+			],
+			"@states/*": [
+				"src/app/store/states/*",
+			],
+			"@store/*": [
+				"src/app/store/*",
+			],
+			"@environment": [
+				"src/environments/environment"
+			],
+			"@modules/*": [
+				"src/app/*",
+				"src/app/trips/*",
+				"src/app/auth/*",
+				"src/app/inbox/*",
+			],
+			"@app/*": [
+				"src/app/*"
+			],
+		}
 	},
 	"angularCompilerOptions": {
 		"enableI18nLegacyMessageIdFormat": false,

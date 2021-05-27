@@ -1,0 +1,12 @@
+<button mat-icon-button
+	[color]="color"
+	[disabled]="isDisabled"
+	[type]="type"
+	(click)="onClick.emit()">
+	<mat-icon [matTooltip]="tooltip"
+		[matBadge]="badgeCounter"
+		[matBadgeHidden]="badgeCounter <= 0"
+		matBadgeColor="warn">
+		{{ icon }}
+	</mat-icon>
+</button>

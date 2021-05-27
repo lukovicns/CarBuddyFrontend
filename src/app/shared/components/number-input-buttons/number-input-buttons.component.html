@@ -1,0 +1,11 @@
+<cb-icon-button icon="add"
+	[isDisabled]="max <= control.value"
+	(onClick)="control.setValue(control.value + 1)">
+</cb-icon-button>
+
+<cb-icon-button icon="remove"
+	[isDisabled]="control.value <= min"
+	(onClick)="control.setValue(control.value - 1)">
+</cb-icon-button>
+
+<span>{{ label }}: {{ control.value }}</span>

@@ -1,0 +1,52 @@
+<div *ngIf="(tripRequestExists$ | async) === false"
+	class="row">
+	<div class="col-12">
+		<cb-icon-button icon="remove"
+			[isDisabled]="numberOfSeats.value <= 0"
+			(onClick)="numberOfSeats.setValue(numberOfSeats.value - 1)">
+		</cb-icon-button>
+
+		<cb-icon-button icon="add"
+			[isDisabled]="trip.numberOfAvailableSeats <= numberOfSeats.value"
+			(onClick)="numberOfSeats.setValue(numberOfSeats.value + 1)">
+		</cb-icon-button>
+
+		<span *ngIf="numberOfSeats.value">
+			Seats: {{ numberOfSeats.value }}
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-4">
+		<button mat-flat-button
+			(click)="this.isContactFormVisible = !this.isContactFormVisible"
+			class="chat-button">
+			<mat-icon>chat</mat-icon>
+			{{ constants.contactDriver(trip.driverFirstName) }}
+		</button>
+	</div>
+
+	<div class="col-8">
+		<form *ngIf="(tripRequestExists$ | async) === false; else alreadySent"
+			[formGroup]="sendRequestForm">
+			<cb-flat-button [isDisabled]="sendRequestForm.invalid"
+				[isPending]="(isPending$ | async)!"
+				(onClick)="openConfirmationDialog()">
+				{{ constants.sendRequestForATrip }}
+			</cb-flat-button>
+		</form>
+
+		<ng-template #alreadySent>
+			<cb-flat-button [isDisabled]="true">
+				{{ constants.tripRequestPending }}
+			</cb-flat-button>
+		</ng-template>
+	</div>
+</div>
+
+<cb-send-message *ngIf="isContactFormVisible"
+	[participantId]="trip.driverId"
+	[conversationId]="conversationId"
+	[isSendingDisabled]="isSendingDisabled">
+</cb-send-message>

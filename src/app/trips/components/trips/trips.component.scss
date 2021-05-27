@@ -1,0 +1,19 @@
+@import "colors";
+
+a.mat-flat-button {
+	float: right;
+	background-color: $greenDarker;
+	color: $lightestGray;
+}
+
+:host ::ng-deep {
+	cb-card > mat-card {
+		mat-card-content {
+			margin-bottom: 0;
+		}
+
+		hr.divider {
+			display: none;
+		}
+	}
+}

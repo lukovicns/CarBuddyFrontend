@@ -1,0 +1,11 @@
+<mat-form-field [formGroup]="form">
+	<mat-label>{{ label }}</mat-label>
+	<input type="text"
+		matInput
+		#searchInput
+		[formControlName]="formControlName"
+		[placeholder]="placeholder" />
+	<mat-error *ngIf="control.errors?.required">
+		{{ errorMessages.required(label) }}
+	</mat-error>
+</mat-form-field>

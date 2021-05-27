@@ -1,0 +1,28 @@
+<mat-card>
+	<mat-card-header>
+		<mat-card-subtitle>
+			<span>
+				<cb-avatar></cb-avatar>
+				{{ recipient.fullName }}
+			</span>
+		</mat-card-subtitle>
+	</mat-card-header>
+	<hr>
+	<mat-card-content #scrollableContent>
+		<ng-container *ngIf="messages$ | async as messages; else loading">
+			<cb-message *ngFor="let message of messages; let i = index;"
+				[message]="message"
+				[previousMessage]="messages[i - 1]"
+				[selectedConversation]="selectedConversation">
+			</cb-message>
+		</ng-container>
+
+		<ng-template #loading>
+			<cb-progress-bar></cb-progress-bar>
+		</ng-template>
+	</mat-card-content>
+	<mat-card-actions>
+		<cb-send-message *ngIf="selectedConversation"
+			[conversationId]="selectedConversation.id"></cb-send-message>
+	</mat-card-actions>
+</mat-card>

@@ -1,0 +1,10 @@
+:host ::ng-deep {
+	.mat-form-field {
+		width: 100%;
+	}
+
+	cb-submit-button > button,
+	cb-flat-button > button {
+		width: 100%;
+	}
+}

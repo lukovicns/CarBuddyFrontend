@@ -1,0 +1,24 @@
+<mat-form-field [formGroup]="form">
+	<mat-label>{{ label }}</mat-label>
+	<input matInput
+		[formControlName]="formControlName"
+		[type]="type"
+		[placeholder]="placeholder">
+	<mat-icon *ngIf="icon"
+		matSuffix>{{ icon }}</mat-icon>
+	<mat-error *ngIf="control.errors?.required">
+		{{ errorMessages.required(label) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.pattern && !control.errors?.minlength">
+		{{ errorMessages.pattern(label) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.minlength">
+		{{ errorMessages.minLength(label, control.errors?.minlength.requiredLength) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.min">
+		{{ errorMessages.min(label, control.errors?.min.min) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.max">
+		{{ errorMessages.max(label, control.errors?.max.max) }}
+	</mat-error>
+</mat-form-field>

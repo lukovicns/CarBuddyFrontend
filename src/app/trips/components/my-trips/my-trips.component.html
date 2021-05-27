@@ -1,0 +1,25 @@
+<div class="row center mt-40">
+	<div class="col-lg-9 col-12">
+		<mat-tab-group #tabs
+			mat-align-tabs="center"
+			(selectedTabChange)="changeTab($event.index)">
+			<mat-tab [label]="constants.tripsCreatedByMe">
+				<ng-template matTabContent>
+					<cb-trips-created-by-me></cb-trips-created-by-me>
+				</ng-template>
+			</mat-tab>
+
+			<mat-tab [label]="constants.myReservations">
+				<ng-template matTabContent>
+					<cb-reservations></cb-reservations>
+				</ng-template>
+			</mat-tab>
+
+			<mat-tab [label]="constants.tripHistory">
+				<ng-template matTabContent>
+					<cb-history></cb-history>
+				</ng-template>
+			</mat-tab>
+		</mat-tab-group>
+	</div>
+</div>

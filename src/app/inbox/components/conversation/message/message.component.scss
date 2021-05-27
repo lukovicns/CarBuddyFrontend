@@ -1,0 +1,28 @@
+@import "colors";
+
+.message {
+	display: inline-block;
+	width: fit-content;
+	word-wrap: break-word;
+	max-width: 300px;
+	white-space: normal;
+	padding: 10px;
+	border-radius: 12px;
+
+	&.author {
+		background-color: $lighterGreen;
+		float: right;
+	}
+
+	&.recipient {
+		background-color: $lightestGray;
+		margin-left: 10px;
+	}
+}
+
+.date {
+	font-size: 12px;
+	font-style: italic;
+	color: $darkGray;
+	margin-top: 10px;
+}
