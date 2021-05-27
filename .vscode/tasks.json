@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "Problem matcher",
+			"command": "tsc",
+			"args": [
+				"-w",
+				"-p",
+				"."
+			],
+			"isBackground": true,
+			"problemMatcher": "$tsc-watch"
+		}
+	]
+}
