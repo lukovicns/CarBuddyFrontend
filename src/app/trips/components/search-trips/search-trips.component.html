@@ -1,14 +1,36 @@
 <div class="row">
-	<div class="col-6">
+	<div class="col-lg-4 col-md-6 col-sm-8 col-12">
 		<cb-card [header]="constants.search"
 			[subheader]="constants.searchForTrips">
 			<form [formGroup]="form"
 				(ngSubmit)="search()">
-				<cb-autocomplete [form]="form"
-					[control]="control('fromCity')"
-					[label]="'From city'"
-					[placeholder]="'Enter starting city...'">
-				</cb-autocomplete>
+				<div class="row">
+					<div class="col-12">
+						<cb-autocomplete [form]="form"
+							[control]="control('fromCity')"
+							[label]="'From city'"
+							[placeholder]="'Start from...'"
+							[items]="(fromCities$ | async) || []">
+						</cb-autocomplete>
+					</div>
+					<div class="col-12">
+						<cb-autocomplete [form]="form"
+							[control]="control('toCity')"
+							[label]="'To city'"
+							[placeholder]="'Arrive to...'">
+						</cb-autocomplete>
+					</div>
+					<div class="col-12">
+						<cb-autocomplete [form]="form"
+							[control]="control('toCity')"
+							[label]="'To city'"
+							[placeholder]="'Arrive to...'">
+						</cb-autocomplete>
+					</div>
+					<div class="col-12">
+						<cb-submit-button [label]="'Search'"></cb-submit-button>
+					</div>
+				</div>
 			</form>
 		</cb-card>
 	</div>

@@ -22,13 +22,22 @@
 			"dom"
 		],
 		"paths": {
+			"@app/*": [
+				"src/app/*"
+			],
 			"@components/*": [
 				"src/app/shared/components/*",
 				"src/app/trips/components/*"
 			],
+			"@constants/*": [
+				"src/app/shared/constants/*"
+			],
 			"@modules/*": [
 				"src/app/*",
 				"src/app/trips/*"
+			],
+			"@services/*": [
+				"src/app/shared/services/*"
 			],
 			"@shared/*": [
 				"src/app/shared/*"
