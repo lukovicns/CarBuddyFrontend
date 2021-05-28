@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { getFormControlName } from '../../functions';
+
+import { getFormControlName } from '@shared/functions';
 
 @Component({
 	selector: 'cb-autocomplete',

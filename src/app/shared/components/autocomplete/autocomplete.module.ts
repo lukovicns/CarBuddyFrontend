@@ -5,7 +5,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { AutocompleteComponent } from '@components/autocomplete/autocomplete.component';
+import { AutocompleteComponent } from './autocomplete.component';
 
 @NgModule({
 	declarations: [

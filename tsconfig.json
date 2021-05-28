@@ -29,6 +29,9 @@
 			"@modules/*": [
 				"src/app/*",
 				"src/app/trips/*"
+			],
+			"@shared/*": [
+				"src/app/shared/*"
 			]
 		}
 	},
