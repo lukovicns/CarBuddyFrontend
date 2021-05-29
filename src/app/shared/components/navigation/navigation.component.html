@@ -2,10 +2,14 @@
 	color="primary">
 	<div>CarBuddy</div>
 	<div>
-		<button mat-icon-button>
+		<button mat-icon-button
+			[routerLink]="['auth', 'login']"
+			routerLinkActive="active">
 			<mat-icon>power_settings_new</mat-icon>
 		</button>
-		<button mat-icon-button>
+		<button mat-icon-button
+			[routerLink]="['auth', 'register']"
+			routerLinkActive="active">
 			<mat-icon>account_circle</mat-icon>
 		</button>
 	</div>

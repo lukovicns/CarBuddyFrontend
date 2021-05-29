@@ -25,9 +25,13 @@
 			"@app/*": [
 				"src/app/*"
 			],
+			"@auth/*": [
+				"src/app/auth/*"
+			],
 			"@components/*": [
+				"src/app/auth/components/*",
 				"src/app/shared/components/*",
-				"src/app/trips/components/*"
+				"src/app/trips/components/*",
 			],
 			"@constants/*": [
 				"src/app/shared/constants/*"
@@ -41,6 +45,9 @@
 			],
 			"@shared/*": [
 				"src/app/shared/*"
+			],
+			"@trips/*": [
+				"src/app/trips/*"
 			]
 		}
 	},

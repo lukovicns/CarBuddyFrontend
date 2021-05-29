@@ -1,8 +1,12 @@
+span {
+	padding-right: 1rem;
+}
+
 .navbar {
 	justify-content: space-between;
 	flex-wrap: wrap;
 }
 
-span {
-	padding-right: 1rem;
+.active {
+	color: #ababab;
 }
