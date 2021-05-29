@@ -8,6 +8,8 @@ import { RegisterComponent } from '@components/register/register.component';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { EmailFormFieldModule } from '@form-field/email-form-field/email-form-field.module';
 import { PasswordFormFieldModule } from '@form-field/password-form-field/password-form-field.module';
+import { UploadFormFieldModule } from '@form-field/upload-form-field/upload-form-field.module';
+import { NumberFormFieldModule } from '@form-field/number-form-field/number-form-field.module';
 
 @NgModule({
 	declarations: [
@@ -20,7 +22,9 @@ import { PasswordFormFieldModule } from '@form-field/password-form-field/passwor
 		CommonModule,
 		EmailFormFieldModule,
 		FormFieldModule,
+		NumberFormFieldModule,
 		PasswordFormFieldModule,
+		UploadFormFieldModule,
 	],
 })
 export class AuthModule { }
