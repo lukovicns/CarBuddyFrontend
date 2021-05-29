@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NumberInputComponent } from './number-input.component';
+import { FormFieldComponent } from './form-field.component';
 
-describe('NumberInputComponent', () => {
-	let component: NumberInputComponent;
-	let fixture: ComponentFixture<NumberInputComponent>;
+describe('FormFieldComponent', () => {
+	let component: FormFieldComponent;
+	let fixture: ComponentFixture<FormFieldComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			declarations: [NumberInputComponent],
+			declarations: [FormFieldComponent],
 		})
 			.compileComponents();
 	});
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(NumberInputComponent);
+		fixture = TestBed.createComponent(FormFieldComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});

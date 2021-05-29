@@ -6,7 +6,6 @@ import { AutocompleteModule } from '@components/autocomplete/autocomplete.module
 import { CardModule } from '@components/card/card.module';
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
 import { NavigationModule } from '@components/navigation/navigation.module';
-import { NumberInputModule } from '@components/number-input/number-input.module';
 import { SubmitButtonModule } from '@components/submit-button/submit-button.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
 
@@ -19,7 +18,6 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		CardModule,
 		CommonModule,
 		NavigationModule,
-		NumberInputModule,
 		ReactiveFormsModule,
 		SubmitButtonModule,
 		TripRoutingModule,

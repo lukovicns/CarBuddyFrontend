@@ -36,6 +36,9 @@
 			"@constants/*": [
 				"src/app/shared/constants/*"
 			],
+			"@form-field/*": [
+				"src/app/shared/components/form-field/*"
+			],
 			"@modules/*": [
 				"src/app/*",
 				"src/app/trips/*"

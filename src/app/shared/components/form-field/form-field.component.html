@@ -1,0 +1,8 @@
+<mat-form-field>
+	<mat-label>{{ label }}</mat-label>
+	<input matInput
+		[type]="type"
+		[placeholder]="placeholder">
+	<mat-icon *ngIf="icon"
+		matSuffix>{{ icon }}</mat-icon>
+</mat-form-field>
