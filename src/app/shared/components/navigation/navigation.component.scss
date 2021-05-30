@@ -10,3 +10,12 @@ span {
 .active {
 	color: #ababab;
 }
+
+a {
+	color: white;
+	text-decoration: none;
+
+	&:hover {
+		color: #ababab;
+	}
+}

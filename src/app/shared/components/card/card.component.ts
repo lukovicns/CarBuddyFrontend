@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
 	selector: 'cb-card',
 	templateUrl: './card.component.html',
-	styleUrls: ['./card.component.scss'],
+	styleUrls: [],
 })
 export class CardComponent {
 	@Input() header: string;

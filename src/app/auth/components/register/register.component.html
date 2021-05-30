@@ -1,1 +1,50 @@
-<p>register works!</p>
+<div class="row">
+	<div class="col-6">
+		<cb-card [header]="constants.register"
+			[subheader]="constants.registerHere">
+			<div class="row">
+				<form [formGroup]="form"
+					(ngSubmit)="register()">
+					<div class="col-6">
+						<cb-form-field [form]="form"
+							[control]="control('firstName')"
+							[label]="constants.firstName"
+							[placeholder]="constants.firstNamePlaceholder">
+						</cb-form-field>
+					</div>
+					<div class="col-6">
+						<cb-form-field [form]="form"
+							[control]="control('lastName')"
+							[label]="constants.lastName"
+							[placeholder]="constants.firstNamePlaceholder">
+						</cb-form-field>
+					</div>
+					<div class="col-12">
+						<cb-email-form-field [form]="form"
+							[control]="control('email')"
+							[label]="constants.email"
+							[placeholder]="constants.emailPlaceholder">
+						</cb-email-form-field>
+					</div>
+					<div class="col-12">
+						<cb-password-form-field [form]="form"
+							[control]="control('password')"
+							[label]="constants.password"
+							[placeholder]="constants.passwordPlaceholder">
+						</cb-password-form-field>
+					</div>
+					<div class="col-6">
+						<cb-number-form-field [form]="form"
+							[control]="control('age')"
+							[label]="constants.age"
+							[placeholder]="constants.agePlaceholder">
+						</cb-number-form-field>
+					</div>
+					<div class="col-6">
+						<!-- <cb-upload-form-field></cb-upload-form-field> -->
+					</div>
+				</form>
+			</div>
+		</cb-card>
+	</div>
+</div>

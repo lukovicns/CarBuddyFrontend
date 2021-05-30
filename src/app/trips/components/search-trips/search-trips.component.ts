@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
@@ -9,6 +9,7 @@ import { constants, Constants } from '@constants/constants';
 	selector: 'cb-search-trips',
 	templateUrl: './search-trips.component.html',
 	styleUrls: ['./search-trips.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchTripsComponent implements OnInit {
 	fromCities$: Observable<any>;

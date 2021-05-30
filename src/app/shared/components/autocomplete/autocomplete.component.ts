@@ -16,7 +16,7 @@ import { getFormControlName } from '@shared/functions';
 @Component({
 	selector: 'cb-autocomplete',
 	templateUrl: './autocomplete.component.html',
-	styleUrls: ['./autocomplete.component.scss'],
+	styleUrls: [],
 })
 export class AutocompleteComponent implements OnInit {
 	@Input() form: FormGroup;

@@ -6,7 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 
-import { NavigationComponent } from './navigation.component';
+import { NavigationComponent } from '@components/navigation/navigation.component';
 
 @NgModule({
 	declarations: [

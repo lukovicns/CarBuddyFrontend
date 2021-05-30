@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthRoutingModule } from '@auth/auth-routing.module';
 import { CardModule } from '@components/card/card.module';
@@ -24,6 +25,7 @@ import { NumberFormFieldModule } from '@form-field/number-form-field/number-form
 		FormFieldModule,
 		NumberFormFieldModule,
 		PasswordFormFieldModule,
+		ReactiveFormsModule,
 		UploadFormFieldModule,
 	],
 })

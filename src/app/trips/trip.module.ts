@@ -7,6 +7,7 @@ import { CardModule } from '@components/card/card.module';
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
 import { NavigationModule } from '@components/navigation/navigation.module';
 import { SubmitButtonModule } from '@components/submit-button/submit-button.module';
+import { NumberFormFieldModule } from '@form-field/number-form-field/number-form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		CardModule,
 		CommonModule,
 		NavigationModule,
+		NumberFormFieldModule,
 		ReactiveFormsModule,
 		SubmitButtonModule,
 		TripRoutingModule,

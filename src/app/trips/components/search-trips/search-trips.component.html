@@ -8,27 +8,27 @@
 					<div class="col-12">
 						<cb-autocomplete [form]="form"
 							[control]="control('fromCity')"
-							[label]="'From city'"
-							[placeholder]="'Start from...'"
+							[label]="constants.fromCity"
+							[placeholder]="constants.from"
 							[items]="(fromCities$ | async) || []">
 						</cb-autocomplete>
 					</div>
 					<div class="col-12">
 						<cb-autocomplete [form]="form"
 							[control]="control('toCity')"
-							[label]="'To city'"
-							[placeholder]="'Arrive to...'">
+							[label]="constants.toCity"
+							[placeholder]="constants.to">
 						</cb-autocomplete>
 					</div>
 					<div class="col-12">
-						<cb-autocomplete [form]="form"
-							[control]="control('toCity')"
-							[label]="'To city'"
-							[placeholder]="'Arrive to...'">
-						</cb-autocomplete>
+						<cb-number-form-field [label]="constants.numberOfPassengers"
+							[placeholder]="constants.numberOfPassengersPlaceholder"
+							[min]="1"
+							[max]="8">
+						</cb-number-form-field>
 					</div>
 					<div class="col-12">
-						<cb-submit-button [label]="'Search'"></cb-submit-button>
+						<cb-submit-button [label]="constants.search"></cb-submit-button>
 					</div>
 				</div>
 			</form>
