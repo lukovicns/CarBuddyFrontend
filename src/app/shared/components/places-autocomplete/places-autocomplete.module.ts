@@ -5,11 +5,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { AutocompleteComponent } from '@components/autocomplete/autocomplete.component';
+import { PlacesAutocompleteComponent } from '@components/places-autocomplete/places-autocomplete.component';
 
 @NgModule({
 	declarations: [
-		AutocompleteComponent,
+		PlacesAutocompleteComponent,
 	],
 	imports: [
 		CommonModule,
@@ -19,7 +19,7 @@ import { AutocompleteComponent } from '@components/autocomplete/autocomplete.com
 		ReactiveFormsModule,
 	],
 	exports: [
-		AutocompleteComponent,
+		PlacesAutocompleteComponent,
 	],
 })
-export class AutocompleteModule { }
+export class PlacesAutocompleteModule { }

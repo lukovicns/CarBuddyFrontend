@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-6">
+	<div class="col-lg-6 col-12">
 		<cb-card [header]="constants.register"
 			[subheader]="constants.registerHere">
 			<form [formGroup]="form"
@@ -52,10 +52,14 @@
 					<div class="col-6">
 					</div>
 				</div>
-				<cb-submit-button [label]="constants.register"
-					[isDisabled]="form.invalid"
-					[isPending]="(isPending$ | async)!">
-				</cb-submit-button>
+				<div class="row">
+					<div class="col-12">
+						<cb-submit-button [label]="constants.register"
+							[isDisabled]="form.invalid"
+							[isPending]="(isPending$ | async)!">
+						</cb-submit-button>
+					</div>
+				</div>
 			</form>
 		</cb-card>
 	</div>

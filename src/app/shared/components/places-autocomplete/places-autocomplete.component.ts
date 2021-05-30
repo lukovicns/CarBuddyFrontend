@@ -1,34 +1,29 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import {
+	AfterViewInit,
 	Component,
 	ElementRef,
 	Input,
 	NgZone,
-	OnInit,
 	ViewChild, 
 } from '@angular/core';
 
 import { MapsAPILoader } from '@agm/core';
-import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
-
-import { getFormControlName } from '@shared/functions';
 
 @Component({
-	selector: 'cb-autocomplete',
-	templateUrl: './autocomplete.component.html',
+	selector: 'cb-places-autocomplete',
+	templateUrl: './places-autocomplete.component.html',
 	styleUrls: [],
 })
-export class AutocompleteComponent implements OnInit {
+export class PlacesAutocompleteComponent implements AfterViewInit {
 	@Input() form: FormGroup;
-	@Input() control: AbstractControl;
+	@Input() name: string;
 	@Input() items: any[] = [];
 	@Input() label: string;
 	@Input() placeholder: string;
 
-	 @ViewChild('placesRef') placesRef : GooglePlaceDirective;
 	@ViewChild('autocompleteInput') autocompleteInput: ElementRef;
 
-	formControlName: string;
 	options: string[] = [];
 
 	constructor(
@@ -36,8 +31,7 @@ export class AutocompleteComponent implements OnInit {
 		private ngZone: NgZone,
 	) { }
 
-	ngOnInit(): void {
-		this.formControlName = getFormControlName(this.form, this.control);
+	ngAfterViewInit(): void {
 		this.getPlaceAutocomplete();
 	}
 
@@ -45,10 +39,14 @@ export class AutocompleteComponent implements OnInit {
 		this.mapsAPILoader.load().then(() => {
 			const autocomplete = new google.maps.places.Autocomplete(
 				this.autocompleteInput.nativeElement,
-				{ componentRestrictions: { country: 'rs' } },
+				{
+					types: ['cities'],
+					componentRestrictions: { country: 'rs' },
+				},
 			);
 			autocomplete.addListener('place_changed', () => {
 				this.ngZone.run(() => {
+					console.log('hEre');
 					const place = autocomplete.getPlace();
 					console.log(place);
 				});

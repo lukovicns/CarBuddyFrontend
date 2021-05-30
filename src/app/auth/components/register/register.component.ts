@@ -21,8 +21,11 @@ import { AuthService } from '@services/auth.service';
 @Component({
 	selector: 'cb-register',
 	templateUrl: './register.component.html',
-	styleUrls: ['../scss/auth-form.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrls: [
+		'../scss/auth-form.scss',
+		'./register.component.scss',
+	],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
 	isPending$: Observable<boolean>;

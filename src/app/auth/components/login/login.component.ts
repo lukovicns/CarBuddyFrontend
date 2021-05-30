@@ -17,8 +17,11 @@ import { TokenService } from '@services/token.service';
 @Component({
 	selector: 'cb-login',
 	templateUrl: './login.component.html',
-	styleUrls: ['../scss/auth-form.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	styleUrls: [
+		'../scss/auth-form.scss',
+		'./login.component.scss',
+	],
 })
 export class LoginComponent implements OnInit, OnDestroy {
 	isPending$: Observable<boolean>;
