@@ -9,10 +9,14 @@ import { NavigationModule } from '@components/navigation/navigation.module';
 import { SubmitButtonModule } from '@components/submit-button/submit-button.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
+import { TripsComponent } from './components/trips/trips.component';
+import { TripComponent } from './components/trips/trip/trip.component';
 
 @NgModule({
 	declarations: [
 		SearchTripsComponent,
+		TripsComponent,
+		TripComponent,
 	],
 	imports: [
 		AutocompleteModule,

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 
 import { Credentials } from '@classes/credentials.model';
 import { RegistrationData } from '@classes/registration-data.model';
@@ -37,6 +37,7 @@ export class AuthService {
 		this.isLoginPending.next(true);
 		return this.http.post(loginUrl, credentials)
 			.pipe(
+				map((response: any) => response.token),
 				catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
 				finalize(() => this.isLoginPending.next(false)),
 			);

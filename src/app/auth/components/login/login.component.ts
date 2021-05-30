@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 import { Constants, constants } from '@constants/constants';
 import { emailControl, passwordControl } from '@constants/form-controls';
 import { AuthService } from '@services/auth.service';
+import { TokenService } from '@services/token.service';
 
 @Component({
 	selector: 'cb-login',
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(
 		private router: Router, 
 		private authService: AuthService,
+		private tokenService: TokenService,
 	) { }
 
 	ngOnInit(): void {
@@ -43,7 +45,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	login(): void {
 		this.authService.login(this.form.value)
-			.subscribe(() => this.router.navigate(['/']));
+			.subscribe((token: string) => {
+				this.tokenService.setToken(token);
+				this.router.navigate(['/']);
+			});
 	}
 
 	control(name: string): AbstractControl {
