@@ -21,11 +21,13 @@
 						</cb-autocomplete>
 					</div>
 					<div class="col-12">
-						<cb-number-form-field [label]="constants.numberOfPassengers"
+						<cb-form-field [form]="form" [label]="constants.numberOfPassengers"
 							[placeholder]="constants.numberOfPassengersPlaceholder"
 							[min]="1"
-							[max]="8">
-						</cb-number-form-field>
+							[max]="8"
+							type="number"
+							name="numberOfPassengers">
+						</cb-form-field>
 					</div>
 					<div class="col-12">
 						<cb-submit-button [label]="constants.search"></cb-submit-button>

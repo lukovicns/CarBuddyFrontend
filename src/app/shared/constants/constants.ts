@@ -2,7 +2,9 @@ export interface Constants {
 	search: string;
 	searchForTrips: string;
 	register: string;
+	login: string;
 	registerHere: string;
+	loginHere: string;
 	firstName: string;
 	firstNamePlaceholder: string;
 	lastName: string;
@@ -21,13 +23,16 @@ export interface Constants {
 	numberOfPassengersPlaceholder: string;
 	emailPattern: string;
 	passwordPattern: string;
+	pleaseWait: string;
 }
 
 export const constants: Constants = {
 	search: 'Search',
 	searchForTrips: 'Search for trips',
 	register: 'Register',
+	login: 'Login',
 	registerHere: 'Register here',
+	loginHere: 'Login here',
 	firstName: 'First name',
 	firstNamePlaceholder: 'Enter your first name here',
 	lastName: 'Last name',
@@ -46,4 +51,5 @@ export const constants: Constants = {
 	numberOfPassengersPlaceholder: 'Enter number of passengers',
 	emailPattern: '^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$',
 	passwordPattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$',
+	pleaseWait: 'Please wait...',
 };

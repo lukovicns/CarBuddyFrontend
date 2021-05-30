@@ -1,11 +1,5 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { getFormControlName } from '@app/shared/functions';
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	OnInit, 
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { ErrorMessages, errorMessages } from '@constants/error-messages';
 
@@ -15,9 +9,9 @@ import { ErrorMessages, errorMessages } from '@constants/error-messages';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	styleUrls: [],
 })
-export class FormFieldComponent implements OnInit {
+export class FormFieldComponent {
 	@Input() form: FormGroup;
-	@Input() control: AbstractControl;
+	@Input() name: string;
 	@Input() label: string;
 	@Input() placeholder: string;
 	@Input() icon: string;
@@ -25,11 +19,9 @@ export class FormFieldComponent implements OnInit {
 	@Input() max: number;
 	@Input() type = 'text';
 
-	formControlName: string;
-
 	readonly errorMessages: ErrorMessages = errorMessages;
 
-	ngOnInit(): void {
-		this.formControlName = getFormControlName(this.form, this.control);
+	get control(): AbstractControl {
+		return this.form.get(this.name)!;
 	}
 }

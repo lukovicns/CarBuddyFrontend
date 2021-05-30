@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	OnDestroy,
+	OnInit, 
+} from '@angular/core';
 import {
 	AbstractControl,
 	FormControl,
@@ -6,18 +12,30 @@ import {
 	Validators, 
 } from '@angular/forms';
 
+import { Observable } from 'rxjs';
+
 import { constants, Constants } from '@constants/constants';
+import { emailControl, passwordControl } from '@constants/form-controls';
+import { AuthService } from '@services/auth.service';
 
 @Component({
 	selector: 'cb-register',
 	templateUrl: './register.component.html',
-	styleUrls: ['./register.component.scss'],
+	styleUrls: ['../scss/auth-form.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+	isPending$: Observable<boolean>;
 	form: FormGroup;
 	
 	readonly constants: Constants = constants;
+
+	constructor(
+		private router: Router,
+		private authService: AuthService,
+	) {
+		this.isPending$ = this.authService.isRegistrationPending$;
+	}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -29,25 +47,23 @@ export class RegisterComponent implements OnInit {
 				Validators.required,
 				Validators.minLength(3),
 			]),
-			email: new FormControl('', [
+			email: emailControl,
+			password: passwordControl,
+			age: new FormControl(18, [
 				Validators.required,
-				Validators.pattern(constants.emailPattern),
-			]),
-			password: new FormControl('', [
-				Validators.required,
-				Validators.minLength(8),
-				Validators.pattern(constants.passwordPattern),
-			]),
-			age: new FormControl(10, [
-				Validators.required,
-				Validators.min(10),
-				Validators.max(150),
+				Validators.min(12),
+				Validators.max(100),
 			]),
 		});
 	}
 
+	ngOnDestroy(): void {
+		this.form.reset();
+	}
+
 	register(): void {
-		console.log(this.form.value);
+		this.authService.register(this.form.value)
+			.subscribe(() => this.router.navigate(['auth', 'login']));
 	}
 
 	control(name: string): AbstractControl {

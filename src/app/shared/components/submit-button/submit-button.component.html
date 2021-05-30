@@ -1,5 +1,6 @@
 <button mat-flat-button
 	type="submit"
-	color="primary">
-	{{ label }}
+	color="primary"
+	[disabled]="isDisabled || isPending">
+	{{ isPending ? constants.pleaseWait : label }}
 </button>

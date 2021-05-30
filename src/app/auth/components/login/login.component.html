@@ -1,0 +1,34 @@
+<div class="row">
+	<div class="col-6">
+		<cb-card [header]="constants.login"
+			[subheader]="constants.loginHere">
+			<form [formGroup]="form"
+				(ngSubmit)="login()">
+				<div class="row">
+					<div class="col-12">
+						<cb-form-field [form]="form"
+							[label]="constants.email"
+							[placeholder]="constants.emailPlaceholder"
+							type="email"
+							name="email">
+						</cb-form-field>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<cb-form-field [form]="form"
+							[label]="constants.password"
+							[placeholder]="constants.passwordPlaceholder"
+							type="password"
+							name="password">
+						</cb-form-field>
+					</div>
+				</div>
+				<cb-submit-button [label]="constants.login"
+					[isDisabled]="form.invalid"
+					[isPending]="(isPending$ | async)!">
+				</cb-submit-button>
+			</form>
+		</cb-card>
+	</div>
+</div>

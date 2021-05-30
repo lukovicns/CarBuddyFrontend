@@ -2,49 +2,61 @@
 	<div class="col-6">
 		<cb-card [header]="constants.register"
 			[subheader]="constants.registerHere">
-			<div class="row">
-				<form [formGroup]="form"
-					(ngSubmit)="register()">
+			<form [formGroup]="form"
+				(ngSubmit)="register()">
+				<div class="row">
 					<div class="col-6">
 						<cb-form-field [form]="form"
-							[control]="control('firstName')"
 							[label]="constants.firstName"
-							[placeholder]="constants.firstNamePlaceholder">
+							[placeholder]="constants.firstNamePlaceholder"
+							name="firstName">
 						</cb-form-field>
 					</div>
 					<div class="col-6">
 						<cb-form-field [form]="form"
-							[control]="control('lastName')"
 							[label]="constants.lastName"
-							[placeholder]="constants.firstNamePlaceholder">
+							[placeholder]="constants.lastNamePlaceholder"
+							name="lastName">
 						</cb-form-field>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-12">
-						<cb-email-form-field [form]="form"
-							[control]="control('email')"
+						<cb-form-field [form]="form"
 							[label]="constants.email"
-							[placeholder]="constants.emailPlaceholder">
-						</cb-email-form-field>
+							[placeholder]="constants.emailPlaceholder"
+							type="email"
+							name="email">
+						</cb-form-field>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-12">
-						<cb-password-form-field [form]="form"
-							[control]="control('password')"
+						<cb-form-field [form]="form"
 							[label]="constants.password"
-							[placeholder]="constants.passwordPlaceholder">
-						</cb-password-form-field>
+							[placeholder]="constants.passwordPlaceholder"
+							type="password"
+							name="password">
+						</cb-form-field>
 					</div>
+				</div>
+				<div class="row">
 					<div class="col-6">
-						<cb-number-form-field [form]="form"
-							[control]="control('age')"
+						<cb-form-field [form]="form"
 							[label]="constants.age"
-							[placeholder]="constants.agePlaceholder">
-						</cb-number-form-field>
+							[placeholder]="constants.agePlaceholder"
+							type="number"
+							name="age">
+						</cb-form-field>
 					</div>
 					<div class="col-6">
-						<!-- <cb-upload-form-field></cb-upload-form-field> -->
 					</div>
-				</form>
-			</div>
+				</div>
+				<cb-submit-button [label]="constants.register"
+					[isDisabled]="form.invalid"
+					[isPending]="(isPending$ | async)!">
+				</cb-submit-button>
+			</form>
 		</cb-card>
 	</div>
 </div>

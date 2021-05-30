@@ -33,6 +33,9 @@
 				"src/app/shared/components/*",
 				"src/app/trips/components/*",
 			],
+			"@classes/*": [
+				"src/app/auth/classes/*"
+			],
 			"@constants/*": [
 				"src/app/shared/constants/*"
 			],
@@ -44,6 +47,7 @@
 				"src/app/trips/*"
 			],
 			"@services/*": [
+				"src/app/auth/services/*",
 				"src/app/shared/services/*"
 			],
 			"@shared/*": [
@@ -51,6 +55,9 @@
 			],
 			"@trips/*": [
 				"src/app/trips/*"
+			],
+			"@environment": [
+				"src/environments/environment"
 			]
 		}
 	},
