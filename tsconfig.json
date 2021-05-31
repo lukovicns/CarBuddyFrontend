@@ -42,13 +42,17 @@
 			"@form-field/*": [
 				"src/app/shared/components/form-field/*"
 			],
+			"@models/*": [
+				"src/app/trips/models/*"
+			],
 			"@modules/*": [
 				"src/app/*",
 				"src/app/trips/*"
 			],
 			"@services/*": [
 				"src/app/auth/services/*",
-				"src/app/shared/services/*"
+				"src/app/shared/services/*",
+				"src/app/trips/services/*"
 			],
 			"@shared/*": [
 				"src/app/shared/*"

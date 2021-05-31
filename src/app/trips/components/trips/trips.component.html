@@ -1,1 +1,42 @@
-<p>trips works!</p>
+<ng-container *ngIf="trips$ | async as trips; else loading">
+	<ng-container *ngIf="trips.length; else noTrips">
+		<div *ngFor="let trip of trips"
+			class="row center">
+			<div class="col-lg-5 col-md-7 col-sm-12">
+				<cb-card>
+					<div class="row">
+						<div class="col-6">
+							<div>From: {{ trip.fromAddress }} ({{ trip.startTime }})</div>
+							<div>To: {{ trip.toAddress }} ({{ trip.arriveTime }})</div>
+						</div>
+						<div class="col-3 offset-3">
+							<span>{{ trip.price }}</span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-6">
+							<span>
+								<img src="assets/images/avatar.png"
+									alt="CarBuddy - avatar" />
+								<div class="details">{{ trip.driverFirstName }}</div>
+								<div class="details">{{ trip.driverRating || 0 }}</div>
+							</span>
+						</div>
+						<div class="col-3 offset-3">
+							<button mat-flat-button
+								[routerLink]="[trip.id]"
+								type="button"
+								color="primary">
+								Details
+							</button>
+						</div>
+					</div>
+				</cb-card>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-template #noTrips>No trips found!</ng-template>
+</ng-container>
+
+<ng-template #loading>Loading...</ng-template>

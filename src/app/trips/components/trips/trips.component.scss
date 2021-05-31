@@ -1,0 +1,26 @@
+@import "shared";
+
+img {
+	border-radius: 50%;
+	width: 50px;
+}
+
+.row {
+	margin-top: 20px;
+}
+
+.col-3.offset-3 > * {
+	float: right;
+	top: 55px;
+}
+
+.details {
+	position: relative;
+	left: 62px;
+	bottom: 42px;
+}
+
+.col-6 > span {
+	position: relative;
+	top: 30px;
+}

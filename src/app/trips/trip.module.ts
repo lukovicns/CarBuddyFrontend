@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 import { CardModule } from '@components/card/card.module';
 import { PlacesAutocompleteModule } from '@components/places-autocomplete/places-autocomplete.module';
@@ -21,6 +22,7 @@ import { TripComponent } from './components/trips/trip/trip.component';
 	imports: [
 		CardModule,
 		CommonModule,
+		MatButtonModule,
 		NavigationModule,
 		FormFieldModule,
 		PlacesAutocompleteModule,
