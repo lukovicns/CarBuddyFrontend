@@ -4,8 +4,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AgmCoreModule } from '@agm/core';
-
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
@@ -20,10 +18,6 @@ import { NavigationModule } from '@components/navigation/navigation.module';
 		BrowserModule,
 		HttpClientModule,
 		NavigationModule,
-		AgmCoreModule.forRoot({
-			apiKey: 'AIzaSyD2VUNllokT2MYaY6COgPAPTrw1Zj1-Irg',
-			libraries: ['places'],
-		}),
 	],
 	providers: [
 		{

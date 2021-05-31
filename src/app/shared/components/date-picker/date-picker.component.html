@@ -1,0 +1,21 @@
+<mat-form-field [formGroup]="form">
+	<mat-label>{{ label }}</mat-label>
+	<input matInput
+		type="text"
+		[min]="minDate"
+		[formControlName]="name"
+		[placeholder]="placeholder"
+		[matDatepicker]="datepicker">
+	<mat-datepicker-toggle matSuffix
+		[for]="datepicker">
+	</mat-datepicker-toggle>
+	<mat-datepicker #datepicker
+		[startAt]="startDate">
+	</mat-datepicker>
+	<mat-error *ngIf="control.errors?.required">
+		{{ errorMessages.required(label) }}
+	</mat-error>
+	<mat-error *ngIf="control.errors?.matDatepickerParse">
+		{{ errorMessages.invalidDate }}
+	</mat-error>
+</mat-form-field>

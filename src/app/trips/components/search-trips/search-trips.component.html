@@ -8,13 +8,29 @@
 					<div class="col-12">
 						<cb-places-autocomplete [form]="form"
 							[label]="constants.fromCity"
-							[placeholder]="constants.from"
-							[items]="(fromCities$ | async)"
+							[placeholder]="constants.fromCityPlaceholder"
 							name="fromCity">
 						</cb-places-autocomplete>
 					</div>
 					<div class="col-12">
-						<cb-form-field [form]="form" [label]="constants.numberOfPassengers"
+						<cb-places-autocomplete [form]="form"
+							[label]="constants.toCity"
+							[placeholder]="constants.toCityPlaceholder"
+							name="toCity">
+						</cb-places-autocomplete>
+					</div>
+					<div class="col-12">
+						<cb-date-picker [form]="form"
+							[label]="constants.startDate"
+							[placeholder]="constants.startDatePlaceholder"
+							[startDate]="currentDate"
+							[minDate]="currentDate"
+							name="date">
+						</cb-date-picker>
+					</div>
+					<div class="col-12">
+						<cb-form-field [form]="form"
+							[label]="constants.numberOfPassengers"
 							[placeholder]="constants.numberOfPassengersPlaceholder"
 							[min]="1"
 							[max]="8"

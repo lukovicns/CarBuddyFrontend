@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
 
 import { constants, Constants } from '@constants/constants';
+import { TripService } from '@services/trip.service';
 
 @Component({
 	selector: 'cb-search-trips',
@@ -14,21 +16,28 @@ import { constants, Constants } from '@constants/constants';
 export class SearchTripsComponent implements OnInit {
 	fromCities$: Observable<any>;
 	form: FormGroup;
+	currentDate = moment();
 
 	readonly constants: Constants = constants;
 
-	constructor() { }
+	constructor(private tripService: TripService) { }
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
 			fromCity: new FormControl('', [Validators.required]),
 			toCity: new FormControl('', [Validators.required]),
-			numberOfPassengers: new FormControl(1, [Validators.required]),
+			date: new FormControl('', [Validators.required]),
+			numberOfPassengers: new FormControl(1, [
+				Validators.required,
+				Validators.min(1),
+				Validators.max(8),
+			]),
 		});
 	}
 
 	search(): void {
-		console.log(this.form.value);
+		this.tripService.search(this.form.value)
+			.subscribe(console.log);
 	}
 
 	control(name: string): FormControl {

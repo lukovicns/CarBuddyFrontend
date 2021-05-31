@@ -8,10 +8,11 @@ import { PlacesAutocompleteModule } from '@components/places-autocomplete/places
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
 import { NavigationModule } from '@components/navigation/navigation.module';
 import { SubmitButtonModule } from '@components/submit-button/submit-button.module';
+import { TripsComponent } from '@components/trips/trips.component';
+import { TripComponent } from '@components/trips/trip/trip.component';
+import { DatePickerModule } from '@components/date-picker/date-picker.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
-import { TripsComponent } from './components/trips/trips.component';
-import { TripComponent } from './components/trips/trip/trip.component';
 
 @NgModule({
 	declarations: [
@@ -22,9 +23,10 @@ import { TripComponent } from './components/trips/trip/trip.component';
 	imports: [
 		CardModule,
 		CommonModule,
+		DatePickerModule,
+		FormFieldModule,
 		MatButtonModule,
 		NavigationModule,
-		FormFieldModule,
 		PlacesAutocompleteModule,
 		ReactiveFormsModule,
 		SubmitButtonModule,

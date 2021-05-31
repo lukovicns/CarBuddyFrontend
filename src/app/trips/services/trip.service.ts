@@ -6,6 +6,7 @@ import { tap } from 'rxjs/operators';
 
 import { searchTripsUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
+import { SearchCriteria } from '@models/search-criteria.type';
 import { ErrorHandlerService } from '@services/error-handler.service';
 
 @Injectable({
@@ -17,13 +18,8 @@ export class TripService {
 		private errorHandler: ErrorHandlerService,
 	) { }
 
-	searchTrips(): Observable<TripSummary[]> {
-		return this.http.post<TripSummary[]>(searchTripsUrl, {
-			fromCity: 'Novi Sad',
-			toCity: 'Beograd',
-			date: '2021-06-05',
-			numberOfPassengers: 1,
-		}).pipe(
+	search(criteria: SearchCriteria): Observable<TripSummary[]> {
+		return this.http.post<TripSummary[]>(searchTripsUrl, criteria).pipe(
 			tap({
 				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 			}),

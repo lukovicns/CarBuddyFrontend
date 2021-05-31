@@ -16,9 +16,9 @@
 		{{ errorMessages.minLength(label, control.errors?.minlength.requiredLength) }}
 	</mat-error>
 	<mat-error *ngIf="control.errors?.min">
-		{{ errorMessages.min(label) }}
+		{{ errorMessages.min(label, control.errors?.min.min) }}
 	</mat-error>
 	<mat-error *ngIf="control.errors?.max">
-		{{ errorMessages.max(label) }}
+		{{ errorMessages.max(label, control.errors?.max.max) }}
 	</mat-error>
 </mat-form-field>

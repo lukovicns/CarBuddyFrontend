@@ -16,14 +16,16 @@ export interface Constants {
 	age: string;
 	agePlaceholder: string;
 	fromCity: string;
-	from: string;
+	fromCityPlaceholder: string;
 	toCity: string;
-	to: string;
+	toCityPlaceholder: string;
 	numberOfPassengers: string;
 	numberOfPassengersPlaceholder: string;
 	emailPattern: string;
 	passwordPattern: string;
 	pleaseWait: string;
+	startDate: string;
+	startDatePlaceholder: string;
 }
 
 export const constants: Constants = {
@@ -44,12 +46,14 @@ export const constants: Constants = {
 	age: 'Age',
 	agePlaceholder: 'Enter your age here',
 	fromCity: 'From city',
-	from: 'From',
+	fromCityPlaceholder: 'Where are you coming from?',
 	toCity: 'To city',
-	to: 'To',
+	toCityPlaceholder: 'Where are you going?',
 	numberOfPassengers: 'Number of passengers',
 	numberOfPassengersPlaceholder: 'Enter number of passengers',
 	emailPattern: '^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$',
 	passwordPattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$',
 	pleaseWait: 'Please wait...',
+	startDate: 'Start date',
+	startDatePlaceholder: 'Choose start date',
 };

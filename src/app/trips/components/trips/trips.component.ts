@@ -1,9 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
 import { TripSummary } from '@models/trip-summary.model';
-import { TripService } from '@services/trip.service';
 
 @Component({
 	selector: 'cb-trips',
@@ -11,12 +10,6 @@ import { TripService } from '@services/trip.service';
 	styleUrls: ['./trips.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TripsComponent implements OnInit {
+export class TripsComponent {
 	trips$: Observable<TripSummary[]>;
-
-	constructor(private tripService: TripService) { }
-
-	ngOnInit(): void {
-		this.trips$ = this.tripService.searchTrips();
-	}
 }
