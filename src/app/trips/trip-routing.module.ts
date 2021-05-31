@@ -8,6 +8,11 @@ import { TripsComponent } from '@components/trips/trips.component';
 const routes: Routes = [
 	{
 		path: '',
+		redirectTo: 'search',
+		pathMatch: 'full',
+	},
+	{
+		path: 'search',
 		component: SearchTripsComponent,
 	},
 	{
@@ -17,6 +22,10 @@ const routes: Routes = [
 	{
 		path: 'trips/:id',
 		component: TripComponent,
+	},
+	{
+		path: '**',
+		redirectTo: 'search',
 	},
 ];
 

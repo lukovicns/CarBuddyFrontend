@@ -9,9 +9,7 @@
 	<mat-datepicker-toggle matSuffix
 		[for]="datepicker">
 	</mat-datepicker-toggle>
-	<mat-datepicker #datepicker
-		[startAt]="startDate">
-	</mat-datepicker>
+	<mat-datepicker #datepicker></mat-datepicker>
 	<mat-error *ngIf="control.errors?.required">
 		{{ errorMessages.required(label) }}
 	</mat-error>

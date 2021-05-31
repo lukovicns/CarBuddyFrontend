@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { Observable } from 'rxjs';
 import * as moment from 'moment';
 
 import { constants, Constants } from '@constants/constants';
-import { TripService } from '@services/trip.service';
+import { SearchCriteria } from '@app/trips/models/search-criteria.model';
 
 @Component({
 	selector: 'cb-search-trips',
@@ -14,13 +14,12 @@ import { TripService } from '@services/trip.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchTripsComponent implements OnInit {
-	fromCities$: Observable<any>;
 	form: FormGroup;
 	currentDate = moment();
 
 	readonly constants: Constants = constants;
 
-	constructor(private tripService: TripService) { }
+	constructor(private router: Router) { }
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -36,8 +35,15 @@ export class SearchTripsComponent implements OnInit {
 	}
 
 	search(): void {
-		this.tripService.search(this.form.value)
-			.subscribe(console.log);
+		const data = new SearchCriteria(this.form.value);
+		this.router.navigate(['/trips'], {
+			queryParams: {
+				fromCity: data.fromCity,
+				toCity: data.toCity,
+				date: data.date,
+				numberOfPassengers: data.numberOfPassengers,
+			},
+		});
 	}
 
 	control(name: string): FormControl {

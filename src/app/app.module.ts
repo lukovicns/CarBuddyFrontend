@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
 	declarations: [
@@ -18,6 +19,7 @@ import { NavigationModule } from '@components/navigation/navigation.module';
 		BrowserModule,
 		HttpClientModule,
 		NavigationModule,
+		SharedModule,
 	],
 	providers: [
 		{

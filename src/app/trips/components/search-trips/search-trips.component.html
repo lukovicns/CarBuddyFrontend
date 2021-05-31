@@ -39,7 +39,9 @@
 						</cb-form-field>
 					</div>
 					<div class="col-12">
-						<cb-submit-button [label]="constants.search"></cb-submit-button>
+						<cb-submit-button [label]="constants.search"
+							[isDisabled]="form.invalid">
+						</cb-submit-button>
 					</div>
 				</div>
 			</form>
