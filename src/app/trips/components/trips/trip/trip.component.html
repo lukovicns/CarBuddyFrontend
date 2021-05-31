@@ -1,1 +1,7 @@
-<p>trip works!</p>
+<ng-container *ngIf="trip$ | async as trip; else loading">
+	Trip loaded!
+</ng-container>
+
+<ng-template #loading>
+	Loading trip...
+</ng-template>

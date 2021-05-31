@@ -7,16 +7,23 @@
 		</a>
 	</div>
 	<div>
-		<button mat-icon-button
+		<button *ngIf="!(isUserLoggedIn$ | async)"
+			mat-icon-button
 			[routerLink]="['auth', 'login']"
 			routerLinkActive="active"
 			[routerLinkActiveOptions]="{exact: true}">
 			<mat-icon>power_settings_new</mat-icon>
 		</button>
-		<button mat-icon-button
+		<button *ngIf="!(isUserLoggedIn$ | async)"
+			mat-icon-button
 			[routerLink]="['auth', 'register']"
 			routerLinkActive="active">
 			<mat-icon>account_circle</mat-icon>
+		</button>
+		<button *ngIf="isUserLoggedIn$ | async"
+			mat-icon-button
+			(click)="logout()">
+			<mat-icon>logout</mat-icon>
 		</button>
 	</div>
 </mat-toolbar>

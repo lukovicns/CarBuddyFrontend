@@ -42,8 +42,12 @@
 			"@form-field/*": [
 				"src/app/shared/components/form-field/*"
 			],
+			"@guards/*": [
+				"src/app/core/guards/*"
+			],
 			"@models/*": [
-				"src/app/trips/models/*"
+				"src/app/trips/models/*",
+				"src/app/core/models/*"
 			],
 			"@modules/*": [
 				"src/app/*",
@@ -52,7 +56,8 @@
 			"@services/*": [
 				"src/app/auth/services/*",
 				"src/app/shared/services/*",
-				"src/app/trips/services/*"
+				"src/app/trips/services/*",
+				"src/app/core/services/*"
 			],
 			"@shared/*": [
 				"src/app/shared/*"

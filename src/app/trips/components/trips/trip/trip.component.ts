@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Observable } from 'rxjs';
+
+import { Trip } from '@models/trip.model';
+import { TripService } from '@services/trip.service';
 
 @Component({
 	selector: 'cb-trip',
@@ -6,4 +12,17 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 	styleUrls: ['./trip.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TripComponent { }
+export class TripComponent implements OnInit {
+	trip$: Observable<Trip>;
+
+	constructor(
+		private route: ActivatedRoute,
+		private tripService: TripService,
+	) { }
+
+	ngOnInit(): void {
+		this.trip$ = this.tripService.getTrip(
+			this.route.snapshot.paramMap.get('id')!,
+		);
+	}
+}
