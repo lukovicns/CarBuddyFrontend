@@ -34,6 +34,18 @@
 				</cb-card>
 			</div>
 		</div>
+		<div *ngIf="pagination$ | async as pagination"
+			class="row center mb-20">
+			<div class="col-lg-5 col-md-7 col-sm-12">
+				<mat-paginator [pageIndex]="pagination.pageIndex"
+					[pageSize]="pagination.pageSize"
+					[length]="pagination.totalElements"
+					(page)="getTrips($event)"
+					showFirstLastButtons
+					hidePageSize>
+				</mat-paginator>
+			</div>
+		</div>
 	</ng-container>
 
 	<ng-template #noTrips>No trips found!</ng-template>

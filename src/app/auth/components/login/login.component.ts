@@ -13,6 +13,7 @@ import { Constants, constants } from '@constants/constants';
 import { emailControl, passwordControl } from '@constants/form-controls';
 import { AuthService } from '@services/auth.service';
 import { TokenService } from '@services/token.service';
+import { AuthorizationService } from '@services/authorization.service';
 
 @Component({
 	selector: 'cb-login',
@@ -32,8 +33,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	constructor(
 		private router: Router, 
 		private authService: AuthService,
+		private authorizationService: AuthorizationService,
 		private tokenService: TokenService,
-	) { }
+	) {
+		this.isPending$ = this.authService.isLoginPending$;
+	}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
@@ -50,6 +54,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.authService.login(this.form.value)
 			.subscribe((token: string) => {
 				this.tokenService.setToken(token);
+				this.authorizationService.setLoggedIn(true);
 				this.router.navigate(['/']);
 			});
 	}

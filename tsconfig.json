@@ -47,7 +47,8 @@
 			],
 			"@models/*": [
 				"src/app/trips/models/*",
-				"src/app/core/models/*"
+				"src/app/core/models/*",
+				"src/app/shared/models/*"
 			],
 			"@modules/*": [
 				"src/app/*",

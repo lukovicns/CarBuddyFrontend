@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { CardModule } from '@components/card/card.module';
 import { PlacesAutocompleteModule } from '@components/places-autocomplete/places-autocomplete.module';
@@ -26,6 +27,7 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		DatePickerModule,
 		FormFieldModule,
 		MatButtonModule,
+		MatPaginatorModule,
 		NavigationModule,
 		PlacesAutocompleteModule,
 		ReactiveFormsModule,

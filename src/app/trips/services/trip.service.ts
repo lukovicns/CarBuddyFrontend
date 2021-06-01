@@ -2,13 +2,15 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
 import { SearchCriteria } from '@models/search-criteria.model';
 import { Trip } from '@models/trip.model';
+import { ListResponse } from '@models/list-response.model';
+import { Pagination } from '@models/pagination.model';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { NotificationService } from '@services/notification.service';
 
@@ -16,6 +18,10 @@ import { NotificationService } from '@services/notification.service';
 	providedIn: 'root',
 })
 export class TripService {
+	private readonly pagination = new BehaviorSubject<Pagination>({} as Pagination);
+
+	readonly pagination$ = this.pagination.asObservable();
+
 	constructor(
 		private http: HttpClient,
 		private router: Router,
@@ -23,9 +29,14 @@ export class TripService {
 		private notificationService: NotificationService,
 	) { }
 
-	getTrips(criteria: SearchCriteria): Observable<TripSummary[]> {
-		return this.http.post<TripSummary[]>(searchTripsUrl, criteria)
+	getTrips(criteria: SearchCriteria, pagination: Pagination): Observable<TripSummary[]> {
+		const url = searchTripsUrl(pagination.pageIndex, pagination.pageSize);
+		return this.http.post<ListResponse<TripSummary>>(url, criteria)
 			.pipe(
+				map((response: ListResponse<TripSummary>) => {
+					this.pagination.next(response.pagination);
+					return response.content;
+				}),
 				catchError((error: HttpErrorResponse) => {
 					this.errorHandler.handle(error);
 					this.notificationService.showErrorNotification();
