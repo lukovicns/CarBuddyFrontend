@@ -4,7 +4,7 @@ export class Pagination {
 	totalElements?: number;
 
 	constructor(data: any) {
-		this.pageIndex = (data.page || 1) - 1;
+		this.pageIndex = data.page || 1;
 		this.pageSize = data.size || 2;
 
 		if (data.totalElements) {

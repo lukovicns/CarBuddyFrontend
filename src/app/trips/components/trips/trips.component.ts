@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 import { Observable } from 'rxjs';
 
@@ -7,7 +8,6 @@ import { TripSummary } from '@models/trip-summary.model';
 import { SearchCriteria } from '@models/search-criteria.model';
 import { Pagination } from '@models/pagination.model';
 import { TripService } from '@services/trip.service';
-import { PageEvent } from '@angular/material/paginator';
 
 @Component({
 	selector: 'cb-trips',
@@ -16,8 +16,8 @@ import { PageEvent } from '@angular/material/paginator';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TripsComponent implements OnInit {
-	trips$: Observable<TripSummary[]>;
-	pagination$: Observable<Pagination>;
+	trips$: Observable<TripSummary[] | null>;
+	pagination$: Observable<Pagination | null>;
 
 	private readonly queryParams: Params;
 
@@ -26,6 +26,7 @@ export class TripsComponent implements OnInit {
 		private route: ActivatedRoute,
 		private tripService: TripService,
 	) {
+		this.trips$ = this.tripService.trips$;
 		this.pagination$ = this.tripService.pagination$;
 		this.queryParams = this.route.snapshot.queryParams;
 	}
@@ -36,14 +37,14 @@ export class TripsComponent implements OnInit {
 			return;
 		}
 
-		this.trips$ = this.tripService.getTrips(
+		this.tripService.loadTrips(
 			new SearchCriteria(this.queryParams),
 			new Pagination(this.queryParams),
 		);
 	}
 
 	getTrips(event: PageEvent): void {
-		this.trips$ = this.tripService.getTrips(
+		this.tripService.loadTrips(
 			new SearchCriteria(this.queryParams),
 			new Pagination({
 				page: event.pageIndex + 1,

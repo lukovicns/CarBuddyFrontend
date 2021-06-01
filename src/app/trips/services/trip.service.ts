@@ -2,8 +2,13 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
+import {
+	BehaviorSubject,
+	Observable,
+	of,
+	throwError,
+} from 'rxjs';
 
 import { searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
@@ -18,8 +23,10 @@ import { NotificationService } from '@services/notification.service';
 	providedIn: 'root',
 })
 export class TripService {
-	private readonly pagination = new BehaviorSubject<Pagination>({} as Pagination);
+	private readonly trips = new BehaviorSubject<TripSummary[] | null>(null);
+	private readonly pagination = new BehaviorSubject<Pagination | null>(null);
 
+	readonly trips$ = this.trips.asObservable();
 	readonly pagination$ = this.pagination.asObservable();
 
 	constructor(
@@ -29,20 +36,23 @@ export class TripService {
 		private notificationService: NotificationService,
 	) { }
 
-	getTrips(criteria: SearchCriteria, pagination: Pagination): Observable<TripSummary[]> {
-		const url = searchTripsUrl(pagination.pageIndex, pagination.pageSize);
-		return this.http.post<ListResponse<TripSummary>>(url, criteria)
-			.pipe(
-				map((response: ListResponse<TripSummary>) => {
-					this.pagination.next(response.pagination);
-					return response.content;
-				}),
-				catchError((error: HttpErrorResponse) => {
-					this.errorHandler.handle(error);
-					this.notificationService.showErrorNotification();
-					return of([]);
-				}),
-			);
+	loadTrips(criteria: SearchCriteria, pagination: Pagination): void {
+		this.trips.next(null);
+		this.http.post<ListResponse<TripSummary>>(
+			searchTripsUrl(pagination.pageIndex, pagination.pageSize),
+			criteria,
+		).pipe(
+			switchMap((response: ListResponse<TripSummary>) => {
+				this.pagination.next(response.pagination);
+				this.trips.next(response.content);
+				return of(response.content);
+			}),
+			catchError((error: HttpErrorResponse) => {
+				this.errorHandler.handle(error);
+				this.notificationService.showErrorNotification();
+				return throwError(error);
+			}),
+		).subscribe();
 	}
 
 	getTrip(id: string): Observable<Trip> {
