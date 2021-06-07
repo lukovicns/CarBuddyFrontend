@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	Input,
+	Output,
+	EventEmitter,
+} from '@angular/core';
 
 @Component({
 	selector: 'cb-icon-button',
@@ -9,4 +15,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 export class IconButtonComponent {
 	@Input() icon: string;
 	@Input() tooltip: string;
+	@Input() type = 'button';
+
+	@Output() onClick = new EventEmitter<void>();
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { BehaviorSubject, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import jwtDecode from 'jwt-decode';
 
 import { TokenPayload } from '@models/token-payload.model';
@@ -27,11 +27,11 @@ export class AuthorizationService {
 	}
 
 	get isUserLoggedIn(): boolean {
-		return this.currentUserId !== 0;
+		return !!this.currentUserId;
 	}
 
-	get currentUserId(): number {
-		return this.payload.isValid ? +this.payload.id : 0;
+	get currentUserId(): string {
+		return this.payload.isValid ? this.payload.id : '';
 	}
 
 	private get payload(): TokenPayload {

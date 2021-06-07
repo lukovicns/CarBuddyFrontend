@@ -10,7 +10,7 @@ import {
 	throwError,
 } from 'rxjs';
 
-import { searchTripsUrl, tripUrl } from '@constants/urls';
+import { makeReservationUrl, searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
 import { SearchCriteria } from '@models/search-criteria.model';
 import { Trip } from '@models/trip.model';
@@ -18,6 +18,7 @@ import { ListResponse } from '@models/list-response.model';
 import { Pagination } from '@models/pagination.model';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { NotificationService } from '@services/notification.service';
+import { AuthorizationService } from '@services/authorization.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -34,6 +35,7 @@ export class TripService {
 		private router: Router,
 		private errorHandler: ErrorHandlerService,
 		private notificationService: NotificationService,
+		private authorizationService: AuthorizationService,
 	) { }
 
 	loadTrips(criteria: SearchCriteria, pagination: Pagination): void {
@@ -64,5 +66,18 @@ export class TripService {
 					return of(Trip.empty);
 				}),
 			);
+	}
+
+	makeReservation(tripId: string, numberOfPassengers: number): void {
+		this.http.put<void>(makeReservationUrl(tripId), {
+			userId: this.authorizationService.currentUserId,
+			numberOfPassengers,
+		}).pipe(
+			catchError((error: HttpErrorResponse) => {
+				this.errorHandler.handle(error);
+				this.notificationService.showErrorNotification();
+				return throwError(error);
+			}),
+		).subscribe();
 	}
 }

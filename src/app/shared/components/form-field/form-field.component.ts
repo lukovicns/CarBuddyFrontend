@@ -15,8 +15,8 @@ export class FormFieldComponent {
 	@Input() label: string;
 	@Input() placeholder: string;
 	@Input() icon: string;
-	@Input() min: number;
-	@Input() max: number;
+	@Input() min = 1;
+	@Input() max = 8;
 	@Input() type = 'text';
 
 	readonly errorMessages: ErrorMessages = errorMessages;

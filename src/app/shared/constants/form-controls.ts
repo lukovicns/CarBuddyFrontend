@@ -12,3 +12,9 @@ export const passwordControl = new FormControl('', [
 	Validators.minLength(8),
 	Validators.pattern(constants.passwordPattern),
 ]);
+
+export const numberControl = new FormControl('', [
+	Validators.required,
+	Validators.min(1),
+	Validators.max(8),
+]);
