@@ -15,8 +15,10 @@ export interface Constants {
 	passwordPlaceholder: string;
 	age: string;
 	agePlaceholder: string;
+	from: string;
 	fromCity: string;
 	fromCityPlaceholder: string;
+	to: string;
 	toCity: string;
 	toCityPlaceholder: string;
 	numberOfPassengers: string;
@@ -26,6 +28,7 @@ export interface Constants {
 	pleaseWait: string;
 	startDate: string;
 	startDatePlaceholder: string;
+	price: string;
 }
 
 export const constants: Constants = {
@@ -45,8 +48,10 @@ export const constants: Constants = {
 	passwordPlaceholder: 'Enter your password here',
 	age: 'Age',
 	agePlaceholder: 'Enter your age here',
+	from: 'From',
 	fromCity: 'From city',
 	fromCityPlaceholder: 'Where are you coming from?',
+	to: 'To',
 	toCity: 'To city',
 	toCityPlaceholder: 'Where are you going?',
 	numberOfPassengers: 'Number of passengers',
@@ -56,4 +61,5 @@ export const constants: Constants = {
 	pleaseWait: 'Please wait...',
 	startDate: 'Start date',
 	startDatePlaceholder: 'Choose start date',
+	price: 'Price',
 };

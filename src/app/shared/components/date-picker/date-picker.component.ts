@@ -8,7 +8,7 @@ import { errorMessages, ErrorMessages } from '@constants/error-messages';
 @Component({
 	selector: 'cb-date-picker',
 	templateUrl: './date-picker.component.html',
-	styleUrls: ['./date-picker.component.scss'],
+	styleUrls: [],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DatePickerComponent {
