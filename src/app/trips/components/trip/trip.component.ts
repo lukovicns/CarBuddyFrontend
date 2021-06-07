@@ -1,10 +1,9 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Observable } from 'rxjs';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { Trip } from '@models/trip.model';
 import { TripService } from '@services/trip.service';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'cb-trip',

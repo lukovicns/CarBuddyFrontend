@@ -5,7 +5,6 @@ export class Trip extends TripSummary {
 	driverRating: number;
 	carBrand: string;
 	carModel: string;
-	numberOfAvailableSeats: number;
 	driverCreatedAt: string;
 
 	static get empty(): Trip {

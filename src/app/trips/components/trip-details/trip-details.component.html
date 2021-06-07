@@ -1,0 +1,21 @@
+<ng-container *ngFor="let row of rows">
+	<div class="row">
+		<div class="col-6">{{ row.name }}:</div>
+		<div class="col-6" [class]="row.class">{{ row.value }}</div>
+	</div>
+	<hr>
+</ng-container>
+<div class="row h-50">
+	<div class="col-6">{{ constants.driverInfo }}:</div>
+	<div class="col-6">
+		<cb-driver-info [firstName]="trip.driverFirstName"
+			[rating]="trip.driverRating || 0">
+		</cb-driver-info>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-12">
+		<ng-content></ng-content>
+	</div>
+</div>

@@ -8,5 +8,6 @@ export class TripSummary {
 	startTime: string;
 	arriveTime: string;
 	price: number;
-	numberOfPassengers: number;
+	numberOfSeats: number;
+	numberOfAvailableSeats: number;
 }

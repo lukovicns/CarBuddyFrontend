@@ -1,0 +1,17 @@
+<ng-container *ngIf="trip$ | async as trip; else loading">
+	<div class="row center mt-40">
+		<div class="col-lg-6 col-md-8">
+			<cb-card imageUrl="assets/images/maps.jpg"
+				imageAlt="Maps">
+				<cb-trip-details [trip]="trip">
+					<cb-icon-button icon="chat"></cb-icon-button>
+					<cb-icon-button icon="person_add"></cb-icon-button>
+				</cb-trip-details>
+			</cb-card>
+		</div>
+	</div>
+</ng-container>
+
+<ng-template #loading>
+	<cb-progress-bar></cb-progress-bar>
+</ng-template>

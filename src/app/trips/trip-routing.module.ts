@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
-import { TripComponent } from '@components/trips/trip/trip.component';
+import { TripComponent } from '@components/trip/trip.component';
 import { TripsComponent } from '@components/trips/trips.component';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 

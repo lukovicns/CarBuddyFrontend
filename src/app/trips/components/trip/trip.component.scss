@@ -1,0 +1,10 @@
+@import "shared";
+@import "colors";
+
+:host ::ng-deep cb-trip-details > .row:first-of-type {
+	margin-top: 10px;
+}
+
+cb-icon-button {
+	float: right;
+}

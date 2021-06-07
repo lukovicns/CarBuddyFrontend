@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
@@ -25,6 +26,10 @@ import { SharedModule } from '@shared/shared.module';
 		{
 			provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
 			useValue: { appearance: 'outline' },
+		},
+		{
+			provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+			useValue: { showDelay: 200 },
 		},
 	],
 	bootstrap: [AppComponent],

@@ -29,6 +29,8 @@ export interface Constants {
 	startDate: string;
 	startDatePlaceholder: string;
 	price: string;
+	seatsLeft: string;
+	driverInfo: string;
 }
 
 export const constants: Constants = {
@@ -62,4 +64,6 @@ export const constants: Constants = {
 	startDate: 'Start date',
 	startDatePlaceholder: 'Choose start date',
 	price: 'Price',
+	seatsLeft: 'Seats left',
+	driverInfo: 'Driver info',
 };

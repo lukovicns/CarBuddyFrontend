@@ -4,7 +4,13 @@
 			class="row center">
 			<div class="col-lg-5 col-md-7 col-sm-12">
 				<cb-card>
-					<cb-trip-summary [trip]="trip"></cb-trip-summary>
+					<cb-trip-details [trip]="trip">
+						<a mat-flat-button
+							[routerLink]="['/trips', trip.id]"
+							color="primary">
+							Read more
+						</a>
+					</cb-trip-details>
 				</cb-card>
 			</div>
 		</div>
