@@ -1,6 +1,7 @@
 export type Message = {
-	from: string,
-	title: string,
-	content: string,
-	date: string,
+	id: string;
+	from: string;
+	title: string;
+	content: string;
+	date: string;
 }

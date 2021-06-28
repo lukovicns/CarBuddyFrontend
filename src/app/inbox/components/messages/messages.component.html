@@ -1,4 +1,6 @@
 <cb-selection-table *ngIf="messages$ | async as messages"
 	[data]="messages"
-	[columns]="columns">
+	[columns]="columns"
+	[selectedRow]="messageStore.selectedMessageId$ | async"
+	(onSelect)="messageStore.setSelectedMessage($event)">
 </cb-selection-table>

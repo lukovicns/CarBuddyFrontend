@@ -61,9 +61,16 @@
 				"src/app/trips/services/*",
 				"src/app/core/services/*",
 				"src/app/inbox/services/*",
+				"src/app/store/services/*",
 			],
 			"@shared/*": [
 				"src/app/shared/*"
+			],
+			"@states/*": [
+				"src/app/store/states/*",
+			],
+			"@store/*": [
+				"src/app/store/*",
 			],
 			"@environment": [
 				"src/environments/environment"

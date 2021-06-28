@@ -4,7 +4,9 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	OnInit,
-	Input, 
+	Input,
+	Output,
+	EventEmitter, 
 } from '@angular/core';
 
 import { Column } from '@models/column.type';
@@ -18,6 +20,9 @@ import { Column } from '@models/column.type';
 export class SelectionTableComponent<T> implements OnInit {
 	@Input() data: T[];
 	@Input() columns: Column[];
+	@Input() selectedRow: string | null;
+
+	@Output() onSelect = new EventEmitter<string>();
 
 	dataSource: MatTableDataSource<T>;
 	selection: SelectionModel<T>;

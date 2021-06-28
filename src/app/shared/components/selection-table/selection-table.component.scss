@@ -1,0 +1,13 @@
+@import "colors";
+
+tr {
+	cursor: pointer;
+}
+
+:host ::ng-deep tbody > tr:hover {
+	background-color: $lightGray;
+}
+
+.active {
+	background-color: $lightGray;
+}

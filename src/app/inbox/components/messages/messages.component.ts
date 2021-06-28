@@ -2,9 +2,10 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { MessageService } from '@services/message.service';
-import { Message } from '@models/message.type';
 import { Column } from '@models/column.type';
+import { Message } from '@models/message.type';
+import { MessageService } from '@services/message.service';
+import { MessageStoreService } from '@services/message-store.service';
 
 @Component({
 	selector: 'cb-messages',
@@ -34,7 +35,10 @@ export class MessagesComponent implements OnInit {
 		},
 	];
 
-	constructor(private messageService: MessageService) { }
+	constructor(
+		public messageStore: MessageStoreService,
+		private messageService: MessageService,
+	) { }
 
 	ngOnInit(): void {
 		this.messages$ = this.messageService.getMessages();
