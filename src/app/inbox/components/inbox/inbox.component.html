@@ -3,8 +3,6 @@
 		<cb-messages></cb-messages>
 	</div>
 	<div class="col-6">
-		<ng-container *ngIf="selectedMessageId$ | async as messageId">
-			<cb-message-preview [messageId]="messageId"></cb-message-preview>
-		</ng-container>
+		<cb-message-preview></cb-message-preview>
 	</div>
 </div>

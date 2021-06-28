@@ -34,7 +34,7 @@
 	</tr>
 	<tr mat-row
 		*matRowDef="let row; columns: displayedColumns;"
-		[class.active]="row.id === selectedRow"
-		(click)="onSelect.emit(row.id); selectedRow = row.id">
+		[class.active]="row.id === selectedRow.id"
+		(click)="onSelect.emit(row); selectedRow = row.id">
 	</tr>
 </table>

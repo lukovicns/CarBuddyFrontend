@@ -3,9 +3,9 @@ import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Column } from '@models/column.type';
-import { Message } from '@models/message.type';
-import { MessageService } from '@services/message.service';
+import { Message } from '@models/message.model';
 import { MessageStoreService } from '@services/message-store.service';
+import { MessageService } from '@services/message.service';
 
 @Component({
 	selector: 'cb-messages',
@@ -14,6 +14,7 @@ import { MessageStoreService } from '@services/message-store.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagesComponent implements OnInit {
+	selectedMessage$: Observable<Message>;
 	messages$: Observable<Message[]>;
 
 	readonly columns: Column[] = [
@@ -38,9 +39,11 @@ export class MessagesComponent implements OnInit {
 	constructor(
 		public messageStore: MessageStoreService,
 		private messageService: MessageService,
-	) { }
+	) {
+		this.selectedMessage$ = this.messageStore.selectedMessage$;
+	}
 
 	ngOnInit(): void {
-		this.messages$ = this.messageService.getMessages();
+		this.messages$ = this.messageService.getInboxMessages();
 	}
 }

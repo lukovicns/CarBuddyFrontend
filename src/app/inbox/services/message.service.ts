@@ -1,35 +1,47 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
-import { Message } from '@models/message.type';
-
-const messages: Message[] = [
-	{
-		id: '1',
-		from: 'm@m.com',
-		title: 'Hello world',
-		content: 'Hello and welcome!',
-		date: '2021-06-28',
-	},
-	{
-		id: '2',
-		from: 'm@m1.com',
-		title: 'Hello world111',
-		content: 'Hello and welcome11111 Hello and welcome11111Hello and welcome11111Hello and welcome11111Hello and welcome11111Hello and welcome11111Hello and welcome11111Hello and welcome11111!',
-		date: '2021-06-20',
-	},
-];
+import { chatMessagesUrl, inboxMessagesUrl } from '@constants/urls';
+import { Message } from '@models/message.model';
+import { ListResponse } from '@models/list-response.model';
+import { AuthorizationService } from '@services/authorization.service';
+import { ErrorHandlerService } from '@services/error-handler.service';
+import { toInstances } from '@shared/functions';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class MessageService {
-	getMessages(): Observable<Message[]> {
-		return of(messages);
+	private currentUserId: string;
+
+	constructor(
+		private http: HttpClient,
+		private authorizationService: AuthorizationService,
+		private errorHandler: ErrorHandlerService,
+	) {
+		this.currentUserId = this.authorizationService.currentUserId;
 	}
 
-	getMessage(messageId: string): Observable<Message> {
-		return of(messages.find((message: Message) => message.id === messageId)!);
+	getInboxMessages(): Observable<Message[]> {
+		return this.http.get<ListResponse<Message>>(inboxMessagesUrl(this.currentUserId))
+			.pipe(
+				map((response: ListResponse<Message>) => toInstances(Message, response.content)),
+				tap({
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				}),
+			);
+	}
+
+	getChatMessages(recipientId: string): Observable<Message[]> {
+		return this.http.get<ListResponse<Message>>(chatMessagesUrl(recipientId, this.currentUserId))
+			.pipe(
+				map((response: ListResponse<Message>) => toInstances(Message, response.content)),
+				tap({
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				}),
+			);
 	}
 }

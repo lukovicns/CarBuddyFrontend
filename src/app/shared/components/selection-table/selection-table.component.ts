@@ -17,12 +17,12 @@ import { Column } from '@models/column.type';
 	styleUrls: ['./selection-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectionTableComponent<T> implements OnInit {
+export class SelectionTableComponent<T extends { id: number | string }> implements OnInit {
 	@Input() data: T[];
 	@Input() columns: Column[];
-	@Input() selectedRow: string | null;
+	@Input() selectedRow: T;
 
-	@Output() onSelect = new EventEmitter<string>();
+	@Output() onSelect = new EventEmitter<T>();
 
 	dataSource: MatTableDataSource<T>;
 	selection: SelectionModel<T>;
