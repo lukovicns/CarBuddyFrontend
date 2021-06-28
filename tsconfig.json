@@ -25,13 +25,11 @@
 			"@app/*": [
 				"src/app/*"
 			],
-			"@auth/*": [
-				"src/app/auth/*"
-			],
 			"@components/*": [
 				"src/app/auth/components/*",
 				"src/app/shared/components/*",
 				"src/app/trips/components/*",
+				"src/app/inbox/components/*",
 			],
 			"@classes/*": [
 				"src/app/auth/classes/*"
@@ -48,23 +46,24 @@
 			"@models/*": [
 				"src/app/trips/models/*",
 				"src/app/core/models/*",
-				"src/app/shared/models/*"
+				"src/app/shared/models/*",
+				"src/app/inbox/models/*",
 			],
 			"@modules/*": [
 				"src/app/*",
-				"src/app/trips/*"
+				"src/app/trips/*",
+				"src/app/auth/*",
+				"src/app/inbox/*",
 			],
 			"@services/*": [
 				"src/app/auth/services/*",
 				"src/app/shared/services/*",
 				"src/app/trips/services/*",
-				"src/app/core/services/*"
+				"src/app/core/services/*",
+				"src/app/inbox/services/*",
 			],
 			"@shared/*": [
 				"src/app/shared/*"
-			],
-			"@trips/*": [
-				"src/app/trips/*"
 			],
 			"@environment": [
 				"src/environments/environment"

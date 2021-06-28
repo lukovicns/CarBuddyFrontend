@@ -8,6 +8,7 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
+import { InboxModule } from '@modules/inbox/inbox.module';
 import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
@@ -19,6 +20,7 @@ import { SharedModule } from '@shared/shared.module';
 		BrowserAnimationsModule,
 		BrowserModule,
 		HttpClientModule,
+		InboxModule,
 		NavigationModule,
 		SharedModule,
 	],

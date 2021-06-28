@@ -3,11 +3,16 @@ import { Injectable } from '@angular/core';
 
 import { Observable, throwError } from 'rxjs';
 
+import { NotificationService } from '@services/notification.service';
+
 @Injectable({
 	providedIn: 'root',
 })
 export class ErrorHandlerService {
-	handle(error: HttpErrorResponse): Observable<string> {
+	constructor(private notificationService: NotificationService) { }
+
+	handle(error: any): Observable<string> {
+		this.notificationService.showErrorNotification(error.error.detail);
 		return throwError(this.getErrorMessage(error));
 	}
 

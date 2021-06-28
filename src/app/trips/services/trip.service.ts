@@ -2,13 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
-import {
-	BehaviorSubject,
-	Observable,
-	of,
-	throwError,
-} from 'rxjs';
 
 import { makeReservationUrl, searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
@@ -17,7 +12,6 @@ import { Trip } from '@models/trip.model';
 import { ListResponse } from '@models/list-response.model';
 import { Pagination } from '@models/pagination.model';
 import { ErrorHandlerService } from '@services/error-handler.service';
-import { NotificationService } from '@services/notification.service';
 import { AuthorizationService } from '@services/authorization.service';
 
 @Injectable({
@@ -34,7 +28,6 @@ export class TripService {
 		private http: HttpClient,
 		private router: Router,
 		private errorHandler: ErrorHandlerService,
-		private notificationService: NotificationService,
 		private authorizationService: AuthorizationService,
 	) { }
 
@@ -49,11 +42,7 @@ export class TripService {
 				this.trips.next(response.content);
 				return of(response.content);
 			}),
-			catchError((error: HttpErrorResponse) => {
-				this.errorHandler.handle(error);
-				this.notificationService.showErrorNotification();
-				return throwError(error);
-			}),
+			catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
 		).subscribe();
 	}
 
@@ -73,11 +62,7 @@ export class TripService {
 			userId: this.authorizationService.currentUserId,
 			numberOfPassengers,
 		}).pipe(
-			catchError((error: HttpErrorResponse) => {
-				this.errorHandler.handle(error);
-				this.notificationService.showErrorNotification();
-				return throwError(error);
-			}),
+			catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
 		).subscribe();
 	}
 }

@@ -7,8 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class NotificationService {
 	constructor(private snackbar: MatSnackBar) { }
 
-	showErrorNotification(): void {
-		this.snackbar.open('An error occurred!', 'Dismiss', {
+	showErrorNotification(message: string): void {
+		this.snackbar.open(message, 'Dismiss', {
 			duration: 3000,
 		});
 	}

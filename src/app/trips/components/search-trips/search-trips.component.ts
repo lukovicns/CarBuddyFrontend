@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 
 import { constants, Constants } from '@constants/constants';
-import { SearchCriteria } from '@app/trips/models/search-criteria.model';
+import { SearchCriteria } from '@models/search-criteria.model';
 
 @Component({
 	selector: 'cb-search-trips',
