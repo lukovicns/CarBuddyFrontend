@@ -9,4 +9,4 @@ export const searchTripsUrl = (page: number, size: number) => `${apiUrl}/trips/s
 export const tripUrl = (id: string) => `${apiUrl}/trips/${id}`;
 export const makeReservationUrl = (id: string) => `${tripUrl(id)}/make-reservation`;
 export const conversationsUrl = (recipientId: string) => `${apiUrl}/messages/${recipientId}?pageNumber=1&pageSize=20`;
-export const messagesUrl = (recipientId: string, senderId: string) => `${apiUrl}/messages/${recipientId}/${senderId}&pageNumber=1&pageSize=20`;
+export const messagesUrl = (recipientId: string, senderId: string) => `${apiUrl}/messages/${recipientId}/${senderId}?pageNumber=1&pageSize=20`;

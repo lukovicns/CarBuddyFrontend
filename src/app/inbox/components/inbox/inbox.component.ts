@@ -1,10 +1,17 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	OnInit,
+	ChangeDetectorRef, 
+} from '@angular/core';
 
 import { Observable } from 'rxjs';
 
 import { Conversation } from '@models/conversation.model';
+import { Message } from '@models/message.model';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
+import { findById } from '@shared/functions';
 
 @Component({
 	selector: 'cb-inbox',
@@ -13,17 +20,33 @@ import { MessageStoreService } from '@services/message-store.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InboxComponent implements OnInit {
-	conversations$: Observable<Conversation[] | null>;
+	messages: Message[];
+	selectedConversationId$: Observable<string | null>;
+	conversations: Conversation[];
 
 	constructor(
-		private messageService: MessageService,
+		private cdRef: ChangeDetectorRef,
 		private messageStore: MessageStoreService,
+		private messageService: MessageService,
 	) {
-		this.conversations$ = this.messageStore.conversations$;
+		this.selectedConversationId$ = this.messageStore.selectedConversationId$;
 	}
 
 	ngOnInit(): void {
 		this.messageService.getConversations()
-			.subscribe();
+			.subscribe((conversations: Conversation[]) => {
+				this.conversations = conversations;
+				this.cdRef.markForCheck();
+			});
+	}
+
+	setSelectedConversation(conversationId: string): void {
+		this.messageStore.setSelectedConversation(conversationId);
+		const selectedConversation = findById(this.conversations, conversationId);
+		this.messageService.getMessages(selectedConversation.senderId)
+			.subscribe((messages: Message[]) => {
+				this.messages = messages;
+				this.cdRef.markForCheck();
+			});
 	}
 }

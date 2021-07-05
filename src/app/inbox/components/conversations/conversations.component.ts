@@ -3,14 +3,13 @@ import {
 	ChangeDetectionStrategy,
 	OnInit,
 	Input,
+	Output,
+	EventEmitter,
 } from '@angular/core';
-
-import { Observable } from 'rxjs';
 
 import { Column } from '@models/column.type';
 import { ConversationData } from '@models/conversation-data.model';
 import { Conversation } from '@models/conversation.model';
-import { MessageStoreService } from '@services/message-store.service';
 import { toInstances } from '@shared/functions';
 
 @Component({
@@ -21,8 +20,10 @@ import { toInstances } from '@shared/functions';
 })
 export class ConversationsComponent implements OnInit {
 	@Input() conversations: Conversation[];
+	@Input() selectedConversationId: string;
 
-	selectedConversationId$: Observable<string>;
+	@Output() onSelect = new EventEmitter<string>();
+
 	conversationData: ConversationData[];
 
 	readonly columns: Column[] = [
@@ -39,10 +40,6 @@ export class ConversationsComponent implements OnInit {
 			label: 'Date/Time',
 		},
 	];
-
-	constructor(public messageStore: MessageStoreService) {
-		this.selectedConversationId$ = this.messageStore.selectedConversationId$;
-	}
 
 	ngOnInit(): void {
 		this.conversationData = toInstances(ConversationData, this.conversations);

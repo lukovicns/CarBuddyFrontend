@@ -1,10 +1,14 @@
-<div *ngIf="conversations$ | async as conversations; else loading"
+<div *ngIf="conversations; else loading"
 	class="row">
 	<div class="col-6">
-		<cb-conversations [conversations]="conversations"></cb-conversations>
+		<cb-conversations [conversations]="conversations"
+			[selectedConversationId]="(selectedConversationId$ | async)!"
+			(onSelect)="setSelectedConversation($event)">
+		</cb-conversations>
 	</div>
 	<div class="col-6">
-		<cb-message-preview></cb-message-preview>
+		<cb-message-preview [messages]="messages">
+		</cb-message-preview>
 	</div>
 </div>
 

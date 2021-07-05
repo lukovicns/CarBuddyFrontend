@@ -1,5 +1,5 @@
 <cb-selection-table [data]="conversationData"
 	[columns]="columns"
-	[selectedRowId]="selectedConversationId$ | async"
-	(onSelect)="messageStore.setSelectedConversation($event)">
+	[selectedRowId]="selectedConversationId"
+	(onSelect)="onSelect.emit($event)">
 </cb-selection-table>
