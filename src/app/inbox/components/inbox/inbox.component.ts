@@ -2,7 +2,8 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	OnInit,
-	ChangeDetectorRef, 
+	ChangeDetectorRef,
+	OnDestroy, 
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -19,8 +20,8 @@ import { findById } from '@shared/functions';
 	styleUrls: ['./inbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InboxComponent implements OnInit {
-	messages: Message[];
+export class InboxComponent implements OnInit, OnDestroy {
+	messages: Message[] | null;
 	selectedConversationId$: Observable<string | null>;
 	conversations: Conversation[];
 
@@ -40,9 +41,18 @@ export class InboxComponent implements OnInit {
 			});
 	}
 
-	setSelectedConversation(conversationId: string): void {
+	ngOnDestroy(): void {
+		this.messageStore.clearSelectedConversation();
+	}
+
+	selectConversation(conversationId: string): void {
 		this.messageStore.setSelectedConversation(conversationId);
+		this.showMessagesFor(conversationId);
+	}
+
+	private showMessagesFor(conversationId: string): void {
 		const selectedConversation = findById(this.conversations, conversationId);
+		this.messages = null;
 		this.messageService.getMessages(selectedConversation.senderId)
 			.subscribe((messages: Message[]) => {
 				this.messages = messages;

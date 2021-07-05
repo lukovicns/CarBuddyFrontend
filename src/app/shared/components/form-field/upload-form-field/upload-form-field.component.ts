@@ -13,10 +13,6 @@ export class UploadFormFieldComponent {
 
 		if (file) {
 			this.fileName = file.name;
-			// const formData = new FormData();
-			// formData.append('thumbnail', file);
-			// const upload$ = this.http.post('/api/thumbnail-upload', formData);
-			// upload$.subscribe();
 		}
 	}
 }

@@ -18,4 +18,8 @@ export class MessageStoreService extends Store<MessageState> {
 	setSelectedConversation(selectedConversationId: string): void {
 		this.setState({ selectedConversationId });
 	}
+
+	clearSelectedConversation() {
+		this.setState({ selectedConversationId: null });
+	}
 }

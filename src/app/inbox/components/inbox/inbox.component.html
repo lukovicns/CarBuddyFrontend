@@ -3,12 +3,16 @@
 	<div class="col-6">
 		<cb-conversations [conversations]="conversations"
 			[selectedConversationId]="(selectedConversationId$ | async)!"
-			(onSelect)="setSelectedConversation($event)">
+			(onSelect)="selectConversation($event)">
 		</cb-conversations>
 	</div>
 	<div class="col-6">
-		<cb-message-preview [messages]="messages">
-		</cb-message-preview>
+		<ng-container *ngIf="selectedConversationId$ | async as conversationId">
+			<cb-message-preview *ngIf="messages; else loadingMessages"
+				[messages]="messages">
+			</cb-message-preview>
+		</ng-container>
+
 	</div>
 </div>
 
@@ -18,4 +22,8 @@
 			<cb-loader class="center"></cb-loader>
 		</div>
 	</div>
+</ng-template>
+
+<ng-template #loadingMessages>
+	<cb-loader class="center"></cb-loader>
 </ng-template>
