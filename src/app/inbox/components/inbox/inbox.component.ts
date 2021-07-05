@@ -5,9 +5,12 @@ import {
 	ChangeDetectorRef,
 } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 import { Conversation } from '@models/conversation.model';
 import { Message } from '@models/message.model';
 import { MessageService } from '@services/message.service';
+import { MessageStoreService } from '@services/message-store.service';
 import { findById } from '@shared/functions';
 
 @Component({
@@ -17,14 +20,17 @@ import { findById } from '@shared/functions';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InboxComponent implements OnInit {
+	messages$: Observable<Message[] | null>;
 	conversations: Conversation[];
 	selectedConversation: Conversation;
-	messages: Message[] | null;
 
 	constructor(
 		private cdRef: ChangeDetectorRef,
 		private messageService: MessageService,
-	) { }
+		private messageStore: MessageStoreService,
+	) {
+		this.messages$ = this.messageStore.messages$;
+	}
 
 	ngOnInit(): void {
 		this.messageService.getConversations()
@@ -52,11 +58,8 @@ export class InboxComponent implements OnInit {
 	}
 
 	private showMessagesFor(senderId: string): void {
-		this.messages = null;
+		this.messageStore.clearMessages();
 		this.messageService.getMessages(senderId)
-			.subscribe((messages: Message[]) => {
-				this.messages = messages;
-				this.cdRef.markForCheck();
-			});
+			.subscribe();
 	}
 }

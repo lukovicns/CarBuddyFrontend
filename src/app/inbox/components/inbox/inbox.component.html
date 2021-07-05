@@ -8,7 +8,7 @@
 	</div>
 	<div class="col-6">
 		<ng-container *ngIf="selectedConversation.id">
-			<cb-message-preview *ngIf="messages; else loadingMessages"
+			<cb-message-preview *ngIf="messages$ | async as messages; else loadingMessages"
 				[messages]="messages"
 				[recipientId]="selectedConversation.driverId">
 			</cb-message-preview>

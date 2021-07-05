@@ -10,6 +10,7 @@ import { ListResponse } from '@models/list-response.model';
 import { Message } from '@models/message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ErrorHandlerService } from '@services/error-handler.service';
+import { MessageStoreService } from '@services/message-store.service';
 import { toInstances } from '@shared/functions';
 
 @Injectable({
@@ -21,6 +22,7 @@ export class MessageService {
 	constructor(
 		private http: HttpClient,
 		private authorizationService: AuthorizationService,
+		private messageStore: MessageStoreService,
 		private errorHandler: ErrorHandlerService,
 	) {
 		this.currentUserId = this.authorizationService.currentUserId;
@@ -41,18 +43,21 @@ export class MessageService {
 			.pipe(
 				map((response: ListResponse<Message>) => toInstances(Message, response.content)),
 				tap({
+					next: (messages: Message[]) => this.messageStore.setMessages(messages),
 					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 				}),
 			);
 	}
 
-	sendMessage(recipientId: string, message: string): Observable<any> {
-		return this.http.post(sendMessageUrl, {
+	sendMessage(recipientId: string, message: string): Observable<Message> {
+		return this.http.post<any>(sendMessageUrl, {
 			senderId: this.currentUserId,
 			recipientId,
 			message,
 		}).pipe(
+			map((message: Message) => new Message(message)),
 			tap({
+				next: (message: Message) => this.messageStore.appendMessage(message),
 				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 			}),
 		);

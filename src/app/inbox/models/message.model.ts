@@ -7,8 +7,8 @@ export class Message extends Conversation {
 
 	constructor(data: any) {
 		super(data);
-		this.passengerId = data.passengerId;
-		this.passengerFullName = data.passengerFullName;
+		this.passengerId = data.recipientId;
+		this.passengerFullName = data.recipientFullName;
 		this.recipientPhoto = data.recipientPhoto;
 	}
 

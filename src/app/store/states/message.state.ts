@@ -1,3 +1,5 @@
+import { Message } from '@models/message.model';
+
 export class MessageState {
-	selectedConversationId: string | null;
+	messages: Message[]  | null;
 }

@@ -8,9 +8,9 @@ export class Conversation {
 
 	constructor(data: any) {
 		this.id = data.id;
-		this.driverId = data.driverId;
-		this.driverFullName = data.driverFullName;
-		this.driverPhoto = data.driverPhoto;
+		this.driverId = data.senderId;
+		this.driverFullName = data.senderFullName;
+		this.driverPhoto = data.senderPhoto;
 		this.message = data.message;
 		this.dateTime = `${data.date} ${data.time}`;
 	}

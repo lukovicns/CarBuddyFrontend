@@ -38,7 +38,7 @@
 					}
 				],
 				"@angular-eslint/no-output-on-prefix": "off",
-				"@typescript-eslint/indent": [
+				"indent": [
 					"error",
 					"tab",
 					{

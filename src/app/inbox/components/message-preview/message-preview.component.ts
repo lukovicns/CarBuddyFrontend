@@ -47,9 +47,7 @@ export class MessagePreviewComponent implements OnInit {
 		}
 
 		this.messageService.sendMessage(this.recipientId, message)
-			.subscribe(() => {
-				this.form.reset();
-			});
+			.subscribe(() => this.form.reset());
 	}
 
 	get message(): AbstractControl {
