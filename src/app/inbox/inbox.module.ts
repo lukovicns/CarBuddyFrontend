@@ -7,6 +7,7 @@ import { ConversationsComponent } from '@components/conversations/conversations.
 import { CardModule } from '@components/card/card.module';
 import { LoaderModule } from '@components/loader/loader.module';
 import { SelectionTableModule } from '@components/selection-table/selection-table.module';
+import { ProgressBarModule } from '@components/progress-bar/progress-bar.module';
 import { InboxRoutingModule } from '@modules/inbox-routing.module';
 
 @NgModule({
@@ -20,6 +21,7 @@ import { InboxRoutingModule } from '@modules/inbox-routing.module';
 		CommonModule,
 		InboxRoutingModule,
 		LoaderModule,
+		ProgressBarModule,
 		SelectionTableModule,
 	],
 })

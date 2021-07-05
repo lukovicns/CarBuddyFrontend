@@ -1,1 +1,18 @@
-{{ messages | json }}
+<cb-card>
+	<div *ngFor="let message of messages"
+		class="row">
+		<div class="col-12">
+			<div class="chat-message">
+				<div [class.right]="message.senderId === currentUserId">
+					<img src="assets/images/avatar.png"
+						alt="CarBuddy - Profile Picture" />
+					{{ message.senderFullName }}
+				</div>
+				<div class="message">
+					{{ message.message }}
+				</div>
+			</div>
+			<hr />
+		</div>
+	</div>
+</cb-card>

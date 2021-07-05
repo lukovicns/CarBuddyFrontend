@@ -8,6 +8,6 @@ export class ConversationData {
 		this.id = data.id;
 		this.from = data.senderFullName;
 		this.content = data.message;
-		this.dateTime = `${data.date} ${data.time}`;
+		this.dateTime = data.dateTime;
 	}
 }

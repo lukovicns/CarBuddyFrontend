@@ -1,5 +1,7 @@
-<cb-selection-table [data]="conversationData"
-	[columns]="columns"
-	[selectedRowId]="selectedConversationId"
-	(onSelect)="onSelect.emit($event)">
-</cb-selection-table>
+<cb-card>
+	<cb-selection-table [data]="conversationData"
+		[columns]="columns"
+		[selectedRowId]="selectedConversationId"
+		(onSelect)="onSelect.emit($event)">
+	</cb-selection-table>
+</cb-card>

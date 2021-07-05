@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
 import { Message } from '@models/message.model';
+import { AuthorizationService } from '@services/authorization.service';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -10,4 +11,10 @@ import { Message } from '@models/message.model';
 })
 export class MessagePreviewComponent {
 	@Input() messages: Message[];
+
+	currentUserId: string;
+
+	constructor(private authorizationService: AuthorizationService) {
+		this.currentUserId = this.authorizationService.currentUserId;
+	}
 }

@@ -3,15 +3,11 @@ import {
 	ChangeDetectionStrategy,
 	OnInit,
 	ChangeDetectorRef,
-	OnDestroy, 
 } from '@angular/core';
-
-import { Observable } from 'rxjs';
 
 import { Conversation } from '@models/conversation.model';
 import { Message } from '@models/message.model';
 import { MessageService } from '@services/message.service';
-import { MessageStoreService } from '@services/message-store.service';
 import { findById } from '@shared/functions';
 
 @Component({
@@ -20,40 +16,44 @@ import { findById } from '@shared/functions';
 	styleUrls: ['./inbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InboxComponent implements OnInit, OnDestroy {
-	messages: Message[] | null;
-	selectedConversationId$: Observable<string | null>;
+export class InboxComponent implements OnInit {
 	conversations: Conversation[];
+	selectedConversation: Conversation;
+	messages: Message[] | null;
 
 	constructor(
 		private cdRef: ChangeDetectorRef,
-		private messageStore: MessageStoreService,
 		private messageService: MessageService,
-	) {
-		this.selectedConversationId$ = this.messageStore.selectedConversationId$;
-	}
+	) { }
 
 	ngOnInit(): void {
 		this.messageService.getConversations()
 			.subscribe((conversations: Conversation[]) => {
 				this.conversations = conversations;
 				this.cdRef.markForCheck();
+
+				if (conversations.length) {
+					this.updateConversation(conversations[0]);
+				}
 			});
 	}
 
-	ngOnDestroy(): void {
-		this.messageStore.clearSelectedConversation();
-	}
-
 	selectConversation(conversationId: string): void {
-		this.messageStore.setSelectedConversation(conversationId);
-		this.showMessagesFor(conversationId);
+		const conversation = findById(this.conversations, conversationId);
+
+		if (conversation.notEqualTo(this.selectedConversation)) {
+			this.updateConversation(conversation);
+		}
 	}
 
-	private showMessagesFor(conversationId: string): void {
-		const selectedConversation = findById(this.conversations, conversationId);
+	private updateConversation(conversation: Conversation): void {
+		this.selectedConversation = findById(this.conversations, conversation.id);
+		this.showMessagesFor(conversation.senderId);
+	}
+
+	private showMessagesFor(senderId: string): void {
 		this.messages = null;
-		this.messageService.getMessages(selectedConversation.senderId)
+		this.messageService.getMessages(senderId)
 			.subscribe((messages: Message[]) => {
 				this.messages = messages;
 				this.cdRef.markForCheck();

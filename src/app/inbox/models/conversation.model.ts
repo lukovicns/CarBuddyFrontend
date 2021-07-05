@@ -4,8 +4,7 @@ export class Conversation {
 	senderFullName: string;
 	senderPhoto: string;
 	message: string;
-	date: string;
-	time: string;
+	dateTime: string;
 
 	constructor(data: any) {
 		this.id = data.id;
@@ -13,12 +12,15 @@ export class Conversation {
 		this.senderFullName = data.senderFullName;
 		this.senderPhoto = data.senderPhoto;
 		this.message = data.message;
-		this.date = data.date;
-		this.time = data.time;
+		this.dateTime = `${data.date} ${data.time}`;
 	}
 	
 	static get empty(): Conversation {
 		return new Conversation({});
+	}
+
+	notEqualTo(conversation: Conversation): boolean {
+		return this.id !== conversation.id;
 	}
 
 	get isEmpty(): boolean {
