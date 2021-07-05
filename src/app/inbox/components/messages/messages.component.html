@@ -1,7 +1,0 @@
-<ng-container *ngIf="messages$ | async as messages">
-	<cb-selection-table [data]="messages"
-		[columns]="columns"
-		[selectedRow]="(selectedMessage$ | async)!"
-		(onSelect)="messageStore.setSelectedMessage($event)">
-	</cb-selection-table>
-</ng-container>

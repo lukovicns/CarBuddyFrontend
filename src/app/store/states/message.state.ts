@@ -1,5 +1,6 @@
-import { Message } from '@models/message.model';
+import { Conversation } from '@models/conversation.model';
 
 export class MessageState {
-	selectedMessage: Message;
+	conversations: Conversation[] | null;
+	selectedConversationId: string;
 }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -14,6 +15,7 @@ import { NavigationComponent } from '@components/navigation/navigation.component
 	],
 	imports: [
 		CommonModule,
+		MatBadgeModule,
 		MatButtonModule,
 		MatIconModule,
 		MatSidenavModule,

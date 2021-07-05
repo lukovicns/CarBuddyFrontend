@@ -1,25 +1,14 @@
-import * as moment from 'moment';
+import { Conversation } from '@models/conversation.model';
 
-export class Message {
-	id: string;
+export class Message extends Conversation {
 	recipientId: string;
-	senderId: string;
-	title: string;
-	content: string;
-	date: moment.Moment;
-	time: moment.Moment;
+	recipientFullName: string;
+	recipientPhoto: string;
 
 	constructor(data: any) {
-		this.id = data.id;
+		super(data);
 		this.recipientId = data.recipientId;
-		this.senderId = data.senderId;
-		this.title = data.title;
-		this.content = data.content;
-		this.date = data.date;
-		this.time = data.time;
-	}
-
-	static get empty(): Message {
-		return new Message({});
+		this.recipientFullName = data.recipientFullName;
+		this.recipientPhoto = data.recipientPhoto;
 	}
 }

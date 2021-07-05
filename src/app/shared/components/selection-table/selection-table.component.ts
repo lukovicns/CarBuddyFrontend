@@ -6,7 +6,7 @@ import {
 	OnInit,
 	Input,
 	Output,
-	EventEmitter, 
+	EventEmitter,
 } from '@angular/core';
 
 import { Column } from '@models/column.type';
@@ -17,12 +17,12 @@ import { Column } from '@models/column.type';
 	styleUrls: ['./selection-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectionTableComponent<T extends { id: number | string }> implements OnInit {
+export class SelectionTableComponent<T extends { id: string }> implements OnInit {
 	@Input() data: T[];
 	@Input() columns: Column[];
-	@Input() selectedRow: T;
+	@Input() selectedRowId: string | null;
 
-	@Output() onSelect = new EventEmitter<T>();
+	@Output() onSelect = new EventEmitter<string>();
 
 	dataSource: MatTableDataSource<T>;
 	selection: SelectionModel<T>;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Message } from '@models/message.model';
+import { Conversation } from '@models/conversation.model';
 import { MessageState } from '@states/message.state';
 import { Store } from '@store/store';
 
@@ -8,19 +8,21 @@ import { Store } from '@store/store';
 	providedIn: 'root',
 })
 export class MessageStoreService extends Store<MessageState> {
-	selectedMessage$ = this.select((state: MessageState) => state.selectedMessage);
+	conversations$ = this.select((state: MessageState) => state.conversations);
+	selectedConversationId$ = this.select((state: MessageState) => state.selectedConversationId);
 
 	constructor() {
 		super({
-			selectedMessage: Message.empty,
+			selectedConversationId: '',
+			conversations: null,
 		});
 	}
 
-	setSelectedMessage(selectedMessage: Message): void {
-		this.setState({ selectedMessage });
+	setConversations(conversations: Conversation[]): void {
+		this.setState({ conversations });
 	}
 
-	clearSelectedMessage(): void {
-		this.setState({ selectedMessage: Message.empty });
+	setSelectedConversation(selectedConversationId: string): void {
+		this.setState({ selectedConversationId });
 	}
 }
