@@ -31,6 +31,9 @@ export interface Constants {
 	price: string;
 	seatsLeft: string;
 	driverInfo: string;
+	typeMessageLabel: string;
+	typeMessagePlaceholder: string;
+	send: string;
 }
 
 export const constants: Constants = {
@@ -66,4 +69,7 @@ export const constants: Constants = {
 	price: 'Price',
 	seatsLeft: 'Seats left',
 	driverInfo: 'Driver info',
+	typeMessageLabel: 'Aa',
+	typeMessagePlaceholder: 'Type a message...',
+	send: 'Send',
 };

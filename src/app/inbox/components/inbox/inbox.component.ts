@@ -48,7 +48,7 @@ export class InboxComponent implements OnInit {
 
 	private updateConversation(conversation: Conversation): void {
 		this.selectedConversation = findById(this.conversations, conversation.id);
-		this.showMessagesFor(conversation.senderId);
+		this.showMessagesFor(conversation.driverId);
 	}
 
 	private showMessagesFor(senderId: string): void {

@@ -8,6 +8,31 @@ hr {
 	margin: 20px auto;
 }
 
+:host ::ng-deep {
+	cb-card > mat-card {
+		overflow-y: scroll;
+		height: 550px;
+	}
+
+	cb-textarea > mat-form-field {
+		width: 100%;
+	}
+}
+
 .col-12:first-of-type {
 	margin-bottom: 20px;
+}
+
+.sent-message {
+	background-color: #e6ffe1;
+	border-radius: 8px;
+	padding: 15px;
+}
+
+.datetime {
+	text-align: center;
+	font-size: 12px;
+	font-style: italic;
+	color: #c1c1c1;
+	margin-bottom: 10px;
 }

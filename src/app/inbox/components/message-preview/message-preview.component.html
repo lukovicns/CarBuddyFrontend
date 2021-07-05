@@ -1,18 +1,36 @@
 <cb-card>
 	<div *ngFor="let message of messages"
 		class="row">
-		<div class="col-12">
-			<div class="chat-message">
-				<div [class.right]="message.senderId === currentUserId">
-					<img src="assets/images/avatar.png"
-						alt="CarBuddy - Profile Picture" />
-					{{ message.senderFullName }}
-				</div>
-				<div class="message">
-					{{ message.message }}
-				</div>
-			</div>
-			<hr />
+		<div *ngIf="message.isRecipient(currentUserId)"
+			class="col-1">
+			<img src="assets/images/avatar.png"
+				[alt]="message.driverFullName" />
+		</div>
+		<div [ngClass]="message.isRecipient(currentUserId) ? 'col-7': 'col-7 offset-5 sent-message'">
+			{{ message.message }}
+		</div>
+		<div class="col-12 datetime">
+			{{ message.dateTime }}
 		</div>
 	</div>
+
+	<form [formGroup]="form"
+		(ngSubmit)="send()"
+		autocomplete="false"
+		spellcheck="false">
+		<div class="row">
+			<div class="col-10">
+				<cb-textarea [form]="form"
+					[control]="message"
+					[label]="constants.typeMessageLabel"
+					[placeholder]="constants.typeMessagePlaceholder">
+				</cb-textarea>
+			</div>
+			<div class="col-1">
+				<cb-submit-icon-button icon="send"
+					[tooltip]="constants.send">
+				</cb-submit-icon-button>
+			</div>
+		</div>
+	</form>
 </cb-card>

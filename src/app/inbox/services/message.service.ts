@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { messagesUrl, conversationsUrl } from '@constants/urls';
+import { messagesUrl, conversationsUrl, sendMessageUrl } from '@constants/urls';
 import { Conversation } from '@models/conversation.model';
 import { ListResponse } from '@models/list-response.model';
 import { Message } from '@models/message.model';
@@ -44,5 +44,17 @@ export class MessageService {
 					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 				}),
 			);
+	}
+
+	sendMessage(recipientId: string, message: string): Observable<any> {
+		return this.http.post(sendMessageUrl, {
+			senderId: this.currentUserId,
+			recipientId,
+			message,
+		}).pipe(
+			tap({
+				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+			}),
+		);
 	}
 }

@@ -9,7 +9,8 @@
 	<div class="col-6">
 		<ng-container *ngIf="selectedConversation.id">
 			<cb-message-preview *ngIf="messages; else loadingMessages"
-				[messages]="messages">
+				[messages]="messages"
+				[recipientId]="selectedConversation.driverId">
 			</cb-message-preview>
 		</ng-container>
 	</div>

@@ -1,7 +1,15 @@
-import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	Input,
+	OnInit,
+} from '@angular/core';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
+import { constants, Constants } from '@constants/constants';
 import { Message } from '@models/message.model';
 import { AuthorizationService } from '@services/authorization.service';
+import { MessageService } from '@services/message.service';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -9,12 +17,42 @@ import { AuthorizationService } from '@services/authorization.service';
 	styleUrls: ['./message-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagePreviewComponent {
+export class MessagePreviewComponent implements OnInit {
 	@Input() messages: Message[];
+	@Input() recipientId: string;
 
+	form: FormGroup;
 	currentUserId: string;
 
-	constructor(private authorizationService: AuthorizationService) {
+	readonly constants: Constants = constants;
+
+	constructor(
+		private authorizationService: AuthorizationService,
+		private messageService: MessageService,
+	) {
 		this.currentUserId = this.authorizationService.currentUserId;
+	}
+
+	ngOnInit(): void {
+		this.form = new FormGroup({
+			message: new FormControl(''),
+		});
+	}
+
+	send(): void {
+		const message = this.message.value.trim();
+
+		if (!message) {
+			return;
+		}
+
+		this.messageService.sendMessage(this.recipientId, message)
+			.subscribe(() => {
+				this.form.reset();
+			});
+	}
+
+	get message(): AbstractControl {
+		return this.form.get('message')!;
 	}
 }

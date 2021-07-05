@@ -1,16 +1,16 @@
 export class Conversation {
 	id: string;
-	senderId: string;
-	senderFullName: string;
-	senderPhoto: string;
+	driverId: string;
+	driverFullName: string;
+	driverPhoto: string;
 	message: string;
 	dateTime: string;
 
 	constructor(data: any) {
 		this.id = data.id;
-		this.senderId = data.senderId;
-		this.senderFullName = data.senderFullName;
-		this.senderPhoto = data.senderPhoto;
+		this.driverId = data.driverId;
+		this.driverFullName = data.driverFullName;
+		this.driverPhoto = data.driverPhoto;
 		this.message = data.message;
 		this.dateTime = `${data.date} ${data.time}`;
 	}
@@ -24,6 +24,6 @@ export class Conversation {
 	}
 
 	get isEmpty(): boolean {
-		return !this.senderId;
+		return !this.driverId;
 	}
 }
