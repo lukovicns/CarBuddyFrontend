@@ -3,9 +3,11 @@ import {
 	ChangeDetectionStrategy,
 	OnInit,
 	ChangeDetectorRef,
+	OnDestroy,
 } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 import { Conversation } from '@models/conversation.model';
 import { Message } from '@models/message.model';
@@ -20,10 +22,12 @@ import { findById } from '@shared/functions';
 	styleUrls: ['./inbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InboxComponent implements OnInit {
+export class InboxComponent implements OnInit, OnDestroy {
 	messages$: Observable<Message[] | null>;
 	conversations: Conversation[];
 	selectedConversation: Conversation;
+
+	private destroy$ = new Subject<void>();
 
 	constructor(
 		private cdRef: ChangeDetectorRef,
@@ -46,7 +50,13 @@ export class InboxComponent implements OnInit {
 			});
 
 		this.chatService.message$
-			.subscribe(console.log);
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((message: Message) => this.messageStore.appendMessage(message));
+	}
+	
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	selectConversation(conversationId: string): void {

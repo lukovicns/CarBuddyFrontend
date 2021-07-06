@@ -21,8 +21,10 @@ export class MessageStoreService extends Store<MessageState> {
 	}
 
 	appendMessage(message: Message): void {
+		const messages = [...this.state.messages || []];
+		messages.push(new Message(message));
 		this.setState({
-			messages: [...this.state.messages  || [], message],
+			messages,
 		});
 	}
 

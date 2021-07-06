@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Injectable  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -5,24 +6,18 @@ import { Observable, Subject } from 'rxjs';
 import * as signalR from '@microsoft/signalr';
 
 import { sendMessageUrl, chatUrl } from '@constants/urls';
-import { tap } from 'rxjs/operators';
-
-class SentMessage {
-    recipientId: string;
-    senderId: string;
-    message: string;
-}
+import { SentMessage } from '@models/sent-message.model';
+import { Message } from '@models/message.model';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class ChatService {
 	private connection = new signalR.HubConnectionBuilder()
-		.configureLogging(signalR.LogLevel.Debug)
 		.withUrl(chatUrl)
 		.build();
 
-    private message = new Subject<SentMessage>();
+    private message = new Subject<Message>();
 
     readonly message$ = this.message.asObservable();
 
@@ -31,35 +26,22 @@ export class ChatService {
     		await this.start();
     	});
 
-    	this.connection.on('ReceiveOne', (recipientId: string, senderId: string, message: string) => {
-    		this.mapReceivedMessage(recipientId, senderId, message);
+    	this.connection.on('ReceiveOne', (message: Message) => {
+    		this.message.next(message);
     	});
 
     	this.start();
     }
 
     broadcastMessage(message: SentMessage): Observable<any> {
-    	return this.http.post(sendMessageUrl, message)
-    		.pipe(
-    			tap(console.log),
-    		);
+    	return this.http.post(sendMessageUrl, message);
     }
 
     async start() {
     	try {
     		await this.connection.start();
-    		console.log('Connected!');
     	} catch (err: any) {
     		console.log(err);
-    		setTimeout(() => this.start(), 5000);
     	}
-    }
-
-    private mapReceivedMessage(recipientId: string, senderId: string, message: string): void {
-    	this.message.next({
-    		recipientId,
-    		senderId,
-    		message,
-    	});
     }
 }
