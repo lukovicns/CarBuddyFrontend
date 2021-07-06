@@ -11,6 +11,7 @@ import { Conversation } from '@models/conversation.model';
 import { Message } from '@models/message.model';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
+import { ChatService } from '@services/chat.service';
 import { findById } from '@shared/functions';
 
 @Component({
@@ -28,6 +29,7 @@ export class InboxComponent implements OnInit {
 		private cdRef: ChangeDetectorRef,
 		private messageService: MessageService,
 		private messageStore: MessageStoreService,
+		private chatService: ChatService,
 	) {
 		this.messages$ = this.messageStore.messages$;
 	}
@@ -42,6 +44,9 @@ export class InboxComponent implements OnInit {
 					this.updateConversation(conversations[0]);
 				}
 			});
+
+		this.chatService.message$
+			.subscribe(console.log);
 	}
 
 	selectConversation(conversationId: string): void {

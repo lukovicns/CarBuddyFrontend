@@ -10,6 +10,7 @@ import { constants, Constants } from '@constants/constants';
 import { Message } from '@models/message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { MessageService } from '@services/message.service';
+import { ChatService } from '@services/chat.service';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -28,7 +29,7 @@ export class MessagePreviewComponent implements OnInit {
 
 	constructor(
 		private authorizationService: AuthorizationService,
-		private messageService: MessageService,
+		private chatService: ChatService,
 	) {
 		this.currentUserId = this.authorizationService.currentUserId;
 	}
@@ -46,8 +47,11 @@ export class MessagePreviewComponent implements OnInit {
 			return;
 		}
 
-		this.messageService.sendMessage(this.recipientId, message)
-			.subscribe(() => this.form.reset());
+		this.chatService.broadcastMessage({
+			recipientId: this.recipientId,
+			senderId: this.currentUserId,
+			message,
+		}).subscribe(() => this.form.reset());
 	}
 
 	get message(): AbstractControl {
