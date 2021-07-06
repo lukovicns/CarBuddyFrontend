@@ -15,6 +15,7 @@ import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
 import { ChatService } from '@services/chat.service';
 import { findById } from '@shared/functions';
+import { constants, Constants } from '@constants/constants';
 
 @Component({
 	selector: 'cb-inbox',
@@ -27,6 +28,8 @@ export class InboxComponent implements OnInit, OnDestroy {
 	conversations: Conversation[];
 	selectedConversation: Conversation;
 
+	readonly constants: Constants = constants;
+	
 	private destroy$ = new Subject<void>();
 
 	constructor(

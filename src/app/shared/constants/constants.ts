@@ -34,6 +34,7 @@ export interface Constants {
 	typeMessageLabel: string;
 	typeMessagePlaceholder: string;
 	send: string;
+	emptyInbox: string;
 }
 
 export const constants: Constants = {
@@ -72,4 +73,5 @@ export const constants: Constants = {
 	typeMessageLabel: 'Aa',
 	typeMessagePlaceholder: 'Type a message...',
 	send: 'Send',
+	emptyInbox: 'Your inbox is currently empty.',
 };
