@@ -17,16 +17,12 @@ import { toInstances } from '@shared/functions';
 	providedIn: 'root',
 })
 export class MessageService {
-	private currentUserId: string;
-	
 	constructor(
 		private http: HttpClient,
-		private authorizationService: AuthorizationService,
 		private messageStore: MessageStoreService,
 		private errorHandler: ErrorHandlerService,
-	) {
-		this.currentUserId = this.authorizationService.currentUserId;
-	}
+		private authorizationService: AuthorizationService,
+	) { }
 
 	getConversations(): Observable<Conversation[]> {
 		return this.http.get<ListResponse<Conversation>>(conversationsUrl(this.currentUserId))
@@ -61,5 +57,9 @@ export class MessageService {
 				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 			}),
 		);
+	}
+
+	private get currentUserId(): string {
+		return this.authorizationService.currentUserId;
 	}
 }

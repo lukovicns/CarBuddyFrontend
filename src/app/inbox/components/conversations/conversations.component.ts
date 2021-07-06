@@ -20,7 +20,7 @@ import { toInstances } from '@shared/functions';
 })
 export class ConversationsComponent implements OnInit {
 	@Input() conversations: Conversation[];
-	@Input() selectedConversationId: string;
+	@Input() selectedConversationId: string | null;
 
 	@Output() onSelect = new EventEmitter<string>();
 

@@ -6,7 +6,7 @@ export class ConversationData {
 	
 	constructor(data: any) {
 		this.id = data.id;
-		this.from = data.senderFullName;
+		this.from = data.driverFullName;
 		this.content = data.message;
 		this.dateTime = data.dateTime;
 	}

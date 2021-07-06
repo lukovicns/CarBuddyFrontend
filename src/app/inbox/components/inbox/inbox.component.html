@@ -2,12 +2,12 @@
 	class="row">
 	<div class="col-6">
 		<cb-conversations [conversations]="conversations"
-			[selectedConversationId]="selectedConversation.id"
+			[selectedConversationId]="selectedConversation?.id || null"
 			(onSelect)="selectConversation($event)">
 		</cb-conversations>
 	</div>
 	<div class="col-6">
-		<ng-container *ngIf="selectedConversation.id">
+		<ng-container *ngIf="selectedConversation?.id">
 			<cb-message-preview *ngIf="messages$ | async as messages; else loadingMessages"
 				[messages]="messages"
 				[recipientId]="selectedConversation.driverId">

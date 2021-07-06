@@ -9,7 +9,6 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { constants, Constants } from '@constants/constants';
 import { Message } from '@models/message.model';
 import { AuthorizationService } from '@services/authorization.service';
-import { MessageService } from '@services/message.service';
 import { ChatService } from '@services/chat.service';
 
 @Component({

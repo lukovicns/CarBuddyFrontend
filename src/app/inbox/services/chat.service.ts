@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import * as signalR from '@microsoft/signalr';
 
-import { sendMessageUrl, socketUrl } from '@constants/urls';
+import { sendMessageUrl, chatUrl } from '@constants/urls';
 import { tap } from 'rxjs/operators';
 
 class SentMessage {
@@ -19,11 +19,7 @@ class SentMessage {
 export class ChatService {
 	private connection = new signalR.HubConnectionBuilder()
 		.configureLogging(signalR.LogLevel.Debug)
-		.withUrl(socketUrl, {
-			skipNegotiation: true,
-			transport: signalR.HttpTransportType.WebSockets,
-			accessTokenFactory: () => localStorage.getItem('token')!,
-		})
+		.withUrl(chatUrl)
 		.build();
 
     private message = new Subject<SentMessage>();
