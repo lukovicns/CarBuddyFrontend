@@ -6,6 +6,11 @@ import { MessageStoreService } from '@services/message-store.service';
 import { ConversationState } from '@states/conversation.state';
 import { Store } from '@store/store';
 
+const initialState: ConversationState = {
+	conversations: null,
+	selectedConversation: null,
+};
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -14,10 +19,7 @@ export class ConversationStoreService extends Store<ConversationState> {
 	selectedConversation$ = this.select((state: ConversationState) => state.selectedConversation);
 
 	constructor(private messageStore: MessageStoreService) {
-		super({
-			conversations: null,
-			selectedConversation: null,
-		});
+		super(initialState);
 	}
 
 	setConversations(conversations: Conversation[]): void {
@@ -37,5 +39,9 @@ export class ConversationStoreService extends Store<ConversationState> {
 			new Conversation(conversation),
 		);
 		this.setState({ conversations });
+	}
+
+	clearConversations(): void {
+		this.setState(initialState);
 	}
 }

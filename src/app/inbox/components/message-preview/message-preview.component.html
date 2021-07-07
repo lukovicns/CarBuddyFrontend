@@ -2,7 +2,8 @@
 	<ng-container *ngIf="messages$ | async as messages; else loading">
 		<cb-card>
 			<div *ngFor="let message of messages"
-				class="row">
+				class="row"
+				content>
 				<div *ngIf="message.isRecipient(currentUserId)"
 					class="col-1">
 					<img src="assets/images/avatar.png"
@@ -18,10 +19,11 @@
 
 			<form [formGroup]="form"
 				(ngSubmit)="send()"
+				footer
 				autocomplete="false"
 				spellcheck="false">
 				<div class="row">
-					<div class="col-10">
+					<div class="col-11">
 						<cb-textarea [form]="form"
 							[control]="messageControl"
 							[label]="constants.typeMessageLabel"
