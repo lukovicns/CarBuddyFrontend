@@ -4,8 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { messagesUrl, conversationsUrl, sendMessageUrl } from '@constants/urls';
-import { Conversation } from '@models/conversation.model';
+import { messagesUrl, sendMessageUrl } from '@constants/urls';
 import { ListResponse } from '@models/list-response.model';
 import { ChatMessage } from '@models/chat-message.model';
 import { AuthorizationService } from '@services/authorization.service';
@@ -24,23 +23,16 @@ export class MessageService {
 		private authorizationService: AuthorizationService,
 	) { }
 
-	getConversations(): Observable<Conversation[]> {
-		return this.http.get<ListResponse<Conversation>>(conversationsUrl(this.currentUserId))
-			.pipe(
-				map((response: ListResponse<Conversation>) => toInstances(Conversation, response.content)),
-				tap({
-					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
-				}),
-			);
-	}
-
 	getMessages(senderId: string): Observable<ChatMessage[]> {
 		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, senderId))
 			.pipe(
 				map((response: ListResponse<ChatMessage>) => toInstances(ChatMessage, response.content)),
 				tap({
 					next: (messages: ChatMessage[]) => this.messageStore.setMessages(messages),
-					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+					error: (error: HttpErrorResponse) => {
+						this.errorHandler.handle(error);
+						this.messageStore.setMessages([]);
+					},
 				}),
 			);
 	}

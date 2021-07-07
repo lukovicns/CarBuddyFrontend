@@ -20,11 +20,11 @@ import { toInstances } from '@shared/functions';
 })
 export class ConversationsComponent implements OnInit {
 	@Input() conversations: Conversation[];
-	@Input() selectedConversationId: string | null;
+	@Input() selectedConversation: string | null;
 
 	@Output() onSelect = new EventEmitter<string>();
 
-	conversationData: ConversationData[];
+	data: ConversationData[];
 
 	readonly columns: Column[] = [
 		{
@@ -42,6 +42,6 @@ export class ConversationsComponent implements OnInit {
 	];
 
 	ngOnInit(): void {
-		this.conversationData = toInstances(ConversationData, this.conversations);
+		this.data = toInstances(ConversationData, this.conversations);
 	}
 }

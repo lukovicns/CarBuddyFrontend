@@ -20,7 +20,7 @@ import { Column } from '@models/column.type';
 export class SelectionTableComponent<T extends { id: string }> implements OnInit {
 	@Input() data: T[];
 	@Input() columns: Column[];
-	@Input() selectedRowId: string | null;
+	@Input() selectedRow: string | null;
 
 	@Output() onSelect = new EventEmitter<string>();
 

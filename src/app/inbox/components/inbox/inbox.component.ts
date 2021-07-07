@@ -1,21 +1,13 @@
-import {
-	Component,
-	ChangeDetectionStrategy,
-	OnInit,
-	ChangeDetectorRef,
-	OnDestroy,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
-import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
-import { Conversation } from '@models/conversation.model';
-import { ChatMessage } from '@models/chat-message.model';
-import { MessageService } from '@services/message.service';
-import { MessageStoreService } from '@services/message-store.service';
-import { ChatService } from '@services/chat.service';
-import { findById } from '@shared/functions';
 import { constants, Constants } from '@constants/constants';
+import { ChatMessage } from '@models/chat-message.model';
+import { Conversation } from '@models/conversation.model';
+import { MessageStoreService } from '@services/message-store.service';
+import { ConversationService } from '@services/conversation.service';
+import { ConversationStoreService } from '@services/conversation-store.service';
 
 @Component({
 	selector: 'cb-inbox',
@@ -23,61 +15,32 @@ import { constants, Constants } from '@constants/constants';
 	styleUrls: ['./inbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InboxComponent implements OnInit, OnDestroy {
+export class InboxComponent implements OnInit {
+	conversations$: Observable<Conversation[] | null>;
 	messages$: Observable<ChatMessage[] | null>;
-	conversations: Conversation[];
-	selectedConversation: Conversation;
+	selectedConversation: string | null;
 
 	readonly constants: Constants = constants;
-	
-	private destroy$ = new Subject<void>();
 
 	constructor(
-		private cdRef: ChangeDetectorRef,
-		private messageService: MessageService,
 		private messageStore: MessageStoreService,
-		private chatService: ChatService,
+		private conversationService: ConversationService,
+		private conversationStore: ConversationStoreService,
 	) {
+		this.conversations$ = this.conversationStore.conversations$;
 		this.messages$ = this.messageStore.messages$;
+		this.conversationStore.selectedConversation$
+			.subscribe((conversation: string | null) => {
+				this.selectedConversation = conversation;
+			});
 	}
 
 	ngOnInit(): void {
-		this.messageService.getConversations()
-			.subscribe((conversations: Conversation[]) => {
-				this.conversations = conversations;
-				this.cdRef.markForCheck();
-
-				if (conversations.length) {
-					this.updateConversation(conversations[0]);
-				}
-			});
-
-		this.chatService.message$
-			.pipe(takeUntil(this.destroy$))
-			.subscribe((message: ChatMessage) => this.messageStore.appendMessage(message));
-	}
-	
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
+		this.conversationService.getConversations()
+			.subscribe();
 	}
 
 	selectConversation(conversationId: string): void {
-		const conversation = findById(this.conversations, conversationId);
-
-		if (!conversation.equals(this.selectedConversation)) {
-			this.updateConversation(conversation);
-		}
-	}
-
-	private updateConversation(conversation: Conversation): void {
-		this.selectedConversation = findById(this.conversations, conversation.id);
-		// this.showMessagesFor(conversation.driverId);
-	}
-
-	private showMessagesFor(senderId: string): void {
-		this.messageStore.clearMessages();
-		this.messageService.getMessages(senderId)
-			.subscribe();
+		this.conversationStore.selectConversation(conversationId);
 	}
 }
