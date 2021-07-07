@@ -9,14 +9,16 @@ import {
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
+import { Conversation } from '@models/conversation.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ChatService } from '@services/chat.service';
+import { ConversationStoreService } from '@services/conversation-store.service';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -25,8 +27,9 @@ import { tap } from 'rxjs/operators';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagePreviewComponent implements OnInit, OnChanges {
-	@Input() selectedConversation: string;
+	@Input() selectedConversation: string | null;
 
+	conversations$: Observable<Conversation[] | null>;
 	messages$: Observable<ChatMessage[] | null>;
 	isPending$: Observable<boolean>;
 
@@ -38,9 +41,11 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 	constructor(
 		private authorizationService: AuthorizationService,
 		private chatService: ChatService,
+		private conversationStore: ConversationStoreService,
 		private messageService: MessageService,
 		private messageStore: MessageStoreService,
 	) {
+		this.conversations$ = this.conversationStore.conversations$;
 		this.messages$ = this.messageStore.messages$;
 		this.isPending$ = this.messageStore.isPending$;
 		this.currentUserId = this.authorizationService.currentUserId;
@@ -77,7 +82,7 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 		this.messageStore.setPending(true);
 		this.chatService.broadcastMessage(
 			this.currentUserId,
-			this.selectedConversation,
+			this.selectedConversation!,
 			message,
 		).pipe(
 			tap({

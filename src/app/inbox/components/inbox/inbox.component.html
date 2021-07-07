@@ -1,29 +1,8 @@
-<ng-container *ngIf="conversations$ | async as conversations; else loading">
-	<div class="row">
-		<ng-container *ngIf="conversations.length; else emptyInbox">
-			<div class="col-6">
-				<cb-conversations [conversations]="conversations"
-					[selectedConversation]="selectedConversation$ | async"
-					(onSelect)="conversationStore.selectConversation($event)">
-				</cb-conversations>
-			</div>
-			<div class="col-6">
-				<ng-container *ngIf="selectedConversation$ | async as selectedConversation">
-					<cb-message-preview [selectedConversation]="selectedConversation"></cb-message-preview>
-				</ng-container>
-			</div>
-		</ng-container>
-
-		<ng-template #emptyInbox>
-			<h2 class="text-center">{{ constants.emptyInbox }}</h2>
-		</ng-template>
+<div class="row">
+	<div class="col-6">
+		<cb-conversations [selectedConversation]="selectedConversation$ | async"></cb-conversations>
 	</div>
-</ng-container>
-
-<ng-template #loading>
-	<div class="row">
-		<div class="col-12">
-			<cb-loader class="center"></cb-loader>
-		</div>
+	<div class="col-6">
+		<cb-message-preview [selectedConversation]="selectedConversation$ | async"></cb-message-preview>
 	</div>
-</ng-template>
+</div>

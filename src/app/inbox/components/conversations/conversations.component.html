@@ -1,7 +1,21 @@
-<cb-card>
-	<cb-selection-table [data]="data"
-		[columns]="columns"
-		[selectedRow]="selectedConversation"
-		(onSelect)="onSelect.emit($event)">
-	</cb-selection-table>
-</cb-card>
+<ng-container *ngIf="conversations$ | async as conversations; else loading">
+	<ng-container *ngIf="conversations.length; else emptyInbox">
+		<cb-card>
+			<cb-selection-table [data]="(data$ | async)!"
+				[columns]="columns"
+				[selectedRow]="selectedConversation"
+				(onSelect)="conversationStore.selectConversation($event)">
+			</cb-selection-table>
+		</cb-card>
+	</ng-container>
+
+	<ng-template #emptyInbox>
+		<h2>{{ constants.emptyInbox }}</h2>
+	</ng-template>
+</ng-container>
+
+<ng-template #loading>
+	<cb-loader class="center">
+		{{ constants.loadingInbox }}
+	</cb-loader>
+</ng-template>

@@ -1,15 +1,19 @@
 import {
 	Component,
 	ChangeDetectionStrategy,
-	OnInit,
 	Input,
-	Output,
-	EventEmitter,
+	OnInit, 
 } from '@angular/core';
 
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+import { constants, Constants } from '@constants/constants';
 import { Column } from '@models/column.type';
-import { ConversationData } from '@models/conversation-data.model';
 import { Conversation } from '@models/conversation.model';
+import { ConversationData } from '@models/conversation-data.model';
+import { ConversationStoreService } from '@services/conversation-store.service';
+import { ConversationService } from '@services/conversation.service';
 import { toInstances } from '@shared/functions';
 
 @Component({
@@ -19,13 +23,12 @@ import { toInstances } from '@shared/functions';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConversationsComponent implements OnInit {
-	@Input() conversations: Conversation[];
 	@Input() selectedConversation: string | null;
 
-	@Output() onSelect = new EventEmitter<string>();
+	conversations$: Observable<Conversation[] | null>;
+	data$: Observable<ConversationData[]>;
 
-	data: ConversationData[];
-
+	readonly constants: Constants = constants;
 	readonly columns: Column[] = [
 		{
 			name: 'from',
@@ -41,7 +44,28 @@ export class ConversationsComponent implements OnInit {
 		},
 	];
 
+	constructor(
+		public conversationStore: ConversationStoreService,
+		private conversationService: ConversationService,
+	) {
+		this.conversations$ = this.conversationStore.conversations$;
+		this.data$ = this.conversations$
+			.pipe(
+				switchMap((conversations: Conversation[] | null) => of(
+					toInstances(
+						ConversationData,
+						conversations || [],
+					),
+				)),
+			);
+	}
+
 	ngOnInit(): void {
-		this.data = toInstances(ConversationData, this.conversations);
+		this.conversationService.getConversations()
+			.subscribe((conversations: Conversation[]) => {
+				if (conversations.length) {
+					this.conversationStore.selectConversation(conversations[0].id);
+				}
+			});
 	}
 }

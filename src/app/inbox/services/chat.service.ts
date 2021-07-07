@@ -7,6 +7,8 @@ import * as signalR from '@microsoft/signalr';
 
 import { sendMessageUrl, chatUrl } from '@constants/urls';
 import { ChatMessage } from '@models/chat-message.model';
+import { Conversation } from '@models/conversation.model';
+import { ConversationStoreService } from '@services/conversation-store.service';
 import { MessageStoreService } from '@services/message-store.service';
 
 @Injectable({
@@ -20,6 +22,7 @@ export class ChatService {
 
 	constructor(
 		private http: HttpClient,
+		private conversationStore: ConversationStoreService,
 		private messageStore: MessageStoreService,
 	) {
     	this.connection.onclose(async () => {
@@ -30,10 +33,18 @@ export class ChatService {
 			this.messageStore.appendMessage(message);
     	});
 
+		this.connection.on('UpdateConversation', (conversation: Conversation) => {
+			this.conversationStore.updateConversation(conversation);
+		});
+
     	this.start();
 	}
 
-	broadcastMessage(authorId: string, conversationId: string, message: string): Observable<ChatMessage> {
+	broadcastMessage(
+		authorId: string,
+		conversationId: string,
+		message: string,
+	): Observable<ChatMessage> {
     	return this.http.post<ChatMessage>(sendMessageUrl, {
     		authorId,
     		conversationId,

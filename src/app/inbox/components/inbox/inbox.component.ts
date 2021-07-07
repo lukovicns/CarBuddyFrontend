@@ -1,12 +1,7 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { constants, Constants } from '@constants/constants';
-import { ChatMessage } from '@models/chat-message.model';
-import { Conversation } from '@models/conversation.model';
-import { MessageStoreService } from '@services/message-store.service';
-import { ConversationService } from '@services/conversation.service';
 import { ConversationStoreService } from '@services/conversation-store.service';
 
 @Component({
@@ -15,25 +10,10 @@ import { ConversationStoreService } from '@services/conversation-store.service';
 	styleUrls: ['./inbox.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InboxComponent implements OnInit {
-	conversations$: Observable<Conversation[] | null>;
-	messages$: Observable<ChatMessage[] | null>;
+export class InboxComponent {
 	selectedConversation$: Observable<string | null>;
 
-	readonly constants: Constants = constants;
-
-	constructor(
-		public conversationStore: ConversationStoreService,
-		private messageStore: MessageStoreService,
-		private conversationService: ConversationService,
-	) {
-		this.conversations$ = this.conversationStore.conversations$;
-		this.messages$ = this.messageStore.messages$;
+	constructor(public conversationStore: ConversationStoreService) {
 		this.selectedConversation$ = this.conversationStore.selectedConversation$;
-	}
-
-	ngOnInit(): void {
-		this.conversationService.getConversations()
-			.subscribe();
 	}
 }

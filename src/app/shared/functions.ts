@@ -10,3 +10,14 @@ export function getFormControlName(control: any): string {
 	const formGroup = control.parent!.controls;
 	return Object.keys(formGroup).find((name: string) => control === formGroup[name])!;
 }
+
+export function updateAtIndex<T extends { id: string }>(items: T[], item: T): T[] {
+	const index = items.map((item: T) => item.id)
+		.findIndex((id: string) => item.id === id);
+
+	return [
+		...items.slice(0, index),
+		item,
+		...items.slice(index + 1),
+	];
+}

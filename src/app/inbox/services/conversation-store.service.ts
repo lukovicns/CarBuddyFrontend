@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { updateAtIndex } from '@app/shared/functions';
 
 import { Conversation } from '@models/conversation.model';
 import { MessageStoreService } from '@services/message-store.service';
@@ -28,5 +29,13 @@ export class ConversationStoreService extends Store<ConversationState> {
 			this.messageStore.clearMessages();
 			this.setState({ selectedConversation: conversation });
 		}
+	}
+
+	updateConversation(conversation: Conversation): void {
+		const conversations = updateAtIndex(
+			this.state.conversations || [],
+			new Conversation(conversation),
+		);
+		this.setState({ conversations });
 	}
 }
