@@ -10,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Conversation } from '@models/conversation.model';
-import { Message } from '@models/message.model';
+import { ChatMessage } from '@models/chat-message.model';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
 import { ChatService } from '@services/chat.service';
@@ -24,7 +24,7 @@ import { constants, Constants } from '@constants/constants';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InboxComponent implements OnInit, OnDestroy {
-	messages$: Observable<Message[] | null>;
+	messages$: Observable<ChatMessage[] | null>;
 	conversations: Conversation[];
 	selectedConversation: Conversation;
 
@@ -54,7 +54,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
 		this.chatService.message$
 			.pipe(takeUntil(this.destroy$))
-			.subscribe((message: Message) => this.messageStore.appendMessage(message));
+			.subscribe((message: ChatMessage) => this.messageStore.appendMessage(message));
 	}
 	
 	ngOnDestroy(): void {
@@ -65,14 +65,14 @@ export class InboxComponent implements OnInit, OnDestroy {
 	selectConversation(conversationId: string): void {
 		const conversation = findById(this.conversations, conversationId);
 
-		if (conversation.notEqualTo(this.selectedConversation)) {
+		if (!conversation.equals(this.selectedConversation)) {
 			this.updateConversation(conversation);
 		}
 	}
 
 	private updateConversation(conversation: Conversation): void {
 		this.selectedConversation = findById(this.conversations, conversation.id);
-		this.showMessagesFor(conversation.driverId);
+		// this.showMessagesFor(conversation.driverId);
 	}
 
 	private showMessagesFor(senderId: string): void {

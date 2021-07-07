@@ -1,5 +1,5 @@
-import { Message } from '@models/message.model';
+import { ChatMessage } from '@models/chat-message.model';
 
 export class MessageState {
-	messages: Message[]  | null;
+	messages: ChatMessage[]  | null;
 }

@@ -4,13 +4,13 @@
 		<div *ngIf="message.isRecipient(currentUserId)"
 			class="col-1">
 			<img src="assets/images/avatar.png"
-				[alt]="message.driverFullName" />
+				[alt]="message.recipientFullName" />
 		</div>
 		<div [ngClass]="message.isRecipient(currentUserId) ? 'col-7': 'col-7 offset-5 sent-message'">
 			{{ message.message }}
 		</div>
 		<div class="col-12 datetime">
-			{{ message.dateTime }}
+			{{ message.date }}
 		</div>
 	</div>
 

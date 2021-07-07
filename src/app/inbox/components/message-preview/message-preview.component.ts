@@ -7,7 +7,7 @@ import {
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { constants, Constants } from '@constants/constants';
-import { Message } from '@models/message.model';
+import { ChatMessage } from '@models/chat-message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ChatService } from '@services/chat.service';
 
@@ -18,8 +18,7 @@ import { ChatService } from '@services/chat.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagePreviewComponent implements OnInit {
-	@Input() messages: Message[];
-	@Input() recipientId: string;
+	@Input() messages: ChatMessage[];
 
 	form: FormGroup;
 	currentUserId: string;
@@ -46,11 +45,11 @@ export class MessagePreviewComponent implements OnInit {
 			return;
 		}
 
-		this.chatService.broadcastMessage({
-			recipientId: this.recipientId,
-			senderId: this.currentUserId,
-			message,
-		}).subscribe(() => this.form.reset());
+		// this.chatService.broadcastMessage({
+		// 	conversationId: this.conversationId,
+		// 	senderId: this.currentUserId,
+		// 	message,
+		// }).subscribe(() => this.form.reset());
 	}
 
 	get message(): AbstractControl {

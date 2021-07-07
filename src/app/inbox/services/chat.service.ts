@@ -6,8 +6,8 @@ import { Observable, Subject } from 'rxjs';
 import * as signalR from '@microsoft/signalr';
 
 import { sendMessageUrl, chatUrl } from '@constants/urls';
+import { ChatMessage } from '@models/chat-message.model';
 import { SentMessage } from '@models/sent-message.model';
-import { Message } from '@models/message.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,7 +17,7 @@ export class ChatService {
 		.withUrl(chatUrl)
 		.build();
 
-    private message = new Subject<Message>();
+    private message = new Subject<ChatMessage>();
 
     readonly message$ = this.message.asObservable();
 
@@ -26,7 +26,7 @@ export class ChatService {
     		await this.start();
     	});
 
-    	this.connection.on('ReceiveOne', (message: Message) => {
+    	this.connection.on('ReceiveChatMessage', (message: ChatMessage) => {
     		this.message.next(message);
     	});
 

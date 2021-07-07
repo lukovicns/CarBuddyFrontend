@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Message } from '@models/message.model';
+import { ChatMessage } from '@models/chat-message.model';
 import { MessageState } from '@states/message.state';
 import { Store } from '@store/store';
 
@@ -16,13 +16,13 @@ export class MessageStoreService extends Store<MessageState> {
 		super(initialState);
 	}
 
-	setMessages(messages: Message[]): void {
+	setMessages(messages: ChatMessage[]): void {
 		this.setState({ messages });
 	}
 
-	appendMessage(message: Message): void {
+	appendMessage(message: ChatMessage): void {
 		const messages = [...this.state.messages || []];
-		messages.push(new Message(message));
+		messages.push(new ChatMessage(message));
 		this.setState({
 			messages,
 		});

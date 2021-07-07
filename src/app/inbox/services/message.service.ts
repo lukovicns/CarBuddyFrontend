@@ -7,7 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { messagesUrl, conversationsUrl, sendMessageUrl } from '@constants/urls';
 import { Conversation } from '@models/conversation.model';
 import { ListResponse } from '@models/list-response.model';
-import { Message } from '@models/message.model';
+import { ChatMessage } from '@models/chat-message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { MessageStoreService } from '@services/message-store.service';
@@ -34,26 +34,26 @@ export class MessageService {
 			);
 	}
 
-	getMessages(senderId: string): Observable<Message[]> {
-		return this.http.get<ListResponse<Message>>(messagesUrl(this.currentUserId, senderId))
+	getMessages(senderId: string): Observable<ChatMessage[]> {
+		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, senderId))
 			.pipe(
-				map((response: ListResponse<Message>) => toInstances(Message, response.content)),
+				map((response: ListResponse<ChatMessage>) => toInstances(ChatMessage, response.content)),
 				tap({
-					next: (messages: Message[]) => this.messageStore.setMessages(messages),
+					next: (messages: ChatMessage[]) => this.messageStore.setMessages(messages),
 					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 				}),
 			);
 	}
 
-	sendMessage(recipientId: string, message: string): Observable<Message> {
+	sendMessage(recipientId: string, message: string): Observable<ChatMessage> {
 		return this.http.post<any>(sendMessageUrl, {
 			senderId: this.currentUserId,
 			recipientId,
 			message,
 		}).pipe(
-			map((message: Message) => new Message(message)),
+			map((message: ChatMessage) => new ChatMessage(message)),
 			tap({
-				next: (message: Message) => this.messageStore.appendMessage(message),
+				next: (message: ChatMessage) => this.messageStore.appendMessage(message),
 				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 			}),
 		);

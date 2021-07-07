@@ -1,29 +1,39 @@
+import * as moment from 'moment';
+
 export class Conversation {
 	id: string;
-	driverId: string;
-	driverFullName: string;
-	driverPhoto: string;
-	message: string;
-	dateTime: string;
+	firstParticipantId: string;
+	firstParticipantFirstName: string;
+	firstParticipantPhoto: string;
+	secondParticipantId: string;
+	secondParticipantFirstName: string;
+	secondParticipantLastName: string;
+	secondParticipantPhoto: string;
+	lastMessage: string;
+	lastMessageDate: moment.Moment;
 
 	constructor(data: any) {
 		this.id = data.id;
-		this.driverId = data.senderId;
-		this.driverFullName = data.senderFullName;
-		this.driverPhoto = data.senderPhoto;
-		this.message = data.message;
-		this.dateTime = `${data.date} ${data.time}`;
+		this.firstParticipantId = data.firstParticipantId;
+		this.firstParticipantFirstName = data.firstParticipantFirstName;
+		this.firstParticipantPhoto = data.firstParticipantPhoto;
+		this.secondParticipantId = data.secondParticipantId;
+		this.secondParticipantFirstName = data.secondParticipantFirstName;
+		this.secondParticipantLastName = data.secondParticipantLastName;
+		this.secondParticipantPhoto = data.secondParticipantPhoto;
+		this.lastMessage = data.lastMessage;
+		this.lastMessageDate = moment(data.lastMessageDate);
 	}
 	
 	static get empty(): Conversation {
 		return new Conversation({});
 	}
 
-	notEqualTo(conversation: Conversation): boolean {
-		return this.id !== conversation.id;
+	equals(conversation: Conversation): boolean {
+		return this.id == conversation.id;
 	}
 
 	get isEmpty(): boolean {
-		return !this.driverId;
+		return !this.id;
 	}
 }
