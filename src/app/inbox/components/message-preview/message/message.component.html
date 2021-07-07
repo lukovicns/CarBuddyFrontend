@@ -1,0 +1,14 @@
+<div class="row" [class.justify-content-right]="isRecipient">
+    <div *ngIf="isRecipient"
+        class="col-1">
+        <img src="assets/images/avatar.png"
+            [alt]="message.recipientFullName" />
+    </div>
+    <div class="message"
+        [ngClass]="isRecipient ? 'col-11 recipient': 'col-12 author'">
+        <span>{{ message.message }}</span>
+    </div>
+    <div class="col-12 datetime">
+        {{ message.date }}
+    </div>
+</div>

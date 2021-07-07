@@ -12,12 +12,14 @@ import { ProgressBarModule } from '@components/progress-bar/progress-bar.module'
 import { TextareaModule } from '@components/textarea/textarea.module';
 import { SubmitIconButtonModule } from '@components/submit-icon-button/submit-icon-button.module';
 import { InboxRoutingModule } from '@modules/inbox-routing.module';
+import { MessageComponent } from '@components/message-preview/message/message.component';
 
 @NgModule({
 	declarations: [
 		ConversationsComponent,
 		InboxComponent,
 		MessagePreviewComponent,
+  MessageComponent,
 	],
 	imports: [
 		CardModule,

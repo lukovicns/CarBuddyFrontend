@@ -1,21 +1,9 @@
 <ng-container *ngIf="conversations$ | async">
 	<ng-container *ngIf="messages$ | async as messages; else loading">
 		<cb-card>
-			<div *ngFor="let message of messages"
-				class="row"
-				content>
-				<div *ngIf="message.isRecipient(currentUserId)"
-					class="col-1">
-					<img src="assets/images/avatar.png"
-						[alt]="message.recipientFullName" />
-				</div>
-				<div [ngClass]="message.isRecipient(currentUserId) ? 'col-7': 'col-7 offset-5 sent-message'">
-					{{ message.message }}
-				</div>
-				<div class="col-12 datetime">
-					{{ message.date }}
-				</div>
-			</div>
+			<ng-container *ngFor="let message of messages">
+				<cb-message [message]="message"></cb-message>
+			</ng-container>
 
 			<form [formGroup]="form"
 				(ngSubmit)="send()"

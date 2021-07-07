@@ -1,6 +1,7 @@
 <mat-form-field [formGroup]="form">
 	<mat-label>{{ label }}</mat-label>
 	<textarea matInput
+		#textarea
 		[formControlName]="formControlName"
 		[placeholder]="placeholder"></textarea>
 </mat-form-field>

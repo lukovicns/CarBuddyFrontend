@@ -1,3 +1,5 @@
 {
-	"eslint.format.enable": true
+	"eslint.format.enable": true,
+	"html.format.endWithNewline": true,
+	"html.format.wrapAttributes": "force"
 }

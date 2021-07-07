@@ -3,7 +3,10 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	Input,
-	OnInit, 
+	OnInit,
+	ViewChild,
+	ElementRef,
+	AfterViewInit, 
 } from '@angular/core';
 
 import { getFormControlName } from '@shared/functions';
@@ -14,15 +17,25 @@ import { getFormControlName } from '@shared/functions';
 	styleUrls: ['./textarea.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TextareaComponent implements OnInit {
+export class TextareaComponent implements OnInit, AfterViewInit {
 	@Input() form: FormGroup;
 	@Input() control: AbstractControl;
 	@Input() label: string;
 	@Input() placeholder: string;
 
+	@ViewChild('textarea') textarea: ElementRef;
+
 	formControlName: string;
 
 	ngOnInit(): void {
 		this.formControlName = getFormControlName(this.control);
+	}
+
+	ngAfterViewInit(): void {
+		this.control.valueChanges
+			.subscribe(() => {
+				var scrollHeight = this.textarea.nativeElement.scrollHeight;
+				this.textarea.nativeElement.style.height = `${scrollHeight}px`;
+			});
 	}
 }
