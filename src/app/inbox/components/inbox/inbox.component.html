@@ -3,19 +3,13 @@
 		<ng-container *ngIf="conversations.length; else emptyInbox">
 			<div class="col-6">
 				<cb-conversations [conversations]="conversations"
-					[selectedConversation]="selectedConversation"
+					[selectedConversation]="selectedConversation$ | async"
 					(onSelect)="selectConversation($event)">
 				</cb-conversations>
 			</div>
 			<div class="col-6">
-				<ng-container *ngIf="selectedConversation">
-					<cb-message-preview *ngIf="messages$ | async as messages; else loadingMessages"
-						[messages]="messages">
-					</cb-message-preview>
-
-					<ng-template #loadingMessages>
-						<cb-loader class="center"></cb-loader>
-					</ng-template>
+				<ng-container *ngIf="selectedConversation$ | async as selectedConversation">
+					<cb-message-preview></cb-message-preview>
 				</ng-container>
 			</div>
 		</ng-container>

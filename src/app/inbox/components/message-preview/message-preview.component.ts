@@ -1,15 +1,15 @@
-import {
-	Component,
-	ChangeDetectionStrategy,
-	Input,
-	OnInit,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
 import { AuthorizationService } from '@services/authorization.service';
-import { ChatService } from '@services/chat.service';
+import { ConversationStoreService } from '@services/conversation-store.service';
+import { MessageService } from '@services/message.service';
+import { MessageStoreService } from '@services/message-store.service';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -18,8 +18,7 @@ import { ChatService } from '@services/chat.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MessagePreviewComponent implements OnInit {
-	@Input() messages: ChatMessage[];
-
+	messages$: Observable<ChatMessage[] | null>;
 	form: FormGroup;
 	currentUserId: string;
 
@@ -27,15 +26,17 @@ export class MessagePreviewComponent implements OnInit {
 
 	constructor(
 		private authorizationService: AuthorizationService,
-		private chatService: ChatService,
+		private conversationStore: ConversationStoreService,
+		private messageService: MessageService,
+		private messageStoreService: MessageStoreService,
 	) {
+		this.messages$ = this.messageStoreService.messages$;
 		this.currentUserId = this.authorizationService.currentUserId;
 	}
 
 	ngOnInit(): void {
-		this.form = new FormGroup({
-			message: new FormControl(''),
-		});
+		this.initializeForm();
+		this.getMessages();
 	}
 
 	send(): void {
@@ -54,5 +55,20 @@ export class MessagePreviewComponent implements OnInit {
 
 	get message(): AbstractControl {
 		return this.form.get('message')!;
+	}
+
+	private initializeForm(): void {
+		this.form = new FormGroup({
+			message: new FormControl(''),
+		});
+	}
+
+	private getMessages(): void {
+		this.conversationStore.selectedConversation$
+			.pipe(
+				switchMap((conversationId: string | null) => conversationId
+					? this.messageService.getMessages(conversationId)
+					: []),
+			).subscribe();
 	}
 }

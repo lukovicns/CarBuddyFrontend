@@ -23,8 +23,8 @@ export class MessageService {
 		private authorizationService: AuthorizationService,
 	) { }
 
-	getMessages(senderId: string): Observable<ChatMessage[]> {
-		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, senderId))
+	getMessages(conversationId: string): Observable<ChatMessage[]> {
+		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, conversationId))
 			.pipe(
 				map((response: ListResponse<ChatMessage>) => toInstances(ChatMessage, response.content)),
 				tap({

@@ -1,5 +1,5 @@
 <cb-card>
-	<div *ngFor="let message of messages"
+	<div *ngFor="let message of messages$ | async as messages"
 		class="row">
 		<div *ngIf="message.isRecipient(currentUserId)"
 			class="col-1">

@@ -18,7 +18,7 @@ import { ConversationStoreService } from '@services/conversation-store.service';
 export class InboxComponent implements OnInit {
 	conversations$: Observable<Conversation[] | null>;
 	messages$: Observable<ChatMessage[] | null>;
-	selectedConversation: string | null;
+	selectedConversation$: Observable<string | null>;
 
 	readonly constants: Constants = constants;
 
@@ -29,10 +29,7 @@ export class InboxComponent implements OnInit {
 	) {
 		this.conversations$ = this.conversationStore.conversations$;
 		this.messages$ = this.messageStore.messages$;
-		this.conversationStore.selectedConversation$
-			.subscribe((conversation: string | null) => {
-				this.selectedConversation = conversation;
-			});
+		this.selectedConversation$ = this.conversationStore.selectedConversation$;
 	}
 
 	ngOnInit(): void {
