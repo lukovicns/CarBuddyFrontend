@@ -7,6 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { messagesUrl, sendMessageUrl } from '@constants/urls';
 import { ListResponse } from '@models/list-response.model';
 import { ChatMessage } from '@models/chat-message.model';
+import { SentMessage } from '@models/sent-message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { MessageStoreService } from '@services/message-store.service';
@@ -37,18 +38,15 @@ export class MessageService {
 			);
 	}
 
-	sendMessage(recipientId: string, message: string): Observable<ChatMessage> {
-		return this.http.post<any>(sendMessageUrl, {
-			senderId: this.currentUserId,
-			recipientId,
-			message,
-		}).pipe(
-			map((message: ChatMessage) => new ChatMessage(message)),
-			tap({
-				next: (message: ChatMessage) => this.messageStore.appendMessage(message),
-				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
-			}),
-		);
+	sendMessage(message: SentMessage): Observable<ChatMessage> {
+		return this.http.post<ChatMessage>(sendMessageUrl, message)
+			.pipe(
+				map((message: ChatMessage) => new ChatMessage(message)),
+				tap({
+					next: (message: ChatMessage) => this.messageStore.appendMessage(message),
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				}),
+			);
 	}
 
 	private get currentUserId(): string {

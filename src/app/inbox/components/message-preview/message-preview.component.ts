@@ -1,13 +1,20 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	OnInit,
+	Input,
+	SimpleChanges,
+	OnChanges, 
+} from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
+import { SentMessage } from '@models/sent-message.model';
 import { AuthorizationService } from '@services/authorization.service';
-import { ConversationStoreService } from '@services/conversation-store.service';
+import { ChatService } from '@services/chat.service';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
 
@@ -17,7 +24,9 @@ import { MessageStoreService } from '@services/message-store.service';
 	styleUrls: ['./message-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagePreviewComponent implements OnInit {
+export class MessagePreviewComponent implements OnInit, OnChanges {
+	@Input() selectedConversation: string;
+
 	messages$: Observable<ChatMessage[] | null>;
 	form: FormGroup;
 	currentUserId: string;
@@ -26,7 +35,7 @@ export class MessagePreviewComponent implements OnInit {
 
 	constructor(
 		private authorizationService: AuthorizationService,
-		private conversationStore: ConversationStoreService,
+		private chatService: ChatService,
 		private messageService: MessageService,
 		private messageStoreService: MessageStoreService,
 	) {
@@ -35,40 +44,37 @@ export class MessagePreviewComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.initializeForm();
-		this.getMessages();
-	}
-
-	send(): void {
-		const message = this.message.value.trim();
-
-		if (!message) {
-			return;
-		}
-
-		// this.chatService.broadcastMessage({
-		// 	conversationId: this.conversationId,
-		// 	senderId: this.currentUserId,
-		// 	message,
-		// }).subscribe(() => this.form.reset());
-	}
-
-	get message(): AbstractControl {
-		return this.form.get('message')!;
-	}
-
-	private initializeForm(): void {
 		this.form = new FormGroup({
 			message: new FormControl(''),
 		});
 	}
 
-	private getMessages(): void {
-		this.conversationStore.selectedConversation$
-			.pipe(
-				switchMap((conversationId: string | null) => conversationId
-					? this.messageService.getMessages(conversationId)
-					: []),
-			).subscribe();
+	ngOnChanges(changes: SimpleChanges): void {
+		const selectedConversation = changes.selectedConversation?.currentValue;
+
+		if (selectedConversation) {
+			this.messageService.getMessages(selectedConversation)
+				.subscribe();
+		}
+	}
+
+	send(): void {
+		const message: string = this.messageControl.value.trim();
+
+		if (!message) {
+			return;
+		}
+
+		this.chatService.broadcastMessage(
+			new SentMessage({
+				authorId: this.currentUserId,
+				conversationId: this.selectedConversation,
+				message,
+			}),
+		).subscribe(() => this.form.reset());
+	}
+
+	get messageControl(): AbstractControl {
+		return this.form.get('message')!;
 	}
 }

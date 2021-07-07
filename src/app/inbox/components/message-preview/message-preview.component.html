@@ -1,36 +1,42 @@
-<cb-card>
-	<div *ngFor="let message of messages$ | async as messages"
-		class="row">
-		<div *ngIf="message.isRecipient(currentUserId)"
-			class="col-1">
-			<img src="assets/images/avatar.png"
-				[alt]="message.recipientFullName" />
+<ng-container *ngIf="messages$ | async as messages; else loading">
+	<cb-card>
+		<div *ngFor="let message of messages"
+			class="row">
+			<div *ngIf="message.isRecipient(currentUserId)"
+				class="col-1">
+				<img src="assets/images/avatar.png"
+					[alt]="message.recipientFullName" />
+			</div>
+			<div [ngClass]="message.isRecipient(currentUserId) ? 'col-7': 'col-7 offset-5 sent-message'">
+				{{ message.message }}
+			</div>
+			<div class="col-12 datetime">
+				{{ message.date }}
+			</div>
 		</div>
-		<div [ngClass]="message.isRecipient(currentUserId) ? 'col-7': 'col-7 offset-5 sent-message'">
-			{{ message.message }}
-		</div>
-		<div class="col-12 datetime">
-			{{ message.date }}
-		</div>
-	</div>
 
-	<form [formGroup]="form"
-		(ngSubmit)="send()"
-		autocomplete="false"
-		spellcheck="false">
-		<div class="row">
-			<div class="col-10">
-				<cb-textarea [form]="form"
-					[control]="message"
-					[label]="constants.typeMessageLabel"
-					[placeholder]="constants.typeMessagePlaceholder">
-				</cb-textarea>
+		<form [formGroup]="form"
+			(ngSubmit)="send()"
+			autocomplete="false"
+			spellcheck="false">
+			<div class="row">
+				<div class="col-10">
+					<cb-textarea [form]="form"
+						[control]="messageControl"
+						[label]="constants.typeMessageLabel"
+						[placeholder]="constants.typeMessagePlaceholder">
+					</cb-textarea>
+				</div>
+				<div class="col-1">
+					<cb-submit-icon-button icon="send"
+						[tooltip]="constants.send">
+					</cb-submit-icon-button>
+				</div>
 			</div>
-			<div class="col-1">
-				<cb-submit-icon-button icon="send"
-					[tooltip]="constants.send">
-				</cb-submit-icon-button>
-			</div>
-		</div>
-	</form>
-</cb-card>
+		</form>
+	</cb-card>
+</ng-container>
+
+<ng-template #loading>
+	<cb-loader class="center"></cb-loader>
+</ng-template>

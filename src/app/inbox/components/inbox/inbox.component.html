@@ -9,7 +9,7 @@
 			</div>
 			<div class="col-6">
 				<ng-container *ngIf="selectedConversation$ | async as selectedConversation">
-					<cb-message-preview></cb-message-preview>
+					<cb-message-preview [selectedConversation]="selectedConversation"></cb-message-preview>
 				</ng-container>
 			</div>
 		</ng-container>

@@ -38,6 +38,7 @@ export class InboxComponent implements OnInit {
 	}
 
 	selectConversation(conversationId: string): void {
+		this.messageStore.clearMessages();
 		this.conversationStore.selectConversation(conversationId);
 	}
 }

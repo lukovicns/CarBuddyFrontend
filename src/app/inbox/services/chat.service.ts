@@ -33,8 +33,8 @@ export class ChatService {
     	this.start();
     }
 
-    broadcastMessage(message: SentMessage): Observable<any> {
-    	return this.http.post(sendMessageUrl, message);
+    broadcastMessage(message: SentMessage): Observable<ChatMessage> {
+    	return this.http.post<ChatMessage>(sendMessageUrl, message);
     }
 
     async start() {
