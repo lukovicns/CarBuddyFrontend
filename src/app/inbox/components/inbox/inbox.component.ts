@@ -23,9 +23,9 @@ export class InboxComponent implements OnInit {
 	readonly constants: Constants = constants;
 
 	constructor(
+		public conversationStore: ConversationStoreService,
 		private messageStore: MessageStoreService,
 		private conversationService: ConversationService,
-		private conversationStore: ConversationStoreService,
 	) {
 		this.conversations$ = this.conversationStore.conversations$;
 		this.messages$ = this.messageStore.messages$;
@@ -35,10 +35,5 @@ export class InboxComponent implements OnInit {
 	ngOnInit(): void {
 		this.conversationService.getConversations()
 			.subscribe();
-	}
-
-	selectConversation(conversationId: string): void {
-		this.messageStore.clearMessages();
-		this.conversationStore.selectConversation(conversationId);
 	}
 }

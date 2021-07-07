@@ -2,7 +2,11 @@
 	type="submit"
 	color="primary"
 	[disabled]="isDisabled">
-	<mat-icon [matTooltip]="tooltip">
+	<mat-icon *ngIf="!isPending; else pending"
+		[matTooltip]="tooltip">
 		{{ icon }}
 	</mat-icon>
+	<ng-template #pending>
+		<cb-button-loader></cb-button-loader>
+	</ng-template>
 </button>

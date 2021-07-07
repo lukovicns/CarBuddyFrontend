@@ -12,8 +12,9 @@ export class ErrorHandlerService {
 	constructor(private notificationService: NotificationService) { }
 
 	handle(error: any): Observable<string> {
-		this.notificationService.showErrorNotification(error.error.detail);
-		return throwError(this.getErrorMessage(error));
+		const errorMessage = this.getErrorMessage(error);
+		this.notificationService.showErrorNotification(errorMessage);
+		return throwError(errorMessage);
 	}
 
 	private getErrorMessage(error: HttpErrorResponse): string {

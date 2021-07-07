@@ -24,7 +24,7 @@ export class ConversationService {
 	) { }
 
 	getConversations(): Observable<Conversation[]> {
-		return this.http.get<ListResponse<Conversation>>(conversationsUrl(this.currentUserId))
+		return this.http.get<ListResponse<Conversation>>(conversationsUrl(this.authorizationService.currentUserId))
 			.pipe(
 				map((response: ListResponse<Conversation>) => toInstances(Conversation, response.content)),
 				tap({
@@ -35,9 +35,5 @@ export class ConversationService {
 					},
 				}),
 			);
-	}
-
-	private get currentUserId(): string {
-		return this.authorizationService.currentUserId;
 	}
 }

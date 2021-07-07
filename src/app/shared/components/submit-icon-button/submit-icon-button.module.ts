@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ButtonLoaderModule } from '@components/button-loader/button-loader.module';
 import { SubmitIconButtonComponent } from '@components/submit-icon-button/submit-icon-button.component';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { SubmitIconButtonComponent } from '@components/submit-icon-button/submit
 		SubmitIconButtonComponent,
 	],
 	imports: [
+		ButtonLoaderModule,
 		CommonModule,
 		MatButtonModule,
 		MatIconModule,

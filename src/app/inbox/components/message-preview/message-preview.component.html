@@ -29,6 +29,8 @@
 				</div>
 				<div class="col-1">
 					<cb-submit-icon-button icon="send"
+						[isDisabled]="form.invalid"
+						[isPending]="(isPending$ | async)!"
 						[tooltip]="constants.send">
 					</cb-submit-icon-button>
 				</div>

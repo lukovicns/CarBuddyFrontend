@@ -10,4 +10,5 @@ export class SubmitIconButtonComponent {
 	@Input() icon: string;
 	@Input() tooltip: string;
 	@Input() isDisabled = false;
+	@Input() isPending = false;
 }

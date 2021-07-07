@@ -12,11 +12,11 @@ import { Observable } from 'rxjs';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
-import { SentMessage } from '@models/sent-message.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ChatService } from '@services/chat.service';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -28,6 +28,8 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 	@Input() selectedConversation: string;
 
 	messages$: Observable<ChatMessage[] | null>;
+	isPending$: Observable<boolean>;
+
 	form: FormGroup;
 	currentUserId: string;
 
@@ -37,9 +39,10 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 		private authorizationService: AuthorizationService,
 		private chatService: ChatService,
 		private messageService: MessageService,
-		private messageStoreService: MessageStoreService,
+		private messageStore: MessageStoreService,
 	) {
-		this.messages$ = this.messageStoreService.messages$;
+		this.messages$ = this.messageStore.messages$;
+		this.isPending$ = this.messageStore.isPending$;
 		this.currentUserId = this.authorizationService.currentUserId;
 	}
 
@@ -61,20 +64,25 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 	send(): void {
 		const message: string = this.messageControl.value.trim();
 
-		if (!message) {
-			return;
+		if (message) {
+			this.sendMessage(message);
 		}
-
-		this.chatService.broadcastMessage(
-			new SentMessage({
-				authorId: this.currentUserId,
-				conversationId: this.selectedConversation,
-				message,
-			}),
-		).subscribe(() => this.form.reset());
 	}
 
 	get messageControl(): AbstractControl {
 		return this.form.get('message')!;
+	}
+
+	private sendMessage(message: string): void {
+		this.messageStore.setPending(true);
+		this.chatService.broadcastMessage(
+			this.currentUserId,
+			this.selectedConversation,
+			message,
+		).pipe(
+			tap({
+				complete: () => this.messageStore.setPending(false),
+			}),
+		).subscribe(() => this.form.reset());
 	}
 }

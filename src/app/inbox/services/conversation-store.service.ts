@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Conversation } from '@models/conversation.model';
+import { MessageStoreService } from '@services/message-store.service';
 import { ConversationState } from '@states/conversation.state';
 import { Store } from '@store/store';
 
@@ -11,7 +12,7 @@ export class ConversationStoreService extends Store<ConversationState> {
 	conversations$ = this.select((state: ConversationState) => state.conversations);
 	selectedConversation$ = this.select((state: ConversationState) => state.selectedConversation);
 
-	constructor() {
+	constructor(private messageStore: MessageStoreService) {
 		super({
 			conversations: null,
 			selectedConversation: null,
@@ -22,7 +23,10 @@ export class ConversationStoreService extends Store<ConversationState> {
 		this.setState({ conversations });
 	}
 
-	selectConversation(selectedConversation: string): void {
-		this.setState({ selectedConversation });
+	selectConversation(conversation: string): void {
+		if (conversation !== this.state.selectedConversation) {
+			this.messageStore.clearMessages();
+			this.setState({ selectedConversation: conversation });
+		}
 	}
 }

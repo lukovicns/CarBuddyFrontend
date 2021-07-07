@@ -4,7 +4,7 @@
 			<div class="col-6">
 				<cb-conversations [conversations]="conversations"
 					[selectedConversation]="selectedConversation$ | async"
-					(onSelect)="selectConversation($event)">
+					(onSelect)="conversationStore.selectConversation($event)">
 				</cb-conversations>
 			</div>
 			<div class="col-6">

@@ -4,13 +4,17 @@ import { ChatMessage } from '@models/chat-message.model';
 import { MessageState } from '@states/message.state';
 import { Store } from '@store/store';
 
-const initialState: MessageState = { messages: null };
+const initialState: MessageState = {
+	messages: null,
+	isPending: false,
+};
 
 @Injectable({
 	providedIn: 'root',
 })
 export class MessageStoreService extends Store<MessageState> {
 	messages$ = this.select((state: MessageState) => state.messages);
+	isPending$ = this.select((state: MessageState) => state.isPending);
 
 	constructor() {
 		super(initialState);
@@ -26,6 +30,10 @@ export class MessageStoreService extends Store<MessageState> {
 		this.setState({
 			messages,
 		});
+	}
+
+	setPending(isPending: boolean): void {
+		this.setState({ isPending });
 	}
 
 	clearMessages(): void {
