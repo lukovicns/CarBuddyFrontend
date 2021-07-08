@@ -7,16 +7,16 @@
 				<div class="row">
 					<div class="col-12">
 						<cb-places-autocomplete [form]="form"
+							[control]="this.form.get('fromCity')!"
 							[label]="constants.fromCity"
-							[placeholder]="constants.fromCityPlaceholder"
-							name="fromCity">
+							[placeholder]="constants.fromCityPlaceholder">
 						</cb-places-autocomplete>
 					</div>
 					<div class="col-12">
 						<cb-places-autocomplete [form]="form"
+							[control]="this.form.get('toCity')!"
 							[label]="constants.toCity"
-							[placeholder]="constants.toCityPlaceholder"
-							name="toCity">
+							[placeholder]="constants.toCityPlaceholder">
 						</cb-places-autocomplete>
 					</div>
 					<div class="col-12">

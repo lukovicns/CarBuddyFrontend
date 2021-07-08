@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
+import { AgmCoreModule } from '@agm/core';
+
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
@@ -23,6 +25,10 @@ import { SharedModule } from '@shared/shared.module';
 		InboxModule,
 		NavigationModule,
 		SharedModule,
+		AgmCoreModule.forRoot({
+			apiKey: 'AIzaSyD2VUNllokT2MYaY6COgPAPTrw1Zj1-Irg',
+			libraries: ['places'],
+		}),
 	],
 	providers: [
 		{

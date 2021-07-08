@@ -2,9 +2,8 @@
 	<mat-label>{{ label }}</mat-label>
 	<input type="text"
 		matInput
-		ngx-google-places-autocomplete
-		[options]="options"
-		[formControlName]="name"
+		#searchInput
+		[formControlName]="formControlName"
 		[placeholder]="placeholder" />
 	<mat-error *ngIf="control.errors?.required">
 		{{ errorMessages.required(label) }}

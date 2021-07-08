@@ -28,7 +28,5 @@ export class TripStoreService extends Store<TripState> {
 		this.setState({
 			selectedTrip: this.state.selectedTrip!.withNumberOfAvailableSeats(numberOfSeats),
 		});
-
-		console.log(this.state.selectedTrip);
 	}
 }

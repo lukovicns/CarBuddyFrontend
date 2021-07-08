@@ -5,8 +5,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
-
 import { PlacesAutocompleteComponent } from '@components/places-autocomplete/places-autocomplete.component';
 
 @NgModule({
@@ -18,7 +16,6 @@ import { PlacesAutocompleteComponent } from '@components/places-autocomplete/pla
 		MatAutocompleteModule,
 		MatFormFieldModule,
 		MatInputModule,
-		GooglePlaceModule,
 		ReactiveFormsModule,
 	],
 	exports: [
