@@ -1,17 +1,35 @@
-<form [formGroup]="form"
-	(ngSubmit)="makeReservation()">
-	<cb-icon-button icon="add"
-		[isDisabled]="trip.numberOfAvailableSeats <= numberOfSeatsControl.value"
-		(onClick)="increase()">
-	</cb-icon-button>
-	<cb-icon-button icon="remove"
-		[isDisabled]="numberOfSeatsControl.value <= 1"
-		(onClick)="decrease()">
-	</cb-icon-button>
-	<cb-submit-button [label]="constants.makeReservation"
-		[isDisabled]="form.invalid"
-		[isPending]="false">
-	</cb-submit-button>
-</form>
+<div class="row">
+	<div class="col-12">
+		<cb-icon-button icon="remove"
+			[isDisabled]="numberOfSeats.value <= 0"
+			(onClick)="numberOfSeats.setValue(numberOfSeats.value - 1)">
+		</cb-icon-button>
 
-{{ numberOfSeatsControl.value }}
+		<cb-icon-button icon="add"
+			[isDisabled]="trip.numberOfAvailableSeats <= numberOfSeats.value"
+			(onClick)="numberOfSeats.setValue(numberOfSeats.value + 1)">
+		</cb-icon-button>
+
+		<span *ngIf="numberOfSeats.value">
+			Seats: {{ numberOfSeats.value }}
+		</span>
+	</div>
+
+	<div class="col-2">
+		<button mat-flat-button
+			class="chat-button">
+			<mat-icon>chat</mat-icon>
+			{{ constants.contactDriver(trip.driverFirstName) }}
+		</button>
+	</div>
+
+	<div class="col-10">
+		<form [formGroup]="form"
+			(ngSubmit)="makeReservation()">
+			<cb-submit-button [label]="constants.makeReservation"
+				[isDisabled]="form.invalid"
+				[isPending]="(isPending$ | async)!">
+			</cb-submit-button>
+		</form>
+	</div>
+</div>

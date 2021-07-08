@@ -21,3 +21,9 @@ export function updateAtIndex<T extends { id: string }>(items: T[], item: T): T[
 		...items.slice(index + 1),
 	];
 }
+
+export function truncate(source: string, length = 15): string {
+	return source.length > length
+		? `${source.slice(0, length - 1)}...`
+		: source;
+}

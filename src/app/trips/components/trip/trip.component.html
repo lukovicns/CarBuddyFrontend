@@ -4,16 +4,7 @@
 			<cb-card imageUrl="assets/images/maps.jpg"
 				imageAlt="Maps">
 				<cb-trip-details [trip]="trip">
-					<div class="row">
-						<div class="col-6">
-							<cb-icon-button icon="chat"
-								class="chat-icon">
-							</cb-icon-button>
-						</div>
-						<div class="col-6">
-							<cb-make-reservation [trip]="trip"></cb-make-reservation>
-						</div>
-					</div>
+					<cb-make-reservation [trip]="trip"></cb-make-reservation>
 				</cb-trip-details>
 			</cb-card>
 		</div>

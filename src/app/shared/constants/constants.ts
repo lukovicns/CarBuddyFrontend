@@ -1,3 +1,5 @@
+import { truncate } from '@shared/functions';
+
 export interface Constants {
 	search: string;
 	searchForTrips: string;
@@ -37,6 +39,8 @@ export interface Constants {
 	emptyInbox: string;
 	loadingInbox: string;
 	makeReservation: string;
+
+	contactDriver: (name: string) => string;
 }
 
 export const constants: Constants = {
@@ -78,4 +82,6 @@ export const constants: Constants = {
 	emptyInbox: 'Your inbox is currently empty.',
 	loadingInbox: 'Loading inbox...',
 	makeReservation: 'Make reservation',
+
+	contactDriver: (name: string) => `Contact ${truncate(name)}`,
 };

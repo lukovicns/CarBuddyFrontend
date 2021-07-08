@@ -4,9 +4,9 @@ import {
 	OnInit,
 	ChangeDetectionStrategy,
 	Input,
-	Output,
-	EventEmitter, 
 } from '@angular/core';
+
+import { Observable } from 'rxjs';
 
 import { numberControl } from '@constants/form-controls';
 import { constants, Constants } from '@constants/constants';
@@ -22,8 +22,8 @@ import { TripStoreService } from '@services/trip-store.service';
 })
 export class MakeReservationComponent implements OnInit {
 	@Input() trip: Trip;
-	@Output() onUpdateNumberOfSeats = new EventEmitter<number>();
 
+	isPending$: Observable<boolean>;
 	form: FormGroup;
 
 	readonly constants: Constants = constants;
@@ -31,32 +31,24 @@ export class MakeReservationComponent implements OnInit {
 	constructor(
 		public tripStore: TripStoreService,
 		private tripService: TripService,
-	) { }
+	) {
+		this.isPending$ = this.tripStore.isReservationPending$;
+	}
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
-			numberOfSeats: numberControl(1),
+			numberOfSeats: numberControl(0),
 		});
 	}
 
 	makeReservation(): void {
 		this.tripService.makeReservation(
 			this.trip.id,
-			this.numberOfSeatsControl.value,
-		);
+			this.numberOfSeats.value,
+		).subscribe(() => this.form.reset());
 	}
 
-	increase(): void {
-		this.numberOfSeatsControl.setValue(this.numberOfSeatsControl.value + 1);
-		this.tripStore.updateNumberOfAvailableSeats(this.trip.numberOfAvailableSeats - 1);
-	}
-
-	decrease(): void {
-		this.numberOfSeatsControl.setValue(this.numberOfSeatsControl.value - 1);
-		this.tripStore.updateNumberOfAvailableSeats(this.trip.numberOfAvailableSeats + 1);
-	}
-
-	get numberOfSeatsControl(): AbstractControl {
+	get numberOfSeats(): AbstractControl {
 		return this.form.get('numberOfSeats')!;
 	}
 }

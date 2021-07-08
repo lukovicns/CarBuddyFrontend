@@ -19,9 +19,4 @@ export class Trip extends TripSummary {
 	static get empty(): Trip {
 		return new Trip({});
 	}
-
-	withNumberOfAvailableSeats(numberOfAvailableSeats: number): Trip {
-		this.numberOfAvailableSeats = numberOfAvailableSeats;
-		return this;
-	}
 }

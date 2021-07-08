@@ -2,13 +2,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import {
-	catchError,
-	map,
-	switchMap,
-	tap, 
-} from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 import { makeReservationUrl, searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
@@ -19,6 +14,7 @@ import { Pagination } from '@models/pagination.model';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { AuthorizationService } from '@services/authorization.service';
 import { TripStoreService } from '@services/trip-store.service';
+import { toInstances } from '@shared/functions';
 
 @Injectable({
 	providedIn: 'root',
@@ -44,12 +40,14 @@ export class TripService {
 			searchTripsUrl(pagination.pageIndex, pagination.pageSize),
 			criteria,
 		).pipe(
-			switchMap((response: ListResponse<TripSummary>) => {
-				this.pagination.next(response.pagination);
-				this.trips.next(response.content);
-				return of(response.content);
+			tap({
+				next: (response: ListResponse<TripSummary>) => {
+					this.pagination.next(response.pagination);
+					this.trips.next(response.content);
+				},
+				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 			}),
-			catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
+			map((response: ListResponse<TripSummary>) => toInstances(TripSummary, response.content)),
 		).subscribe();
 	}
 
@@ -67,12 +65,17 @@ export class TripService {
 			);
 	}
 
-	makeReservation(tripId: string, numberOfPassengers: number): void {
-		this.http.put<void>(makeReservationUrl(tripId), {
+	makeReservation(tripId: string, numberOfPassengers: number): Observable<any> {
+		this.tripStore.setReservationPending(true);
+
+		return this.http.put(makeReservationUrl(tripId), {
 			userId: this.authorizationService.currentUserId,
 			numberOfPassengers,
 		}).pipe(
-			catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
-		).subscribe();
+			tap({
+				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				complete: () => this.tripStore.setReservationPending(false),
+			}),
+		);
 	}
 }
