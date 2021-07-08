@@ -14,6 +14,7 @@ import { TextareaModule } from '@components/textarea/textarea.module';
 import { SubmitIconButtonModule } from '@components/submit-icon-button/submit-icon-button.module';
 import { InboxRoutingModule } from '@modules/inbox-routing.module';
 import { MessageComponent } from '@components/message-preview/message/message.component';
+import { SendMessageComponent } from '@components/message-preview/send-message/send-message.component';
 
 @NgModule({
 	declarations: [
@@ -21,6 +22,7 @@ import { MessageComponent } from '@components/message-preview/message/message.co
 		InboxComponent,
 		MessagePreviewComponent,
 		MessageComponent,
+		SendMessageComponent,
 	],
 	imports: [
 		AvatarModule,

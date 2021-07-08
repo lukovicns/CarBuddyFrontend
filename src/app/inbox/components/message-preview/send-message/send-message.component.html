@@ -1,0 +1,22 @@
+<form [formGroup]="form"
+	(ngSubmit)="send()"
+	footer
+	autocomplete="false"
+	spellcheck="false">
+	<div class="row">
+		<div class="col-11">
+			<cb-textarea [form]="form"
+				[control]="control"
+				[label]="constants.typeMessageLabel"
+				[placeholder]="constants.typeMessagePlaceholder">
+			</cb-textarea>
+		</div>
+		<div class="col-1">
+			<cb-submit-icon-button icon="send"
+				[isDisabled]="form.invalid"
+				[isPending]="(isPending$ | async)!"
+				[tooltip]="constants.send">
+			</cb-submit-icon-button>
+		</div>
+	</div>
+</form>

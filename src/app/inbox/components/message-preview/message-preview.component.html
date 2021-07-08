@@ -5,28 +5,7 @@
 				<cb-message [message]="message"></cb-message>
 			</ng-container>
 
-			<form [formGroup]="form"
-				(ngSubmit)="send()"
-				footer
-				autocomplete="false"
-				spellcheck="false">
-				<div class="row">
-					<div class="col-11">
-						<cb-textarea [form]="form"
-							[control]="messageControl"
-							[label]="constants.typeMessageLabel"
-							[placeholder]="constants.typeMessagePlaceholder">
-						</cb-textarea>
-					</div>
-					<div class="col-1">
-						<cb-submit-icon-button icon="send"
-							[isDisabled]="form.invalid"
-							[isPending]="(isPending$ | async)!"
-							[tooltip]="constants.send">
-						</cb-submit-icon-button>
-					</div>
-				</div>
-			</form>
+			<cb-send-message [conversationId]="selectedConversation"></cb-send-message>
 		</cb-card>
 	</ng-container>
 
@@ -34,3 +13,6 @@
 		<cb-loader class="center"></cb-loader>
 	</ng-template>
 </ng-container>
+<!-- <div class="col-12 date">
+	{{ message.date }}
+</div> -->

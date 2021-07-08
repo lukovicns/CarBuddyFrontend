@@ -3,6 +3,7 @@ import { Injectable  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import * as signalR from '@microsoft/signalr';
 
 import { sendMessageUrl, chatUrl } from '@constants/urls';
@@ -45,11 +46,17 @@ export class ChatService {
 		conversationId: string,
 		message: string,
 	): Observable<ChatMessage> {
+		this.messageStore.setPending(true);
+
     	return this.http.post<ChatMessage>(sendMessageUrl, {
     		authorId,
     		conversationId,
     		message,
-    	});
+    	}).pipe(
+			tap({
+				complete: () => this.messageStore.setPending(false),
+			}),
+		);
 	}
 
 	async start() {
