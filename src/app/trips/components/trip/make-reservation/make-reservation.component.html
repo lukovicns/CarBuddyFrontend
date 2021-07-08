@@ -1,0 +1,17 @@
+<form [formGroup]="form"
+	(ngSubmit)="makeReservation()">
+	<cb-icon-button icon="add"
+		[isDisabled]="trip.numberOfAvailableSeats <= numberOfSeatsControl.value"
+		(onClick)="increase()">
+	</cb-icon-button>
+	<cb-icon-button icon="remove"
+		[isDisabled]="numberOfSeatsControl.value <= 1"
+		(onClick)="decrease()">
+	</cb-icon-button>
+	<cb-submit-button [label]="constants.makeReservation"
+		[isDisabled]="form.invalid"
+		[isPending]="false">
+	</cb-submit-button>
+</form>
+
+{{ numberOfSeatsControl.value }}

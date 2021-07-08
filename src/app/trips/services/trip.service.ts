@@ -3,7 +3,12 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import {
+	catchError,
+	map,
+	switchMap,
+	tap, 
+} from 'rxjs/operators';
 
 import { makeReservationUrl, searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
@@ -13,6 +18,7 @@ import { ListResponse } from '@models/list-response.model';
 import { Pagination } from '@models/pagination.model';
 import { ErrorHandlerService } from '@services/error-handler.service';
 import { AuthorizationService } from '@services/authorization.service';
+import { TripStoreService } from '@services/trip-store.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -29,6 +35,7 @@ export class TripService {
 		private router: Router,
 		private errorHandler: ErrorHandlerService,
 		private authorizationService: AuthorizationService,
+		private tripStore: TripStoreService,
 	) { }
 
 	loadTrips(criteria: SearchCriteria, pagination: Pagination): void {
@@ -49,10 +56,13 @@ export class TripService {
 	getTrip(id: string): Observable<Trip> {
 		return this.http.get<Trip>(tripUrl(id))
 			.pipe(
-				catchError((error: HttpErrorResponse) => {
-					this.errorHandler.handle(error);
-					this.router.navigate(['/trips']);
-					return of(Trip.empty);
+				map((trip: Trip) => new Trip(trip)),
+				tap({
+					next: (trip: Trip) => this.tripStore.setTrip(trip),
+					error: (error: HttpErrorResponse) => {
+						this.errorHandler.handle(error);
+						this.router.navigate(['/trips']);
+					},
 				}),
 			);
 	}

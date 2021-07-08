@@ -36,6 +36,7 @@ export interface Constants {
 	send: string;
 	emptyInbox: string;
 	loadingInbox: string;
+	makeReservation: string;
 }
 
 export const constants: Constants = {
@@ -76,4 +77,5 @@ export const constants: Constants = {
 	send: 'Send',
 	emptyInbox: 'Your inbox is currently empty.',
 	loadingInbox: 'Loading inbox...',
+	makeReservation: 'Make reservation',
 };

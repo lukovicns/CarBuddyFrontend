@@ -20,6 +20,7 @@ import { IconButtonModule } from '@components/icon-button/icon-button.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
 import { DriverInfoComponent } from './components/driver-info/driver-info.component';
+import { MakeReservationComponent } from './components/trip/make-reservation/make-reservation.component';
 
 @NgModule({
 	declarations: [
@@ -28,6 +29,7 @@ import { DriverInfoComponent } from './components/driver-info/driver-info.compon
 		TripComponent,
 		TripDetailsComponent,
 		DriverInfoComponent,
+		MakeReservationComponent,
 	],
 	imports: [
 		CardModule,

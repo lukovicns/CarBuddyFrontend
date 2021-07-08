@@ -1,12 +1,17 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	OnInit,
+	OnDestroy, 
+} from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { numberControl } from '@constants/form-controls';
 import { Trip } from '@models/trip.model';
 import { TripService } from '@services/trip.service';
+import { TripStoreService } from '@services/trip-store.service';
 
 @Component({
 	selector: 'cb-trip',
@@ -14,28 +19,24 @@ import { TripService } from '@services/trip.service';
 	styleUrls: ['./trip.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TripComponent implements OnInit {
-	trip$: Observable<Trip>;
+export class TripComponent implements OnInit, OnDestroy {
+	trip$: Observable<Trip | null>;
 	form: FormGroup;
 
 	constructor(
 		private route: ActivatedRoute,
 		private tripService: TripService,
-	) { }
-
-	ngOnInit(): void {
-		this.trip$ = this.tripService.getTrip(
-			this.route.snapshot.paramMap.get('id')!,
-		);
-		this.form = new FormGroup({
-			numberOfSeats: numberControl,
-		});
+		private tripStore: TripStoreService,
+	) {
+		this.trip$ = this.tripStore.selectedTrip$;
 	}
 
-	makeReservation(tripId: string): void {
-		this.tripService.makeReservation(
-			tripId,
-			this.form.get('numberOfSeats')!.value,
-		);
+	ngOnInit(): void {
+		this.tripService.getTrip(this.route.snapshot.paramMap.get('id')!)
+			.subscribe();
+	}
+
+	ngOnDestroy(): void {
+		this.tripStore.clearTrip();
 	}
 }

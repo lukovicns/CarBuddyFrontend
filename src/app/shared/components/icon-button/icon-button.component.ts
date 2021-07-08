@@ -15,6 +15,7 @@ import {
 export class IconButtonComponent {
 	@Input() icon: string;
 	@Input() tooltip: string;
+	@Input() isDisabled = false;
 	@Input() type = 'button';
 
 	@Output() onClick = new EventEmitter<void>();

@@ -1,6 +1,8 @@
 <button mat-icon-button
 	color="primary"
-	[type]="type">
+	[disabled]="isDisabled"
+	[type]="type"
+	(click)="onClick.emit()">
 	<mat-icon [matTooltip]="tooltip">
 		{{ icon }}
 	</mat-icon>

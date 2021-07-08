@@ -11,19 +11,7 @@
 							</cb-icon-button>
 						</div>
 						<div class="col-6">
-							<form [formGroup]="form"
-								(ngSubmit)="makeReservation(trip.id)">
-								<cb-form-field [form]="form"
-									[label]="'Number of seats'"
-									[placeholder]="'Select seats'"
-									type="number"
-									name="numberOfSeats">
-								</cb-form-field>
-								<cb-icon-button icon="person_add"
-									type="submit"
-									class="add-icon">
-								</cb-icon-button>
-							</form>
+							<cb-make-reservation [trip]="trip"></cb-make-reservation>
 						</div>
 					</div>
 				</cb-trip-details>

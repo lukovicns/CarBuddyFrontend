@@ -13,7 +13,7 @@ export const passwordControl = new FormControl('', [
 	Validators.pattern(constants.passwordPattern),
 ]);
 
-export const numberControl = new FormControl('', [
+export const numberControl = (initialValue: number) => new FormControl(initialValue, [
 	Validators.required,
 	Validators.min(1),
 	Validators.max(8),
