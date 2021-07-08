@@ -32,12 +32,48 @@ export class ChatMessage {
 	}
 
 	showDate(previousMessage: ChatMessage | null): boolean {
-		return previousMessage
-			? previousMessage.authorId !== this.authorId
-			: false;
+		if (!previousMessage) {
+			return false;
+		}
+
+		return !this.isRecipientFor(previousMessage)
+			&& this.isMoreThanOneHour(previousMessage.date);
 	}
 
-	get daysAgo(): string {
-		return this.date.fromNow();
+	get dateTime(): string {
+		if (this.isToday) {
+			return this.date.format('HH:mm');
+		}
+
+		if (this.isCurrentWeek) {
+			return this.date.format('dddd at HH:mm');
+		}
+
+		if (!this.isCurrentMonthAndYear) {
+			return this.date.fromNow();
+		}
+
+		return this.date.format('dddd');
+	}
+
+	private isCurrentMonthAndYear(): boolean {
+		return this.date.month === moment().month
+			&& this.date.month === moment().year;
+	}
+
+	private get isToday(): boolean {
+		return this.date.isSame(new Date(), 'day');
+	}
+
+	private get isCurrentWeek(): boolean {
+		return this.date.week === moment().week;
+	}
+
+	private isRecipientFor(message: ChatMessage): boolean {
+		return message.authorId === this.authorId;
+	}
+
+	private isMoreThanOneHour(date: moment.Moment): boolean {
+		return date.diff(this.date, 'hours') > 1;
 	}
 }

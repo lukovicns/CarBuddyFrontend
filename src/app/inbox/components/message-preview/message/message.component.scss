@@ -1,6 +1,7 @@
 @import "colors";
 
 .message {
+	display: inline-block;
 	width: fit-content;
 	word-wrap: break-word;
 	max-width: 300px;
