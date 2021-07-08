@@ -1,10 +1,18 @@
 <div class="row">
-	<div class="col-12">
+	<div *ngIf="message.showDate(previousMessage)"
+		class="col-12">
+		<span class="date center">
+			{{ message.daysAgo }}
+		</span>
+	</div>
+
+	<div class="col-12 mb-10">
 		<cb-avatar *ngIf="isRecipient"></cb-avatar>
 
 		<span class="message"
 			[ngClass]="isRecipient ? 'recipient' : 'author'">
 			{{ message.message }}
 		</span>
+
 	</div>
 </div>

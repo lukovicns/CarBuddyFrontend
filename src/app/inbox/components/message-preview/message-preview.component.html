@@ -1,8 +1,10 @@
 <ng-container *ngIf="conversations$ | async">
 	<ng-container *ngIf="messages$ | async as messages; else loading">
 		<cb-card #scrollableCard>
-			<ng-container *ngFor="let message of messages">
-				<cb-message [message]="message"></cb-message>
+			<ng-container *ngFor="let message of messages; let i = index;">
+				<cb-message [message]="message"
+					[previousMessage]="messages[i - 1]">
+				</cb-message>
 			</ng-container>
 
 			<cb-send-message [conversationId]="selectedConversation"></cb-send-message>
@@ -13,6 +15,3 @@
 		<cb-loader class="center"></cb-loader>
 	</ng-template>
 </ng-container>
-<!-- <div class="col-12 date">
-	{{ message.date }}
-</div> -->

@@ -30,4 +30,14 @@ export class ChatMessage {
 	isRecipient(participantId: string): boolean {
 		return this.recipientId === participantId;
 	}
+
+	showDate(previousMessage: ChatMessage | null): boolean {
+		return previousMessage
+			? previousMessage.authorId !== this.authorId
+			: false;
+	}
+
+	get daysAgo(): string {
+		return this.date.fromNow();
+	}
 }

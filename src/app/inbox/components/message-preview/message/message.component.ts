@@ -11,6 +11,7 @@ import { AuthorizationService } from '@services/authorization.service';
 })
 export class MessageComponent {
 	@Input() message: ChatMessage;
+	@Input() previousMessage: ChatMessage | null;
 
 	currentUserId: string;
 	
