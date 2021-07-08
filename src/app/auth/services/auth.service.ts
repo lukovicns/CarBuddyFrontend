@@ -1,12 +1,19 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
-import { catchError, finalize, map } from 'rxjs/operators';
+import {
+	catchError,
+	finalize,
+	map,
+	tap, 
+} from 'rxjs/operators';
 
 import { Credentials } from '@classes/credentials.model';
 import { RegistrationData } from '@classes/registration-data.model';
 import { loginUrl, registerUrl } from '@constants/urls';
+import { AuthStoreService } from '@services/auth-store.service';
 import { ErrorHandlerService } from '@services/error-handler.service';
 
 @Injectable({
@@ -21,6 +28,8 @@ export class AuthService {
 
 	constructor(
 		private http: HttpClient,
+		private router: Router,
+		private authStore: AuthStoreService,
 		private errorHandler: ErrorHandlerService,
 	) { }
 
@@ -33,13 +42,26 @@ export class AuthService {
 			);
 	}
 
-	login(credentials: Credentials) {
+	login(credentials: Credentials): Observable<string> {
 		this.isLoginPending.next(true);
 		return this.http.post(loginUrl, credentials)
 			.pipe(
 				map((response: any) => response.token),
-				catchError((error: HttpErrorResponse) => this.errorHandler.handle(error)),
-				finalize(() => this.isLoginPending.next(false)),
+				tap({
+					next: (token: string) => {
+						localStorage.setItem('token', token);
+						this.authStore.setLoggedIn(true);
+						this.router.navigate(['/']);
+					},
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+					complete: () => this.isLoginPending.next(false),
+				}),
 			);
+	}
+
+	logout(): void {
+		this.authStore.setLoggedIn(false);
+		localStorage.removeItem('token');
+		this.router.navigate(['auth', 'login']);
 	}
 }

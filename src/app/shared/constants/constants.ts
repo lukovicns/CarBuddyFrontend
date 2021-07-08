@@ -39,6 +39,7 @@ export interface Constants {
 	emptyInbox: string;
 	loadingInbox: string;
 	makeReservation: string;
+	sessionExpired: string;
 
 	contactDriver: (name: string) => string;
 }
@@ -82,6 +83,7 @@ export const constants: Constants = {
 	emptyInbox: 'Your inbox is currently empty.',
 	loadingInbox: 'Loading inbox...',
 	makeReservation: 'Make reservation',
+	sessionExpired: 'Session has expired. Please login again.',
 
 	contactDriver: (name: string) => `Contact ${truncate(name)}`,
 };

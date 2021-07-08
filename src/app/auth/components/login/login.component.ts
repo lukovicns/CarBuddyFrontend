@@ -1,5 +1,4 @@
 import { AbstractControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import {
 	ChangeDetectionStrategy,
 	Component,
@@ -12,8 +11,6 @@ import { Observable } from 'rxjs';
 import { Constants, constants } from '@constants/constants';
 import { emailControl, passwordControl } from '@constants/form-controls';
 import { AuthService } from '@services/auth.service';
-import { TokenService } from '@services/token.service';
-import { AuthorizationService } from '@services/authorization.service';
 
 @Component({
 	selector: 'cb-login',
@@ -30,12 +27,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	readonly constants: Constants = constants;
 
-	constructor(
-		private router: Router, 
-		private authService: AuthService,
-		private authorizationService: AuthorizationService,
-		private tokenService: TokenService,
-	) {
+	constructor(private authService: AuthService) {
 		this.isPending$ = this.authService.isLoginPending$;
 	}
 
@@ -52,11 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	login(): void {
 		this.authService.login(this.form.value)
-			.subscribe((token: string) => {
-				this.tokenService.setToken(token);
-				this.authorizationService.setLoggedIn(true);
-				this.router.navigate(['/']);
-			});
+			.subscribe();
 	}
 
 	control(name: string): AbstractControl {

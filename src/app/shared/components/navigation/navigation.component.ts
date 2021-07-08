@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
-import { AuthorizationService } from '@services/authorization.service';
-import { TokenService } from '@services/token.service';
+import { AuthService } from '@services/auth.service';
+import { AuthStoreService } from '@services/auth-store.service';
 
 @Component({
 	selector: 'cb-navigation',
@@ -16,16 +15,13 @@ export class NavigationComponent {
 	isUserLoggedIn$: Observable<boolean>;
 
 	constructor(
-		private router: Router,
-		private authorizationService: AuthorizationService,
-		private tokenService: TokenService,
+		private authService: AuthService,
+		private authStore: AuthStoreService,
 	) {
-		this.isUserLoggedIn$ = this.authorizationService.isUserLoggedIn$;
+		this.isUserLoggedIn$ = this.authStore.isUserLoggedIn$;
 	}
 
 	logout(): void {
-		this.authorizationService.logout();
-		this.tokenService.removeToken();
-		this.router.navigate(['auth', 'login']);
+		this.authService.logout();
 	}
 }

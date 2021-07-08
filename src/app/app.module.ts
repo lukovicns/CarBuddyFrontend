@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
@@ -10,6 +10,7 @@ import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from '@app/app.component';
 import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
+import { AuthorizationInterceptor } from '@interceptors/authorization.interceptor';
 import { InboxModule } from '@modules/inbox/inbox.module';
 import { SharedModule } from '@shared/shared.module';
 
@@ -38,6 +39,11 @@ import { SharedModule } from '@shared/shared.module';
 		{
 			provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
 			useValue: { showDelay: 200 },
+		},
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthorizationInterceptor,
+			multi: true,
 		},
 	],
 	bootstrap: [AppComponent],
