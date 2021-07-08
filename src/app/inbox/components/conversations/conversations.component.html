@@ -1,12 +1,10 @@
 <ng-container *ngIf="conversations$ | async as conversations; else loading">
 	<ng-container *ngIf="conversations.length; else emptyInbox">
-		<cb-card>
-			<cb-selection-table [data]="(data$ | async)!"
-				[columns]="columns"
-				[selectedRow]="selectedConversation"
-				(onSelect)="conversationStore.selectConversation($event)">
-			</cb-selection-table>
-		</cb-card>
+		<cb-selection-table [data]="(data$ | async)!"
+			[columns]="columns"
+			[selectedRow]="selectedConversation"
+			(onSelect)="conversationStore.selectConversation($event)">
+		</cb-selection-table>
 	</ng-container>
 
 	<ng-template #emptyInbox>
