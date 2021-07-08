@@ -1,6 +1,6 @@
 <ng-container *ngIf="conversations$ | async">
 	<ng-container *ngIf="messages$ | async as messages; else loading">
-		<cb-card>
+		<cb-card #scrollableCard>
 			<ng-container *ngFor="let message of messages">
 				<cb-message [message]="message"></cb-message>
 			</ng-container>

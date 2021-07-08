@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InboxComponent } from '@components/inbox/inbox.component';
 import { MessagePreviewComponent } from '@components/message-preview/message-preview.component';
 import { ConversationsComponent } from '@components/conversations/conversations.component';
+import { AvatarModule } from '@components/avatar/avatar.module';
 import { CardModule } from '@components/card/card.module';
 import { LoaderModule } from '@components/loader/loader.module';
 import { SelectionTableModule } from '@components/selection-table/selection-table.module';
@@ -19,9 +20,10 @@ import { MessageComponent } from '@components/message-preview/message/message.co
 		ConversationsComponent,
 		InboxComponent,
 		MessagePreviewComponent,
-  MessageComponent,
+		MessageComponent,
 	],
 	imports: [
+		AvatarModule,
 		CardModule,
 		CommonModule,
 		InboxRoutingModule,

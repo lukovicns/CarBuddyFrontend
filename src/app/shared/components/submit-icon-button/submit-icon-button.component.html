@@ -1,12 +1,15 @@
-<button mat-icon-button
+<button *ngIf="!isPending; else pending"
+	mat-icon-button
 	type="submit"
 	color="primary"
 	[disabled]="isDisabled">
-	<mat-icon *ngIf="!isPending; else pending"
-		[matTooltip]="tooltip">
+	<mat-icon [matTooltip]="tooltip">
 		{{ icon }}
 	</mat-icon>
-	<ng-template #pending>
-		<cb-button-loader></cb-button-loader>
-	</ng-template>
 </button>
+
+<ng-template #pending>
+	<button mat-flat-button>
+		<mat-spinner [diameter]="20"></mat-spinner>
+	</button>
+</ng-template>

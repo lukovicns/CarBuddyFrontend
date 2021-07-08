@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+import { AvatarModule } from '@components/avatar/avatar.module';
 import { CardModule } from '@components/card/card.module';
 import { PlacesAutocompleteModule } from '@components/places-autocomplete/places-autocomplete.module';
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
@@ -32,6 +33,7 @@ import { MakeReservationComponent } from './components/trip/make-reservation/mak
 		MakeReservationComponent,
 	],
 	imports: [
+		AvatarModule,
 		CardModule,
 		CommonModule,
 		DatePickerModule,

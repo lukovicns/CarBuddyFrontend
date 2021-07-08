@@ -5,7 +5,10 @@ import {
 	OnInit,
 	Input,
 	SimpleChanges,
-	OnChanges, 
+	OnChanges,
+	ViewChild,
+	ElementRef,
+	AfterViewChecked, 
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -26,8 +29,9 @@ import { MessageStoreService } from '@services/message-store.service';
 	styleUrls: ['./message-preview.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagePreviewComponent implements OnInit, OnChanges {
+export class MessagePreviewComponent implements OnInit, OnChanges, AfterViewChecked {
 	@Input() selectedConversation: string | null;
+	@ViewChild('scrollableCard', { read: ElementRef }) scrollableCard: ElementRef;
 
 	conversations$: Observable<Conversation[] | null>;
 	messages$: Observable<ChatMessage[] | null>;
@@ -66,6 +70,10 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 		}
 	}
 
+	ngAfterViewChecked(): void {
+		this.scrollToBottom(this.scrollableCard?.nativeElement);
+	}
+
 	send(): void {
 		const message: string = this.messageControl.value.trim();
 
@@ -89,5 +97,15 @@ export class MessagePreviewComponent implements OnInit, OnChanges {
 				complete: () => this.messageStore.setPending(false),
 			}),
 		).subscribe(() => this.form.reset());
+	}
+
+	private scrollToBottom(element: HTMLElement): void {
+		if (element) {
+			const matCard = element.querySelector('mat-card')!;
+			matCard.scrollTo({
+				left: 0,
+				top: matCard.scrollHeight,
+			});
+		}
 	}
 }

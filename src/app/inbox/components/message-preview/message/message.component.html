@@ -1,14 +1,13 @@
-<div class="row" [class.justify-content-right]="isRecipient">
-    <div *ngIf="isRecipient"
-        class="col-1">
-        <img src="assets/images/avatar.jpg"
-            [alt]="message.recipientFullName" />
-    </div>
-    <div class="message"
-        [ngClass]="isRecipient ? 'col-11 recipient': 'col-12 author'">
-        <span>{{ message.message }}</span>
-    </div>
-    <div class="col-12 datetime">
-        {{ message.date }}
-    </div>
+<div class="row">
+	<div class="col-12">
+		<cb-avatar *ngIf="isRecipient"></cb-avatar>
+
+		<span class="message"
+			[ngClass]="isRecipient ? 'recipient' : 'author'">
+			{{ message.message }}
+		</span>
+	</div>
+	<div class="col-12 date">
+		{{ message.date }}
+	</div>
 </div>
