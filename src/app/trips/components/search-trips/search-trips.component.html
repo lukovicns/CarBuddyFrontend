@@ -1,7 +1,9 @@
 <div class="row">
 	<div class="col-lg-6 col-12">
-		<cb-card [header]="constants.search"
-			[subheader]="constants.searchForTrips">
+		<cb-card>
+			<span header>{{ constants.search }}</span>
+			<span subheader>{{ constants.searchForTrips }}</span>
+
 			<form [formGroup]="form"
 				(ngSubmit)="search()">
 				<div class="row">

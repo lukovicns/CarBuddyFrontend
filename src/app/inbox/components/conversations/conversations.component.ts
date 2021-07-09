@@ -31,12 +31,12 @@ export class ConversationsComponent implements OnInit {
 	readonly constants: Constants = constants;
 	readonly columns: Column[] = [
 		{
-			name: 'from',
-			label: 'From',
+			name: 'contact',
+			label: 'Contact',
 		},
 		{
-			name: 'content',
-			label: 'Content',
+			name: 'message',
+			label: 'Message',
 		},
 		{
 			name: 'dateTime',

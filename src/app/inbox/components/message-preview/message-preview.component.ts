@@ -7,16 +7,19 @@ import {
 	OnChanges,
 	ViewChild,
 	ElementRef,
-	AfterViewChecked, 
+	AfterViewChecked,
+	ChangeDetectorRef, 
 } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
 import { ChatMessage } from '@models/chat-message.model';
 import { Conversation } from '@models/conversation.model';
+import { MessageParticipant } from '@models/message-participant.model';
 import { ConversationStoreService } from '@services/conversation-store.service';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
+import { findById } from '@shared/functions';
 
 @Component({
 	selector: 'cb-message-preview',
@@ -28,24 +31,33 @@ export class MessagePreviewComponent implements OnChanges, AfterViewChecked {
 	@Input() selectedConversation: string;
 	@ViewChild('scrollableCard', { read: ElementRef }) scrollableCard: ElementRef;
 
-	conversations$: Observable<Conversation[] | null>;
 	messages$: Observable<ChatMessage[] | null>;
+	conversations: Conversation[];
+	recipient: MessageParticipant;
 
 	form: FormGroup;
 
 	constructor(
+		private cdRef: ChangeDetectorRef,
 		private conversationStore: ConversationStoreService,
 		private messageService: MessageService,
 		private messageStore: MessageStoreService,
 	) {
-		this.conversations$ = this.conversationStore.conversations$;
 		this.messages$ = this.messageStore.messages$;
+		this.conversationStore.conversations$
+			.subscribe((conversations: Conversation[] | null) => {
+				if (conversations) {
+					this.conversations = conversations;
+					this.cdRef.markForCheck();
+				}
+			});
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
 		const selectedConversation = changes.selectedConversation?.currentValue;
 
-		if (selectedConversation) {
+		if (selectedConversation && this.conversations) {
+			this.recipient = findById(this.conversations, selectedConversation).recipient;
 			this.messageService.getMessages(selectedConversation)
 				.subscribe();
 		}

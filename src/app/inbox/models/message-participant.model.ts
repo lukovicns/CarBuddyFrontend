@@ -1,4 +1,4 @@
-export class MessageAuthor {
+export class MessageParticipant {
 	id: string;
 	firstName: string;
 	lastName: string;
@@ -9,5 +9,9 @@ export class MessageAuthor {
 		this.firstName = data.firstName;
 		this.lastName = data.lastName;
 		this.photo = data.photo;
+	}
+
+	get fullName(): string {
+		return `${this.firstName} ${this.lastName}`;
 	}
 }

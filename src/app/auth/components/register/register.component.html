@@ -1,7 +1,9 @@
 <div class="row">
 	<div class="col-lg-6 col-12">
-		<cb-card [header]="constants.register"
-			[subheader]="constants.registerHere">
+		<cb-card>
+			<span header>{{ constants.register }}</span>
+			<span subheader>{{ constants.registerHere }}</span>
+
 			<form [formGroup]="form"
 				(ngSubmit)="register()">
 				<div class="row">

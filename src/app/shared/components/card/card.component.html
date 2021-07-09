@@ -1,8 +1,13 @@
 <mat-card>
 	<mat-card-header>
-		<mat-card-title>{{ header }}</mat-card-title>
-		<mat-card-subtitle>{{ subheader }}</mat-card-subtitle>
+		<mat-card-title>
+			<ng-content select="[header]"></ng-content>
+		</mat-card-title>
+		<mat-card-subtitle>
+			<ng-content select="[subheader]"></ng-content>
+		</mat-card-subtitle>
 	</mat-card-header>
+	<hr>
 	<img *ngIf="imageUrl"
 		[src]="imageUrl"
 		[alt]="imageAlt" />

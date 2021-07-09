@@ -2,6 +2,9 @@
 
 :host ::ng-deep {
 	cb-card > mat-card {
+		mat-card-header {
+			border-bottom: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
+		}
 
 		mat-card-content {
 			overflow-y: auto;
@@ -30,6 +33,10 @@
 		right: 20px;
 		top: 15px;
 	}
+}
+
+cb-avatar {
+	margin-right: 5px;
 }
 
 .col-12:first-of-type {
