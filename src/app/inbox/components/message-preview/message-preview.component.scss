@@ -2,25 +2,26 @@
 
 :host ::ng-deep {
 	cb-card > mat-card {
-		overflow-y: scroll;
-		overflow-x: hidden;
-		height: 550px;
 
-		&::-webkit-scrollbar {
-			width: 0.7em;
+		mat-card-content {
+			overflow-y: auto;
+			height: 65vh;
+			overflow-x: hidden;
+
+			&::-webkit-scrollbar {
+				width: 0.7em;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				background-color: $darkGray;
+				border-radius: 5px;
+			}
 		}
 
-		&::-webkit-scrollbar-thumb {
-			background-color: darkgrey;
-			border-radius: 5px;
-		}
-	}
-
-	cb-textarea > mat-form-field {
-		width: 100%;
-
-		.mat-form-field-wrapper {
-			padding: 0;
+		mat-card-actions {
+			position: sticky;
+			background-color: white;
+			bottom: 0;
 		}
 	}
 

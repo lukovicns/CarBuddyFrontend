@@ -1,9 +1,9 @@
 <div class="row">
-	<div class="col-7">
+	<div class="col-5">
 		<cb-conversations [selectedConversation]="selectedConversation$ | async"></cb-conversations>
 	</div>
 	<div *ngIf="selectedConversation$ | async as selectedConversation"
-		class="col-4">
+		class="col-5">
 		<cb-message-preview [selectedConversation]="selectedConversation"></cb-message-preview>
 	</div>
 </div>
