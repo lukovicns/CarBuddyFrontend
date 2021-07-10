@@ -1,26 +1,11 @@
 <mat-toolbar class="navbar"
 	color="primary">
-	<div>
-		<a routerLink="/search"
-			class="active">
-			CarBuddy
-		</a>
-	</div>
-	<div>
-		<ng-container *ngIf="(isUserLoggedIn$ | async) === false; else notLoggedIn">
-			<button mat-icon-button
-				[routerLink]="['auth', 'login']"
-				routerLinkActive="active"
-				[routerLinkActiveOptions]="{exact: true}">
-				<mat-icon>power_settings_new</mat-icon>
-			</button>
-			<button mat-icon-button
-				[routerLink]="['auth', 'register']"
-				routerLinkActive="active">
-				<mat-icon>account_circle</mat-icon>
-			</button>
-		</ng-container>
-		<ng-template #notLoggedIn>
+	<a routerLink="/search"
+		class="active brand">
+		CarBuddy
+	</a>
+	<ng-container *ngIf="(isUserLoggedIn$ | async); else notLoggedIn">
+		<div class="left-items">
 			<button mat-icon-button
 				routerLink="/inbox">
 				<mat-icon matBadge="15"
@@ -28,10 +13,31 @@
 					email
 				</mat-icon>
 			</button>
-			<button mat-icon-button
-				(click)="logout()">
-				<mat-icon>logout</mat-icon>
-			</button>
-		</ng-template>
-	</div>
+		</div>
+
+		<button mat-icon-button
+			routerLink="/inbox">
+			<mat-icon matBadge="15"
+				matBadgeColor="warn">
+				email
+			</mat-icon>
+		</button>
+		<button mat-icon-button
+			(click)="logout()">
+			<mat-icon>logout</mat-icon>
+		</button>
+	</ng-container>
+	<ng-template #notLoggedIn>
+		<button mat-icon-button
+			[routerLink]="['auth', 'login']"
+			routerLinkActive="active"
+			[routerLinkActiveOptions]="{exact: true}">
+			<mat-icon>power_settings_new</mat-icon>
+		</button>
+		<button mat-icon-button
+			[routerLink]="['auth', 'register']"
+			routerLinkActive="active">
+			<mat-icon>account_circle</mat-icon>
+		</button>
+	</ng-template>
 </mat-toolbar>

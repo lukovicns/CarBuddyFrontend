@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchTripsComponent } from '@components/search-trips/search-trips.component';
 import { TripComponent } from '@components/trip/trip.component';
 import { TripsComponent } from '@components/trips/trips.component';
+import { HistoryComponent } from '@components/history/history.component';
 import { AuthenticatedGuard } from '@guards/authenticated.guard';
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
 	{
 		path: 'trips/:id',
 		component: TripComponent,
+		canActivate: [AuthenticatedGuard],
+	},
+	{
+		path: 'history',
+		component: HistoryComponent,
 		canActivate: [AuthenticatedGuard],
 	},
 	{

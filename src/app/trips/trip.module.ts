@@ -18,10 +18,11 @@ import { ProgressBarModule } from '@components/progress-bar/progress-bar.module'
 import { DatePickerModule } from '@components/date-picker/date-picker.module';
 import { TripDetailsComponent } from '@components/trip-details/trip-details.component';
 import { IconButtonModule } from '@components/icon-button/icon-button.module';
+import { DriverInfoComponent } from '@components/driver-info/driver-info.component';
+import { MakeReservationComponent } from '@components/trip/make-reservation/make-reservation.component';
+import { HistoryComponent } from '@components/history/history.component';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
-import { DriverInfoComponent } from './components/driver-info/driver-info.component';
-import { MakeReservationComponent } from './components/trip/make-reservation/make-reservation.component';
 
 @NgModule({
 	declarations: [
@@ -31,6 +32,7 @@ import { MakeReservationComponent } from './components/trip/make-reservation/mak
 		TripDetailsComponent,
 		DriverInfoComponent,
 		MakeReservationComponent,
+		HistoryComponent,
 	],
 	imports: [
 		AvatarModule,
