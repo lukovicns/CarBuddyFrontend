@@ -2,15 +2,17 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	OnDestroy,
-	OnInit, 
+	OnInit,
+	ChangeDetectorRef, 
 } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { Conversation } from '@models/conversation.model';
 import { ConversationStoreService } from '@services/conversation-store.service';
 import { MessageStoreService } from '@services/message-store.service';
 import { ConversationService } from '@services/conversation.service';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
 	selector: 'cb-inbox',
@@ -20,19 +22,30 @@ import { ConversationService } from '@services/conversation.service';
 })
 export class InboxComponent implements OnInit, OnDestroy {
 	conversations$: Observable<Conversation[] | null>;
-	selectedConversation$: Observable<string | null>;
+	selectedConversation: Conversation;
+
+	private destroy$ = new Subject<void>();
 
 	constructor(
+		private cdRef: ChangeDetectorRef,
 		private conversationService: ConversationService,
 		private conversationStore: ConversationStoreService,
 		private messageStore: MessageStoreService,
 	) {
 		this.conversations$ = this.conversationStore.conversations$;
-		this.selectedConversation$ = this.conversationStore.selectedConversation$;
+		this.conversationStore.selectedConversation$
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((conversation: Conversation | null) => {
+				if (conversation) {
+					this.selectedConversation = conversation;
+					this.cdRef.markForCheck();
+				}
+			});
 	}
 
 	ngOnInit(): void {
 		this.conversationService.getConversations()
+			.pipe(takeUntil(this.destroy$))
 			.subscribe((conversations: Conversation[]) => {
 				if (conversations.length) {
 					this.conversationStore.selectConversation(conversations[0].id);
@@ -43,5 +56,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 	ngOnDestroy(): void {
 		this.messageStore.clearMessages();
 		this.conversationStore.clearConversations();
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 }

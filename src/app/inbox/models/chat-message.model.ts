@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 export class ChatMessage {
 	conversationId: string;
+	authorId: string;
 	userId: string;
 	userFirstName: string;
 	userLastName: string;
@@ -13,6 +14,7 @@ export class ChatMessage {
 
 	constructor(data: any) {
 		this.conversationId = data.conversationId;
+		this.authorId = data.authorId;
 		this.userId = data.userId;
 		this.userFirstName = data.userFirstName;
 		this.userLastName = data.userLastName;
@@ -25,10 +27,6 @@ export class ChatMessage {
 
 	get recipientFullName(): string {
 		return `${this.participantFirstName} ${this.participantLastName}`;
-	}
-
-	isRecipient(id: string): boolean {
-		return this.participantId === id;
 	}
 
 	showDate(previousMessage: ChatMessage | null): boolean {
@@ -70,7 +68,7 @@ export class ChatMessage {
 	}
 
 	private isRecipientFor(message: ChatMessage): boolean {
-		return message.userId === this.userId;
+		return message.participantId === this.participantId;
 	}
 
 	private isMoreThanOneHour(date: moment.Moment): boolean {

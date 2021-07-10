@@ -21,7 +21,7 @@ import { ConversationStoreService } from '@services/conversation-store.service';
 })
 export class ConversationsComponent implements OnChanges {
 	@Input() conversations: Conversation[];
-	@Input() selectedConversation: string | null;
+	@Input() selectedConversation: Conversation | null;
 
 	data: ConversationData[];
 

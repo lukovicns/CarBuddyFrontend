@@ -2,14 +2,11 @@
 	<div class="row">
 		<div class="col-5">
 			<cb-conversations [conversations]="conversations"
-				[selectedConversation]="selectedConversation$ | async">
+				[selectedConversation]="selectedConversation">
 			</cb-conversations>
 		</div>
-		<div *ngIf="selectedConversation$ | async as selectedConversation"
-			class="col-5">
-			<cb-conversation [conversations]="conversations"
-				[selectedConversation]="selectedConversation">
-			</cb-conversation>
+		<div class="col-5">
+			<cb-conversation [selectedConversation]="selectedConversation"></cb-conversation>
 		</div>
 	</div>
 </ng-container>

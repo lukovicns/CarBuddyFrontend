@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { updateAtIndex } from '@app/shared/functions';
+import { findById, updateAtIndex } from '@app/shared/functions';
 
 import { Conversation } from '@models/conversation.model';
-import { MessageStoreService } from '@services/message-store.service';
 import { ConversationState } from '@states/conversation.state';
 import { Store } from '@store/store';
 
@@ -18,7 +17,7 @@ export class ConversationStoreService extends Store<ConversationState> {
 	conversations$ = this.select((state: ConversationState) => state.conversations);
 	selectedConversation$ = this.select((state: ConversationState) => state.selectedConversation);
 
-	constructor(private messageStore: MessageStoreService) {
+	constructor() {
 		super(initialState);
 	}
 
@@ -26,11 +25,13 @@ export class ConversationStoreService extends Store<ConversationState> {
 		this.setState({ conversations });
 	}
 
-	selectConversation(conversation: string): void {
-		if (conversation !== this.state.selectedConversation) {
-			this.messageStore.clearMessages();
-			this.setState({ selectedConversation: conversation });
+	selectConversation(conversationId: string): void {
+		if (conversationId === this.state.selectedConversation?.id) {
+			return;
 		}
+
+		const selectedConversation = findById(this.state.conversations || [], conversationId);
+		this.setState({ selectedConversation });
 	}
 
 	updateConversation(conversation: Conversation): void {

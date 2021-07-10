@@ -13,11 +13,10 @@ import {
 import { Observable } from 'rxjs';
 
 import { ChatMessage } from '@models/chat-message.model';
-import { Conversation } from '@models/conversation.model';
 import { MessageParticipant } from '@models/message-participant.model';
+import { Conversation } from '@models/conversation.model';
 import { MessageService } from '@services/message.service';
 import { MessageStoreService } from '@services/message-store.service';
-import { findById } from '@shared/functions';
 
 @Component({
 	selector: 'cb-conversation',
@@ -26,9 +25,7 @@ import { findById } from '@shared/functions';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConversationComponent implements OnChanges, AfterViewChecked {
-	@Input() selectedConversation: string;
-	@Input() conversations: Conversation[];
-
+	@Input() selectedConversation: Conversation;
 	@ViewChild('scrollableCard', { read: ElementRef }) scrollableCard: ElementRef;
 
 	messages$: Observable<ChatMessage[] | null>;
@@ -46,9 +43,9 @@ export class ConversationComponent implements OnChanges, AfterViewChecked {
 	ngOnChanges(changes: SimpleChanges): void {
 		const selectedConversation = changes.selectedConversation?.currentValue;
 
-		if (selectedConversation && this.conversations) {
-			this.recipient = findById(this.conversations, selectedConversation).participant;
-			this.messageService.getMessages(selectedConversation)
+		if (selectedConversation) {
+			this.recipient = selectedConversation.participant;
+			this.messageService.getMessages(selectedConversation.id)
 				.subscribe();
 		}
 	}

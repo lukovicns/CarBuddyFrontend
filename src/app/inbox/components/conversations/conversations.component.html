@@ -2,7 +2,7 @@
 	<ng-container *ngIf="conversations.length; else emptyInbox">
 		<cb-selection-table [data]="data"
 			[columns]="columns"
-			[selectedRow]="selectedConversation"
+			[selectedRow]="selectedConversation?.id || null"
 			(onSelect)="conversationStore.selectConversation($event)">
 		</cb-selection-table>
 	</ng-container>

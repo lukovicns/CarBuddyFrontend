@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 
+import { Conversation } from '@models/conversation.model';
 import { ChatMessage } from '@models/chat-message.model';
 import { AuthorizationService } from '@services/authorization.service';
 
@@ -11,6 +12,7 @@ import { AuthorizationService } from '@services/authorization.service';
 })
 export class MessageComponent {
 	@Input() message: ChatMessage;
+	@Input() selectedConversation: Conversation;
 	@Input() previousMessage: ChatMessage | null;
 
 	currentUserId: string;
@@ -20,6 +22,6 @@ export class MessageComponent {
 	}
 
 	get isRecipient(): boolean {
-		return this.message.isRecipient(this.currentUserId);
+		return this.message.authorId !== this.currentUserId;
 	}
 }

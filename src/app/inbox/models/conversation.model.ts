@@ -1,5 +1,6 @@
 import * as moment from 'moment';
 
+import { ConversationStatus } from '@models/conversation-status.enum';
 import { MessageParticipant } from '@models/message-participant.model';
 
 export class Conversation {
@@ -8,6 +9,7 @@ export class Conversation {
 	participant: MessageParticipant;
 	message: string;
 	date: moment.Moment;
+	status: ConversationStatus;
 
 	constructor(data: any) {
 		this.id = data.id;
@@ -25,6 +27,7 @@ export class Conversation {
 			lastName: data.participantLastName,
 			photo: data.participantPhoto,
 		});
+		this.status = data.status;
 	}
 	
 	static get empty(): Conversation {
