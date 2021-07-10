@@ -1,18 +1,24 @@
 import * as moment from 'moment';
 
 import { Conversation } from '@models/conversation.model';
+import { ConversationStatus } from './conversation-status.enum';
 
 export class ConversationData {
 	id: string;
 	contact: string;
 	message: string;
 	dateTime: string;
-
+	style: 'bold' | null;
+	
 	constructor(userId: string, data: Conversation) {
 		this.id = data.id;
 		this.contact = this.getContact(userId, data);
 		this.message = data.message;
 		this.dateTime = this.formatDateTime(data.date);
+		
+		if (data.status === ConversationStatus.Unread) {
+			this.style = 'bold';
+		}
 	}
 
 	private getContact(userId: string, data: Conversation): string {

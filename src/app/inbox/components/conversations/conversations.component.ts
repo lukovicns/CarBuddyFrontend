@@ -11,6 +11,7 @@ import { Column } from '@models/column.type';
 import { Conversation } from '@models/conversation.model';
 import { ConversationData } from '@models/conversation-data.model';
 import { AuthorizationService } from '@services/authorization.service';
+import { ConversationService } from '@services/conversation.service';
 import { ConversationStoreService } from '@services/conversation-store.service';
 
 @Component({
@@ -43,15 +44,39 @@ export class ConversationsComponent implements OnChanges {
 
 	constructor(
 		private authorizationService: AuthorizationService,
-		public conversationStore: ConversationStoreService,
+		private conversationService: ConversationService,
+		private conversationStore: ConversationStoreService,
 	) { }
 
 	ngOnChanges(changes: SimpleChanges): void {
 		const conversations = changes.conversations?.currentValue;
+		const selectedConversation = changes.selectedConversation?.currentValue;
+
 		if (conversations) {
-			this.data = conversations.map((conversation: Conversation) => new ConversationData(
-				this.authorizationService.currentUserId, conversation,
-			));
+			this.populateData(conversations);
+		}
+
+		if (selectedConversation) {
+			this.markAsRead(selectedConversation);
+		}
+	}
+
+	selectConversation(conversationId: string): void {
+		if (this.selectedConversation?.id !== conversationId) {
+			this.conversationStore.selectConversation(conversationId);
+		}
+	}
+
+	private populateData(conversations: Conversation[]): void {
+		this.data = conversations.map((conversation: Conversation) => new ConversationData(
+			this.authorizationService.currentUserId, conversation,
+		));
+	}
+
+	private markAsRead(conversation: Conversation): void {
+		if (this.conversationStore.isStatusUnread(conversation.id)) {
+			this.conversationService.markAsRead(conversation.id)
+				.subscribe(() => this.conversationStore.markAsRead(conversation.id));
 		}
 	}
 }

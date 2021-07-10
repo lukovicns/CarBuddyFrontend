@@ -30,6 +30,7 @@
 			*matCellDef="let row"
 			[class.active]="selectedRow === row.id"
 			class="no-select"
+			[class.bold]="row.style === 'bold'"
 			(click)="onSelect.emit(row.id)">
 			{{ row[column.name] }}
 		</td>

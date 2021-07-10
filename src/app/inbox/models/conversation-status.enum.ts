@@ -1,4 +1,4 @@
 export enum ConversationStatus {
-	Unread = 0,
-	Read = 1,
+	Unread = 'unread',
+	Read = 'read',
 }

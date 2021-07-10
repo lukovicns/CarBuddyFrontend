@@ -27,18 +27,25 @@ export class Conversation {
 			lastName: data.participantLastName,
 			photo: data.participantPhoto,
 		});
-		this.status = data.status;
+		this.status = data.status === 0
+			? ConversationStatus.Unread
+			: ConversationStatus.Read;
 	}
 	
 	static get empty(): Conversation {
 		return new Conversation({});
 	}
 
+	get isEmpty(): boolean {
+		return !this.id;
+	}
+
 	equals(conversation: Conversation): boolean {
 		return this.id == conversation.id;
 	}
 
-	get isEmpty(): boolean {
-		return !this.id;
+	withStatusRead(): Conversation {
+		this.status = ConversationStatus.Read;
+		return this;
 	}
 }

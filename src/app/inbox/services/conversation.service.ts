@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { conversationsUrl } from '@constants/urls';
+import { conversationsUrl, markAsReadUrl } from '@constants/urls';
 import { ListResponse } from '@models/list-response.model';
 import { Conversation } from '@models/conversation.model';
 import { AuthorizationService } from '@services/authorization.service';
@@ -35,5 +35,9 @@ export class ConversationService {
 					},
 				}),
 			);
+	}
+
+	markAsRead(conversationId: string): Observable<any> {
+		return this.http.post(markAsReadUrl(conversationId), {});
 	}
 }

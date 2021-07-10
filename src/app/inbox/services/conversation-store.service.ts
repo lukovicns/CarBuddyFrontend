@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { findById, updateAtIndex } from '@app/shared/functions';
 
 import { Conversation } from '@models/conversation.model';
+import { ConversationStatus } from '@models/conversation-status.enum';
 import { ConversationState } from '@states/conversation.state';
 import { Store } from '@store/store';
 
@@ -21,17 +22,18 @@ export class ConversationStoreService extends Store<ConversationState> {
 		super(initialState);
 	}
 
+	isStatusUnread(conversationId: string): boolean {
+		return this.getConversation(conversationId).status === ConversationStatus.Unread;
+	}
+
 	setConversations(conversations: Conversation[]): void {
 		this.setState({ conversations });
 	}
 
 	selectConversation(conversationId: string): void {
-		if (conversationId === this.state.selectedConversation?.id) {
-			return;
-		}
-
-		const selectedConversation = findById(this.state.conversations || [], conversationId);
-		this.setState({ selectedConversation });
+		this.setState({
+			selectedConversation: this.getConversation(conversationId),
+		});
 	}
 
 	updateConversation(conversation: Conversation): void {
@@ -45,7 +47,16 @@ export class ConversationStoreService extends Store<ConversationState> {
 		this.setState({ conversations: sortedConversations });
 	}
 
+	markAsRead(conversationId: string): void {
+		const conversation = this.getConversation(conversationId);
+		this.updateConversation(conversation.withStatusRead());
+	}
+
 	clearConversations(): void {
 		this.setState(initialState);
+	}
+
+	private getConversation(conversationId: string): Conversation {
+		return findById(this.state.conversations || [], conversationId);
 	}
 }
