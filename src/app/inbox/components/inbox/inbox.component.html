@@ -4,6 +4,6 @@
 	</div>
 	<div *ngIf="selectedConversation$ | async as selectedConversation"
 		class="col-5">
-		<cb-message-preview [selectedConversation]="selectedConversation"></cb-message-preview>
+		<cb-conversation [selectedConversation]="selectedConversation"></cb-conversation>
 	</div>
 </div>

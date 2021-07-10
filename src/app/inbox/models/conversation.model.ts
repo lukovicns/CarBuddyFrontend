@@ -4,8 +4,8 @@ import { MessageParticipant } from '@models/message-participant.model';
 
 export class Conversation {
 	id: string;
-	author: MessageParticipant;
-	recipient: MessageParticipant;
+	user: MessageParticipant;
+	participant: MessageParticipant;
 	message: string;
 	date: moment.Moment;
 
@@ -13,17 +13,17 @@ export class Conversation {
 		this.id = data.id;
 		this.message = data.message;
 		this.date = moment(data.date);
-		this.author = new MessageParticipant({
-			id: data.authorId,
-			firstName: data.authorFirstName,
-			lastName: data.authorLastName,
-			photo: data.authorPhoto,
+		this.user = new MessageParticipant({
+			id: data.userId,
+			firstName: data.userFirstName,
+			lastName: data.userLastName,
+			photo: data.userPhoto,
 		});
-		this.recipient = new MessageParticipant({
-			id: data.recipientId,
-			firstName: data.recipientFirstName,
-			lastName: data.recipientLastName,
-			photo: data.recipientPhoto,
+		this.participant = new MessageParticipant({
+			id: data.participantId,
+			firstName: data.participantFirstName,
+			lastName: data.participantLastName,
+			photo: data.participantPhoto,
 		});
 	}
 	

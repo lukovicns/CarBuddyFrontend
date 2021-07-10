@@ -7,12 +7,18 @@ export class ConversationData {
 	contact: string;
 	message: string;
 	dateTime: string;
-	
-	constructor(data: Conversation) {
+
+	constructor(userId: string, data: Conversation) {
 		this.id = data.id;
-		this.contact = data.recipient.fullName;
+		this.contact = this.getContact(userId, data);
 		this.message = data.message;
 		this.dateTime = this.formatDateTime(data.date);
+	}
+
+	private getContact(userId: string, data: Conversation): string {
+		return userId === data.user.id
+			? data.participant.fullName
+			: data.user.fullName;
 	}
 
 	private formatDateTime(date: moment.Moment): string {

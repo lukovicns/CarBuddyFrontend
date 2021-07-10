@@ -2,33 +2,33 @@ import * as moment from 'moment';
 
 export class ChatMessage {
 	conversationId: string;
-	authorId: string;
-	authorFirstName: string;
-	authorLastName: string;
-	recipientId: string;
-	recipientFirstName: string;
-	recipientLastName: string;
+	userId: string;
+	userFirstName: string;
+	userLastName: string;
+	participantId: string;
+	participantFirstName: string;
+	participantLastName: string;
 	message: string;
 	date: moment.Moment;
 
 	constructor(data: any) {
 		this.conversationId = data.conversationId;
-		this.authorId = data.authorId;
-		this.authorFirstName = data.authorFirstName;
-		this.authorLastName = data.authorLastName;
-		this.recipientId = data.recipientId;
-		this.recipientFirstName = data.recipientFirstName;
-		this.recipientLastName = data.recipientLastName;
+		this.userId = data.userId;
+		this.userFirstName = data.userFirstName;
+		this.userLastName = data.userLastName;
+		this.participantId = data.participantId;
+		this.participantFirstName = data.participantFirstName;
+		this.participantLastName = data.participantLastName;
 		this.message = data.message;
 		this.date = moment(data.date);
 	}
 
 	get recipientFullName(): string {
-		return `${this.recipientFirstName} ${this.recipientLastName}`;
+		return `${this.participantFirstName} ${this.participantLastName}`;
 	}
 
-	isRecipient(participantId: string): boolean {
-		return this.recipientId === participantId;
+	isRecipient(id: string): boolean {
+		return this.participantId === id;
 	}
 
 	showDate(previousMessage: ChatMessage | null): boolean {
@@ -70,7 +70,7 @@ export class ChatMessage {
 	}
 
 	private isRecipientFor(message: ChatMessage): boolean {
-		return message.authorId === this.authorId;
+		return message.userId === this.userId;
 	}
 
 	private isMoreThanOneHour(date: moment.Moment): boolean {

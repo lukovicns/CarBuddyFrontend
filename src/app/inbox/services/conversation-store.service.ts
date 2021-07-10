@@ -38,8 +38,7 @@ export class ConversationStoreService extends Store<ConversationState> {
 			this.state.conversations || [],
 			new Conversation(conversation),
 		);
-		console.log(conversations);
-		// this.setState({ conversations });
+		this.setState({ conversations });
 	}
 
 	clearConversations(): void {

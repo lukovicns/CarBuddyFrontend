@@ -22,12 +22,12 @@ import { MessageStoreService } from '@services/message-store.service';
 import { findById } from '@shared/functions';
 
 @Component({
-	selector: 'cb-message-preview',
-	templateUrl: './message-preview.component.html',
-	styleUrls: ['./message-preview.component.scss'],
+	selector: 'cb-conversation',
+	templateUrl: './conversation.component.html',
+	styleUrls: ['./conversation.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessagePreviewComponent implements OnChanges, AfterViewChecked {
+export class ConversationComponent implements OnChanges, AfterViewChecked {
 	@Input() selectedConversation: string;
 	@ViewChild('scrollableCard', { read: ElementRef }) scrollableCard: ElementRef;
 
@@ -57,7 +57,7 @@ export class MessagePreviewComponent implements OnChanges, AfterViewChecked {
 		const selectedConversation = changes.selectedConversation?.currentValue;
 
 		if (selectedConversation && this.conversations) {
-			this.recipient = findById(this.conversations, selectedConversation).recipient;
+			this.recipient = findById(this.conversations, selectedConversation).participant;
 			this.messageService.getMessages(selectedConversation)
 				.subscribe();
 		}

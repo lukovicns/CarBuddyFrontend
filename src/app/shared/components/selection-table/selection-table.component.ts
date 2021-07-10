@@ -7,6 +7,8 @@ import {
 	Input,
 	Output,
 	EventEmitter,
+	SimpleChanges,
+	OnChanges,
 } from '@angular/core';
 
 import { Column } from '@models/column.type';
@@ -17,7 +19,7 @@ import { Column } from '@models/column.type';
 	styleUrls: ['./selection-table.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectionTableComponent<T extends { id: string }> implements OnInit {
+export class SelectionTableComponent<T extends { id: string }> implements OnInit, OnChanges {
 	@Input() data: T[];
 	@Input() columns: Column[];
 	@Input() selectedRow: string | null;
@@ -32,6 +34,12 @@ export class SelectionTableComponent<T extends { id: string }> implements OnInit
 		this.dataSource = new MatTableDataSource(this.data);
 		this.selection = new SelectionModel<T>(true, []);
 		this.displayedColumns = ['select', ...this.columns.map((column: Column) => column.name)];
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		if (changes.data?.currentValue) {
+			this.dataSource = new MatTableDataSource(changes.data.currentValue);
+		}
 	}
 
 	isAllSelected(): boolean {

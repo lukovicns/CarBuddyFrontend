@@ -1,29 +1,24 @@
 @import "colors";
 
-span {
-	padding-right: 1rem;
-}
-
-.brand {
-	color: $lightGray;
-	text-decoration: none;
-}
-
-.navbar {
-	justify-content: space-between;
-	flex-wrap: wrap;
-}
-
-.active {
-	color: $lightGreen;
-}
-
 .mat-toolbar {
 	background-color: rgb(35, 35, 46);
 	color: $lightGray;
+
+	&.navbar {
+		justify-content: space-between;
+		flex-wrap: wrap;
+	}
+
+	.brand {
+		color: $lightGreen;
+		text-decoration: none;
+	}
 }
 
-.left-items {
-	flex: 1;
-	margin-left: 20px;
+.mat-icon-button {
+	color: $lightGray;
+
+	&.active {
+		color: $lightestGray;
+	}
 }

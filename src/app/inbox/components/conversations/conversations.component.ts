@@ -12,9 +12,9 @@ import { constants, Constants } from '@constants/constants';
 import { Column } from '@models/column.type';
 import { Conversation } from '@models/conversation.model';
 import { ConversationData } from '@models/conversation-data.model';
+import { AuthorizationService } from '@services/authorization.service';
 import { ConversationStoreService } from '@services/conversation-store.service';
 import { ConversationService } from '@services/conversation.service';
-import { toInstances } from '@shared/functions';
 
 @Component({
 	selector: 'cb-conversations',
@@ -45,6 +45,7 @@ export class ConversationsComponent implements OnInit {
 	];
 
 	constructor(
+		private authorizationService: AuthorizationService,
 		public conversationStore: ConversationStoreService,
 		private conversationService: ConversationService,
 	) {
@@ -52,10 +53,9 @@ export class ConversationsComponent implements OnInit {
 		this.data$ = this.conversations$
 			.pipe(
 				switchMap((conversations: Conversation[] | null) => of(
-					toInstances(
-						ConversationData,
-						conversations || [],
-					),
+					conversations?.map((conversation: Conversation) => new ConversationData(
+						this.authorizationService.currentUserId, conversation,
+					)) || [],
 				)),
 			);
 	}
