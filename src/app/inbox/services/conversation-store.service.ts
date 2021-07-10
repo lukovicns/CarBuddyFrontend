@@ -36,9 +36,12 @@ export class ConversationStoreService extends Store<ConversationState> {
 	updateConversation(conversation: Conversation): void {
 		const conversations = updateAtIndex(
 			this.state.conversations || [],
-			new Conversation(conversation),
+			conversation,
 		);
-		this.setState({ conversations });
+		const sortedConversations = [...conversations].sort(
+			(a: Conversation, b: Conversation) =>  b.date.diff(a.date),
+		);
+		this.setState({ conversations: sortedConversations });
 	}
 
 	clearConversations(): void {

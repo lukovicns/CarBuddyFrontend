@@ -35,7 +35,9 @@ export class ChatService {
     	});
 
 		this.connection.on('UpdateConversation', (conversation: Conversation) => {
-			this.conversationStore.updateConversation(conversation);
+			this.conversationStore.updateConversation(
+				new Conversation(conversation),
+			);
 		});
 
     	this.start();

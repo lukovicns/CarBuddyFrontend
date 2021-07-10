@@ -1,6 +1,6 @@
-<ng-container *ngIf="conversations$ | async as conversations; else loading">
+<ng-container *ngIf="conversations; else loading">
 	<ng-container *ngIf="conversations.length; else emptyInbox">
-		<cb-selection-table [data]="(data$ | async)!"
+		<cb-selection-table [data]="data"
 			[columns]="columns"
 			[selectedRow]="selectedConversation"
 			(onSelect)="conversationStore.selectConversation($event)">

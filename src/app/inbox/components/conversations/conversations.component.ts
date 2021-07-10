@@ -2,11 +2,9 @@ import {
 	Component,
 	ChangeDetectionStrategy,
 	Input,
-	OnInit, 
+	SimpleChanges,
+	OnChanges, 
 } from '@angular/core';
-
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { Column } from '@models/column.type';
@@ -14,7 +12,6 @@ import { Conversation } from '@models/conversation.model';
 import { ConversationData } from '@models/conversation-data.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ConversationStoreService } from '@services/conversation-store.service';
-import { ConversationService } from '@services/conversation.service';
 
 @Component({
 	selector: 'cb-conversations',
@@ -22,11 +19,11 @@ import { ConversationService } from '@services/conversation.service';
 	styleUrls: ['./conversations.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConversationsComponent implements OnInit {
+export class ConversationsComponent implements OnChanges {
+	@Input() conversations: Conversation[];
 	@Input() selectedConversation: string | null;
 
-	conversations$: Observable<Conversation[] | null>;
-	data$: Observable<ConversationData[]>;
+	data: ConversationData[];
 
 	readonly constants: Constants = constants;
 	readonly columns: Column[] = [
@@ -47,25 +44,14 @@ export class ConversationsComponent implements OnInit {
 	constructor(
 		private authorizationService: AuthorizationService,
 		public conversationStore: ConversationStoreService,
-		private conversationService: ConversationService,
-	) {
-		this.conversations$ = this.conversationStore.conversations$;
-		this.data$ = this.conversations$
-			.pipe(
-				switchMap((conversations: Conversation[] | null) => of(
-					conversations?.map((conversation: Conversation) => new ConversationData(
-						this.authorizationService.currentUserId, conversation,
-					)) || [],
-				)),
-			);
-	}
+	) { }
 
-	ngOnInit(): void {
-		this.conversationService.getConversations()
-			.subscribe((conversations: Conversation[]) => {
-				if (conversations.length) {
-					this.conversationStore.selectConversation(conversations[0].id);
-				}
-			});
+	ngOnChanges(changes: SimpleChanges): void {
+		const conversations = changes.conversations?.currentValue;
+		if (conversations) {
+			this.data = conversations.map((conversation: Conversation) => new ConversationData(
+				this.authorizationService.currentUserId, conversation,
+			));
+		}
 	}
 }
