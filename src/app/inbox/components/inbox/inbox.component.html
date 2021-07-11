@@ -1,5 +1,6 @@
-<ng-container *ngIf="conversations$ | async as conversations; else loading">
-	<div class="row">
+<div class="row">
+	<ng-container *ngIf="conversations$ | async as conversations; else loading">
+
 		<div class="col-5">
 			<cb-conversations [conversations]="conversations"
 				[selectedConversation]="selectedConversation">
@@ -8,9 +9,12 @@
 		<div class="col-5">
 			<cb-conversation [selectedConversation]="selectedConversation"></cb-conversation>
 		</div>
-	</div>
-</ng-container>
+	</ng-container>
 
-<ng-template #loading>
-	<cb-loader class="center"></cb-loader>
-</ng-template>
+	<ng-template #loading>
+		<cb-loader class="center">
+			{{ constants.loadingInbox }}
+		</cb-loader>
+	</ng-template>
+
+</div>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '@services/auth.service';
 import { AuthStoreService } from '@services/auth-store.service';
+import { PushNotificationService } from '@services/push-notification.service';
 
 @Component({
 	selector: 'cb-navigation',
@@ -17,6 +18,7 @@ export class NavigationComponent {
 	constructor(
 		private authService: AuthService,
 		private authStore: AuthStoreService,
+		private pushNotificationService: PushNotificationService,
 	) {
 		this.isUserLoggedIn$ = this.authStore.isUserLoggedIn$;
 	}
