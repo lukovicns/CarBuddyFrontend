@@ -1,22 +1,22 @@
 import { Router } from '@angular/router';
+import { AbstractControl, FormGroup } from '@angular/forms';
 import {
 	ChangeDetectionStrategy,
 	Component,
 	OnDestroy,
 	OnInit, 
 } from '@angular/core';
-import {
-	AbstractControl,
-	FormControl,
-	FormGroup,
-	Validators, 
-} from '@angular/forms';
 
 import { Observable } from 'rxjs';
 
 import { constants, Constants } from '@constants/constants';
-import { emailControl, passwordControl } from '@constants/form-controls';
 import { AuthService } from '@services/auth.service';
+import {
+	emailControl,
+	numberControl,
+	passwordControl,
+	requiredTextControl, 
+} from '@constants/form-controls';
 
 @Component({
 	selector: 'cb-register',
@@ -42,21 +42,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
-			firstName: new FormControl('', [
-				Validators.required,
-				Validators.minLength(3),
-			]),
-			lastName: new FormControl('', [
-				Validators.required,
-				Validators.minLength(3),
-			]),
-			email: emailControl,
-			password: passwordControl,
-			age: new FormControl(18, [
-				Validators.required,
-				Validators.min(12),
-				Validators.max(100),
-			]),
+			firstName: requiredTextControl('', 3),
+			lastName: requiredTextControl('', 3),
+			email: emailControl(''),
+			password: passwordControl(''),
+			age: numberControl(18, 12, 100),
 		});
 	}
 

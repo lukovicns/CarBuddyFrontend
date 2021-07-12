@@ -21,9 +21,10 @@ import { IconButtonModule } from '@components/icon-button/icon-button.module';
 import { DriverInfoComponent } from '@components/driver-info/driver-info.component';
 import { MakeReservationComponent } from '@components/trip/make-reservation/make-reservation.component';
 import { HistoryComponent } from '@components/history/history.component';
+import { AddTripComponent } from '@components/add-trip/add-trip.component';
+import { CardFormModule } from '@components/card-form/card-form.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
-import { AddTripComponent } from './components/add-trip/add-trip.component';
 
 @NgModule({
 	declarations: [
@@ -38,6 +39,7 @@ import { AddTripComponent } from './components/add-trip/add-trip.component';
 	],
 	imports: [
 		AvatarModule,
+		CardFormModule,
 		CardModule,
 		CommonModule,
 		DatePickerModule,

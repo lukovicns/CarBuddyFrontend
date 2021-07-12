@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
-			email: emailControl,
-			password: passwordControl,
+			email: emailControl(''),
+			password: passwordControl(''),
 		});
 	}
 

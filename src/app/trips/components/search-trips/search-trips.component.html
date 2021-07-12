@@ -1,53 +1,43 @@
-<div class="row">
-	<div class="col-lg-6 col-12">
-		<cb-card>
-			<span header>{{ constants.search }}</span>
-			<span subheader>{{ constants.searchForTrips }}</span>
-
-			<form content
-				[formGroup]="form"
-				(ngSubmit)="search()">
-				<div class="row">
-					<div class="col-12">
-						<cb-places-autocomplete [form]="form"
-							[control]="this.form.get('fromCity')!"
-							[label]="constants.fromCity"
-							[placeholder]="constants.fromCityPlaceholder">
-						</cb-places-autocomplete>
-					</div>
-					<div class="col-12">
-						<cb-places-autocomplete [form]="form"
-							[control]="this.form.get('toCity')!"
-							[label]="constants.toCity"
-							[placeholder]="constants.toCityPlaceholder">
-						</cb-places-autocomplete>
-					</div>
-					<div class="col-12">
-						<cb-date-picker [form]="form"
-							[label]="constants.startDate"
-							[placeholder]="constants.startDatePlaceholder"
-							[startDate]="currentDate"
-							[minDate]="currentDate"
-							name="date">
-						</cb-date-picker>
-					</div>
-					<div class="col-12">
-						<cb-form-field [form]="form"
-							[label]="constants.numberOfPassengers"
-							[placeholder]="constants.numberOfPassengersPlaceholder"
-							[min]="1"
-							[max]="8"
-							type="number"
-							name="numberOfPassengers">
-						</cb-form-field>
-					</div>
-					<div class="col-12">
-						<cb-submit-button [label]="constants.search"
-							[isDisabled]="form.invalid">
-						</cb-submit-button>
-					</div>
-				</div>
-			</form>
-		</cb-card>
+<cb-card-form [form]="form"
+	[header]="constants.search"
+	[subheader]="constants.searchForTrips"
+	(onSubmit)="search()">
+	<div class="col-12">
+		<cb-places-autocomplete [form]="form"
+			[control]="this.form.get('fromCity')!"
+			[label]="constants.fromCity"
+			[placeholder]="constants.fromCityPlaceholder">
+		</cb-places-autocomplete>
 	</div>
-</div>
+	<div class="col-12">
+		<cb-places-autocomplete [form]="form"
+			[control]="this.form.get('toCity')!"
+			[label]="constants.toCity"
+			[placeholder]="constants.toCityPlaceholder">
+		</cb-places-autocomplete>
+	</div>
+	<div class="col-12">
+		<cb-date-picker [form]="form"
+			[label]="constants.startDate"
+			[placeholder]="constants.startDatePlaceholder"
+			[startDate]="today"
+			[minDate]="today"
+			name="date">
+		</cb-date-picker>
+	</div>
+	<div class="col-12">
+		<cb-form-field [form]="form"
+			[label]="constants.numberOfPassengers"
+			[placeholder]="constants.numberOfPassengersPlaceholder"
+			[min]="1"
+			[max]="8"
+			type="number"
+			name="numberOfPassengers">
+		</cb-form-field>
+	</div>
+	<div class="col-12">
+		<cb-submit-button [label]="constants.search"
+			[isDisabled]="form.invalid">
+		</cb-submit-button>
+	</div>
+</cb-card-form>

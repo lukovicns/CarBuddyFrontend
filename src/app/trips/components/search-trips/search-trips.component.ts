@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import * as moment from 'moment';
 
 import { constants, Constants } from '@constants/constants';
+import { numberControl, requiredTextControl } from '@constants/form-controls';
 import { SearchCriteria } from '@models/search-criteria.model';
 
 @Component({
@@ -15,7 +16,7 @@ import { SearchCriteria } from '@models/search-criteria.model';
 })
 export class SearchTripsComponent implements OnInit {
 	form: FormGroup;
-	currentDate = moment();
+	today = moment();
 
 	readonly constants: Constants = constants;
 
@@ -23,14 +24,10 @@ export class SearchTripsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.form = new FormGroup({
-			fromCity: new FormControl('', [Validators.required]),
-			toCity: new FormControl('', [Validators.required]),
-			date: new FormControl('', [Validators.required]),
-			numberOfPassengers: new FormControl(1, [
-				Validators.required,
-				Validators.min(1),
-				Validators.max(8),
-			]),
+			fromCity: requiredTextControl(''),
+			toCity: requiredTextControl(''),
+			date: requiredTextControl(''),
+			numberOfPassengers: numberControl(1),
 		});
 	}
 
