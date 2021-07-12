@@ -8,7 +8,6 @@ import {
 import { Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 
-import { AuthorizationService } from '@services/authorization.service';
 import { AuthStoreService } from '@services/auth-store.service';
 import { PushNotificationService } from '@services/push-notification.service';
 
@@ -22,7 +21,6 @@ export class AppComponent implements OnInit, OnDestroy {
 	private destroy$ = new Subject<void>();
 
 	constructor(
-		private authorizationService: AuthorizationService,
 		private authStore: AuthStoreService,
 		private pushNotificationService: PushNotificationService,
 	) { }
@@ -30,10 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
 	ngOnInit(): void {
 		this.authStore.isUserLoggedIn$
 			.pipe(
-				switchMap((isLoggedIn: boolean) => isLoggedIn
-					? this.getUnreadConversationsCount()
-					: of(null),
-				),
+				switchMap((isLoggedIn: boolean) => this.getNotificationsIfLoggedIn(isLoggedIn)),
 				takeUntil(this.destroy$),
 			).subscribe();
 	}
@@ -43,12 +38,11 @@ export class AppComponent implements OnInit, OnDestroy {
 		this.destroy$.complete();
 	}
 
-	private getUnreadConversationsCount(): Observable<number | null> {
-		return of(this.authorizationService.currentUserId)
-			.pipe(
-				switchMap((currentUserId: string) => this.pushNotificationService.getUnreadConversationsCount(
-					currentUserId,
-				)),
+	private getNotificationsIfLoggedIn(isLoggedIn: boolean): Observable<number | null> {
+		return !isLoggedIn
+			? of(null)
+			: of(null).pipe(
+				switchMap(() => this.pushNotificationService.getNotifications()),
 			);
 	}
 }

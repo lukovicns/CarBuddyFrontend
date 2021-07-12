@@ -8,7 +8,7 @@ import * as signalR from '@microsoft/signalr';
 
 import { notificationsUrl, notificationUrl } from '@constants/urls';
 import { AuthorizationService } from '@services/authorization.service';
-import { ConversationStoreService } from '@services/conversation-store.service';
+import { PushNotificationStoreService } from '@services/push-notification-store.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -22,7 +22,7 @@ export class PushNotificationService {
     constructor(
 		private http: HttpClient,
 		private authorizationService: AuthorizationService,
-		private conversationStore: ConversationStoreService,
+		private pushNotificationStore: PushNotificationStoreService,
     ) {
     	this.connection.onclose(async () => {
     		await this.start();
@@ -45,14 +45,14 @@ export class PushNotificationService {
     	}
     }
 
-    getUnreadConversationsCount(currentUserId: string): Observable<number | null> {
-    	return this.conversationStore.hasUnreadConversationsCount
-    		? this.conversationStore.unreadConversationsCount$
-    		: this.http.get<number>(notificationsUrl(currentUserId))
+    getNotifications(): Observable<number | null> {
+    	return this.pushNotificationStore.hasNotificationsCount
+    		? this.pushNotificationStore.notificationsCount$
+    		: this.http.get<number>(notificationsUrl(this.authorizationService.currentUserId))
     			.pipe(
     				tap({
-    					next: (conversations: number) => this.conversationStore.setUnreadConversationsCount(conversations),
-    					error: () => this.conversationStore.setUnreadConversationsCount(0),
+    					next: (conversations: number) => this.pushNotificationStore.setNotificationsCount(conversations),
+    					error: () => this.pushNotificationStore.setNotificationsCount(0),
     				}),
     		);
     }

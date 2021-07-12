@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Constants, constants } from '@constants/constants';
 import { AuthService } from '@services/auth.service';
 import { AuthStoreService } from '@services/auth-store.service';
-import { ConversationStoreService } from '@services/conversation-store.service';
+import { PushNotificationStoreService } from '@services/push-notification-store.service';
 
 @Component({
 	selector: 'cb-navigation',
@@ -16,7 +16,7 @@ import { ConversationStoreService } from '@services/conversation-store.service';
 })
 export class NavigationComponent {
 	isUserLoggedIn$: Observable<boolean>;
-	unreadConversationsCount: number | null;
+	notificationsCount: number | null;
 
 	readonly constants: Constants = constants;
 
@@ -26,19 +26,19 @@ export class NavigationComponent {
 		private cdRef: ChangeDetectorRef,
 		private authService: AuthService,
 		private authStore: AuthStoreService,
-		public conversationStore: ConversationStoreService,
+		public pushNotificationStore: PushNotificationStoreService,
 	) {
 		this.isUserLoggedIn$ = this.authStore.isUserLoggedIn$;
-		this.conversationStore.unreadConversationsCount$
+		this.pushNotificationStore.notificationsCount$
 			.pipe(takeUntil(this.destroy$))
-			.subscribe((unreadConversationsCount: number | null) => {
-				this.unreadConversationsCount = unreadConversationsCount;
+			.subscribe((notificationsCount: number | null) => {
+				this.notificationsCount = notificationsCount;
 				this.cdRef.markForCheck();
 			});
 	}
 
 	logout(): void {
-		this.conversationStore.clearUnreadConversationsCount();
+		this.pushNotificationStore.clearNotificationsCount();
 		this.authService.logout();
 	}
 }
