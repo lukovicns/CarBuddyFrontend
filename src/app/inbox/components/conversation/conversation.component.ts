@@ -12,6 +12,7 @@ import {
 
 import { Observable } from 'rxjs';
 
+import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
 import { MessageParticipant } from '@models/message-participant.model';
 import { Conversation } from '@models/conversation.model';
@@ -32,6 +33,8 @@ export class ConversationComponent implements OnChanges, AfterViewChecked {
 	recipient: MessageParticipant;
 
 	form: FormGroup;
+
+	readonly constants: Constants = constants;
 
 	constructor(
 		private messageService: MessageService,

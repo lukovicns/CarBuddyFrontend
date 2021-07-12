@@ -23,6 +23,7 @@ import { MakeReservationComponent } from '@components/trip/make-reservation/make
 import { HistoryComponent } from '@components/history/history.component';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
+import { AddTripComponent } from './components/add-trip/add-trip.component';
 
 @NgModule({
 	declarations: [
@@ -33,6 +34,7 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		DriverInfoComponent,
 		MakeReservationComponent,
 		HistoryComponent,
+		AddTripComponent,
 	],
 	imports: [
 		AvatarModule,

@@ -4,7 +4,8 @@
 			class="row center">
 			<div class="col-lg-5 col-md-7 col-sm-12">
 				<cb-card>
-					<cb-trip-details [trip]="trip">
+					<cb-trip-details content
+						[trip]="trip">
 						<a mat-flat-button
 							[routerLink]="['/trips', trip.id]"
 							color="primary">

@@ -13,6 +13,7 @@ import { ConversationData } from '@models/conversation-data.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { ConversationService } from '@services/conversation.service';
 import { ConversationStoreService } from '@services/conversation-store.service';
+import { MessageStoreService } from '@services/message-store.service';
 
 @Component({
 	selector: 'cb-conversations',
@@ -46,6 +47,7 @@ export class ConversationsComponent implements OnChanges {
 		private authorizationService: AuthorizationService,
 		private conversationService: ConversationService,
 		private conversationStore: ConversationStoreService,
+		private messageStore: MessageStoreService,
 	) { }
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -64,6 +66,7 @@ export class ConversationsComponent implements OnChanges {
 	selectConversation(conversationId: string): void {
 		if (this.selectedConversation?.id !== conversationId) {
 			this.conversationStore.selectConversation(conversationId);
+			this.messageStore.clearMessages();
 		}
 	}
 

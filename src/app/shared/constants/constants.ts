@@ -38,6 +38,7 @@ export interface Constants {
 	send: string;
 	emptyInbox: string;
 	loadingInbox: string;
+	loadingMessages: string;
 	makeReservation: string;
 	sessionExpired: string;
 
@@ -82,6 +83,7 @@ export const constants: Constants = {
 	send: 'Send',
 	emptyInbox: 'Your inbox is currently empty.',
 	loadingInbox: 'Loading inbox...',
+	loadingMessages: 'Loading messages',
 	makeReservation: 'Make reservation',
 	sessionExpired: 'Session has expired. Please login again.',
 

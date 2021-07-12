@@ -1,27 +1,40 @@
 <mat-toolbar class="navbar"
 	color="primary">
-	<a routerLink="/search"
-		class="brand">
+	<a class="brand no-select">
 		CarBuddy
 	</a>
 	<ng-container *ngIf="(isUserLoggedIn$ | async); else notLoggedIn">
-		<div>
+		<div class="left-items">
 			<button mat-icon-button
-				routerLink="/inbox"
+				[routerLink]="['search']"
 				routerLinkActive="active"
 				[routerLinkActiveOptions]="{ exact: true }">
-				<mat-icon [matBadge]="notificationsCount"
-					[matBadgeHidden]="!notificationsCount"
-					matBadgeColor="warn">
-					email
-				</mat-icon>
+				<mat-icon>search</mat-icon>
 			</button>
 
 			<button mat-icon-button
-				(click)="logout()">
-				<mat-icon>logout</mat-icon>
+				[routerLink]="['trips', 'add']"
+				routerLinkActive="active"
+				[routerLinkActiveOptions]="{ exact: true }">
+				<mat-icon>commute</mat-icon>
 			</button>
 		</div>
+
+		<button mat-icon-button
+			routerLink="/inbox"
+			routerLinkActive="active"
+			[routerLinkActiveOptions]="{ exact: true }">
+			<mat-icon [matBadge]="notificationsCount"
+				[matBadgeHidden]="!notificationsCount"
+				matBadgeColor="warn">
+				email
+			</mat-icon>
+		</button>
+
+		<button mat-icon-button
+			(click)="logout()">
+			<mat-icon>logout</mat-icon>
+		</button>
 	</ng-container>
 	<ng-template #notLoggedIn>
 		<div>

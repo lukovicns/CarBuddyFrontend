@@ -17,8 +17,14 @@
 
 .mat-icon-button {
 	color: $lightGray;
+	margin-right: 5px;
 
 	&.active {
-		color: $lightestGray;
+		color: $lightGreen;
 	}
+}
+
+.left-items {
+	margin-left: 20px;
+	flex: 1;
 }
