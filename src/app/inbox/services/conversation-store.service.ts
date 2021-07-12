@@ -2,14 +2,8 @@ import { Injectable } from '@angular/core';
 import { findById, updateAtIndex } from '@app/shared/functions';
 
 import { Conversation } from '@models/conversation.model';
-import { ConversationStatus } from '@models/conversation-status.enum';
 import { ConversationState } from '@states/conversation.state';
 import { Store } from '@store/store';
-
-const initialState: ConversationState = {
-	conversations: null,
-	selectedConversation: null,
-};
 
 @Injectable({
 	providedIn: 'root',
@@ -17,13 +11,14 @@ const initialState: ConversationState = {
 export class ConversationStoreService extends Store<ConversationState> {
 	conversations$ = this.select((state: ConversationState) => state.conversations);
 	selectedConversation$ = this.select((state: ConversationState) => state.selectedConversation);
+	unreadConversationsCount$ = this.select((state: ConversationState) => state.unreadConversationsCount);
 
 	constructor() {
-		super(initialState);
-	}
-
-	isStatusUnread(conversationId: string): boolean {
-		return this.getConversation(conversationId).status === ConversationStatus.Unread;
+		super({
+			conversations: null,
+			selectedConversation: null,
+			unreadConversationsCount: null,
+		});
 	}
 
 	setConversations(conversations: Conversation[]): void {
@@ -41,22 +36,47 @@ export class ConversationStoreService extends Store<ConversationState> {
 			this.state.conversations || [],
 			conversation,
 		);
-		const sortedConversations = [...conversations].sort(
-			(a: Conversation, b: Conversation) =>  b.date.diff(a.date),
-		);
-		this.setState({ conversations: sortedConversations });
+		this.setState({
+			conversations: [...conversations].sort(
+				(a: Conversation, b: Conversation) =>  b.date.diff(a.date),
+			),
+		});
+	}
+
+	clearConversations(): void {
+		this.setState({
+			conversations: null,
+			selectedConversation: null,
+		});
 	}
 
 	markAsRead(conversationId: string): void {
 		const conversation = this.getConversation(conversationId);
 		this.updateConversation(conversation.withStatusRead());
+
+		if (this.hasUnreadConversations()) {
+			this.setUnreadConversationsCount(this.state.unreadConversationsCount! - 1);
+		}
 	}
 
-	clearConversations(): void {
-		this.setState(initialState);
+	setUnreadConversationsCount(unreadConversationsCount: number): void {
+		this.setState({ unreadConversationsCount });
+	}
+
+	clearUnreadConversationsCount(): void {
+		this.setState({ unreadConversationsCount: null });
+	}
+
+	get hasUnreadConversationsCount(): boolean {
+		return this.state.unreadConversationsCount !== null;
 	}
 
 	private getConversation(conversationId: string): Conversation {
 		return findById(this.state.conversations || [], conversationId);
+	}
+
+	private hasUnreadConversations(): boolean {
+		return !!this.state.unreadConversationsCount
+			&& this.state.unreadConversationsCount > 0;
 	}
 }

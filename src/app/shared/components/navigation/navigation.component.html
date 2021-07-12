@@ -10,7 +10,8 @@
 				routerLink="/inbox"
 				routerLinkActive="active"
 				[routerLinkActiveOptions]="{ exact: true }">
-				<mat-icon matBadge="15"
+				<mat-icon [matBadge]="unreadConversationsCount"
+					[matBadgeHidden]="!unreadConversationsCount"
 					matBadgeColor="warn">
 					email
 				</mat-icon>

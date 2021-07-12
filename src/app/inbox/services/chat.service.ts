@@ -43,13 +43,16 @@ export class ChatService {
     	this.start();
 	}
 
-	broadcastMessage(
-		authorId: string,
-		conversationId: string,
-		message: string,
-	): Observable<ChatMessage> {
-		this.messageStore.setPending(true);
+	async start() {
+    	try {
+    		await this.connection.start();
+    	} catch (err: any) {
+    		console.log(err);
+    	}
+	}
 
+	broadcastMessage(authorId: string, conversationId: string, message: string): Observable<ChatMessage> {
+		this.messageStore.setPending(true);
     	return this.http.post<ChatMessage>(sendMessageUrl, {
     		authorId,
     		conversationId,
@@ -59,13 +62,5 @@ export class ChatService {
 				complete: () => this.messageStore.setPending(false),
 			}),
 		);
-	}
-
-	async start() {
-    	try {
-    		await this.connection.start();
-    	} catch (err: any) {
-    		console.log(err);
-    	}
 	}
 }

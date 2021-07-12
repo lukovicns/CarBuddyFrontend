@@ -40,6 +40,10 @@ export class Conversation {
 		return !this.id;
 	}
 
+	get hasUnreadStatus(): boolean {
+		return this.status === ConversationStatus.Unread;
+	}
+
 	equals(conversation: Conversation): boolean {
 		return this.id == conversation.id;
 	}

@@ -74,7 +74,7 @@ export class ConversationsComponent implements OnChanges {
 	}
 
 	private markAsRead(conversation: Conversation): void {
-		if (this.conversationStore.isStatusUnread(conversation.id)) {
+		if (conversation.hasUnreadStatus) {
 			this.conversationService.markAsRead(conversation.id)
 				.subscribe(() => this.conversationStore.markAsRead(conversation.id));
 		}
