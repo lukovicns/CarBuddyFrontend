@@ -8,6 +8,7 @@ import { constants, Constants } from '@constants/constants';
 import { Car } from '@models/car.model';
 import { numberControl, requiredTextControl } from '@constants/form-controls';
 import { CarService } from '@services/car.service';
+import { CarStoreService } from '@services/car-store.service';
 import { TripStoreService } from '@services/trip-store.service';
 
 @Component({
@@ -17,7 +18,7 @@ import { TripStoreService } from '@services/trip-store.service';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddTripComponent implements OnInit {
-	car$: Observable<Car>;
+	car$: Observable<Car | null>;
 	isPending$: Observable<boolean>;
 	form: FormGroup;
 	today = moment();
@@ -26,14 +27,17 @@ export class AddTripComponent implements OnInit {
 
 	constructor(
 		private carService: CarService,
+		private carStore: CarStoreService,
 		private tripStore: TripStoreService,
 	) {
+		this.car$ = this.carStore.car$;
 		this.isPending$ = this.tripStore.isAddTripPending$;
 	}
 
 	ngOnInit(): void {
 		this.initializeForm();
-		this.car$ = this.carService.getUserCar();
+		this.carService.getUserCar()
+			.subscribe();
 	}
 
 	addTrip(): void {

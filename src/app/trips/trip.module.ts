@@ -25,6 +25,7 @@ import { AddTripComponent } from '@components/add-trip/add-trip.component';
 import { CardFormModule } from '@components/card-form/card-form.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
+import { AddCarComponent } from './components/add-trip/add-car/add-car.component';
 
 @NgModule({
 	declarations: [
@@ -36,6 +37,7 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		MakeReservationComponent,
 		HistoryComponent,
 		AddTripComponent,
+  AddCarComponent,
 	],
 	imports: [
 		AvatarModule,

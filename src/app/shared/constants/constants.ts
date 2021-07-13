@@ -47,6 +47,7 @@ export interface Constants {
 	makeReservation: string;
 	sessionExpired: string;
 	addTrip: string;
+	addCar: string;
 
 	contactDriver: (name: string) => string;
 }
@@ -98,6 +99,7 @@ export const constants: Constants = {
 	makeReservation: 'Make reservation',
 	sessionExpired: 'Session has expired. Please login again.',
 	addTrip: 'Add trip',
+	addCar: 'Add car',
 
 	contactDriver: (name: string) => `Contact ${truncate(name)}`,
 };

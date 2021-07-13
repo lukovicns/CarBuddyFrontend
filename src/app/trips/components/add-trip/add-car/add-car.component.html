@@ -1,0 +1,9 @@
+<div *ngIf="car.isEmpty; else hasCar">
+	<h3 class="label">
+		{{ constants.addCar }}
+	</h3>
+</div>
+
+<ng-template #hasCar>
+	<h1>Has car!</h1>
+</ng-template>
