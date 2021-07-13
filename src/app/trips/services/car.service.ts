@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
-import { carsUrl } from '@constants/urls';
+import { carsUrl, userCarUrl } from '@constants/urls';
 import { Car } from '@models/car.model';
 import { AuthorizationService } from '@services/authorization.service';
 import { CarStoreService } from '@services/car-store.service';
@@ -26,7 +26,7 @@ export class CarService {
 	getUserCar(): Observable<Car | null> {
 		return this.carStore.hasCar
 			? this.carStore.car$
-			: this.http.get<Car>(carsUrl(this.authorizationService.currentUserId))
+			: this.http.get<Car>(userCarUrl(this.authorizationService.currentUserId))
 				.pipe(
 					tap({
 						next: (car: Car) => this.carStore.setCar(car),
@@ -37,5 +37,15 @@ export class CarService {
 						},
 					}),
 				);
+	}
+
+	addCar(data: any): Observable<Car> {
+		return this.http.post<Car>(carsUrl, data)
+			.pipe(
+				map((car: Car) => new Car(car)),
+				tap({
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				}),
+			);
 	}
 }

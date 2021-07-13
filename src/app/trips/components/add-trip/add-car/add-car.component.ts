@@ -10,6 +10,7 @@ import {
 import { AddCarDialogComponent } from '@components/add-trip/add-car-dialog/add-car-dialog.component';
 import { constants, Constants } from '@constants/constants';
 import { Car } from '@models/car.model';
+import { CarService } from '@services/car.service';
 
 @Component({
 	selector: 'cb-add-car',
@@ -28,6 +29,7 @@ export class AddCarComponent {
 	constructor(
 		private cdRef: ChangeDetectorRef,
 		private dialog: MatDialog,
+		private carService: CarService,
 	) { }
 
 	openDialog(): void {
@@ -39,6 +41,11 @@ export class AddCarComponent {
 		});
 
 		dialogRef.componentInstance.onAddCar
+			.subscribe(() => this.addCar());
+	}
+
+	private addCar(): void {
+		this.carService.addCar(this.form.value)
 			.subscribe(() => {
 				this.isCarAdded = true;
 				this.cdRef.markForCheck();

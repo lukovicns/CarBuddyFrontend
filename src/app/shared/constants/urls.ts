@@ -9,11 +9,12 @@ export const sendMessageUrl = `${apiUrl}/messages/send`;
 export const chatUrl = `${baseUrl}/chat`;
 export const notificationUrl = `${baseUrl}/notification`;
 
-export const searchTripsUrl = (page: number, size: number) => `${apiUrl}/trips/search?page=${page}&size=${size}`;
 export const tripsUrl = `${apiUrl}/trips`;
+export const carsUrl = `${apiUrl}/cars`;
+export const searchTripsUrl = (page: number, size: number) => `${apiUrl}/trips/search?page=${page}&size=${size}`;
 export const tripUrl = (id: string) => `${tripsUrl}/${id}`;
 export const makeReservationUrl = (id: string) => `${tripUrl(id)}/make-reservation`;
-export const carsUrl = (userId: string) => `${apiUrl}/cars?userId=${userId}`;
+export const userCarUrl = (userId: string) => `${carsUrl}?userId=${userId}`;
 export const conversationsUrl = (recipientId: string) => `${apiUrl}/conversations/${recipientId}?pageNumber=1&pageSize=20`;
 export const markAsReadUrl = (conversationId: string) => `${apiUrl}/conversations/${conversationId}/mark-as-read`;
 export const messagesUrl = (recipientId: string, conversationId: string) => `${apiUrl}/messages/${recipientId}/conversation/${conversationId}?pageNumber=1&pageSize=20`;
