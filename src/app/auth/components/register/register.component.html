@@ -10,46 +10,46 @@
 				<div class="row">
 					<div class="col-6">
 						<cb-form-field [form]="form"
+							[control]="this.form.get('firstName')!"
 							[label]="constants.firstName"
-							[placeholder]="constants.firstNamePlaceholder"
-							name="firstName">
+							[placeholder]="constants.firstNamePlaceholder">
 						</cb-form-field>
 					</div>
 					<div class="col-6">
 						<cb-form-field [form]="form"
+							[control]="this.form.get('lastName')!"
 							[label]="constants.lastName"
-							[placeholder]="constants.lastNamePlaceholder"
-							name="lastName">
+							[placeholder]="constants.lastNamePlaceholder">
 						</cb-form-field>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<cb-form-field [form]="form"
+							[control]="this.form.get('email')!"
 							[label]="constants.email"
 							[placeholder]="constants.emailPlaceholder"
-							type="email"
-							name="email">
+							type="email">
 						</cb-form-field>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<cb-form-field [form]="form"
+							[control]="this.form.get('password')!"
 							[label]="constants.password"
 							[placeholder]="constants.passwordPlaceholder"
-							type="password"
-							name="password">
+							type="password">
 						</cb-form-field>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-6">
 						<cb-form-field [form]="form"
+							[control]="this.form.get('age')!"
 							[label]="constants.age"
 							[placeholder]="constants.agePlaceholder"
-							type="number"
-							name="age">
+							type="number">
 						</cb-form-field>
 					</div>
 					<div class="col-6">

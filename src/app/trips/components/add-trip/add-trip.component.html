@@ -30,11 +30,10 @@
 	</div>
 	<div class="col-12">
 		<cb-form-field [form]="form"
+			[control]="this.form.get('price')!"
 			[label]="constants.price"
 			[placeholder]="constants.pricePlaceholder"
-			[min]="1"
-			type="number"
-			name="price">
+			type="number">
 		</cb-form-field>
 	</div>
 	<div class="col-12">

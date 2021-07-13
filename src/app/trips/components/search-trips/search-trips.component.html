@@ -27,12 +27,10 @@
 	</div>
 	<div class="col-12">
 		<cb-form-field [form]="form"
+			[control]="this.form.get('numberOfPassengers')!"
 			[label]="constants.numberOfPassengers"
 			[placeholder]="constants.numberOfPassengersPlaceholder"
-			[min]="1"
-			[max]="8"
-			type="number"
-			name="numberOfPassengers">
+			type="number">
 		</cb-form-field>
 	</div>
 	<div class="col-12">
