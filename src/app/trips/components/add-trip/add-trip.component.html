@@ -1,9 +1,11 @@
 <cb-card-form [form]="form"
 	[header]="constants.addTrip"
 	(onSubmit)="addTrip()">
-	<cb-add-car *ngIf="car$ | async as car"
-		[car]="car">
-	</cb-add-car>
+	<div class="col-12">
+		<cb-icon-button icon="add"
+			(onClick)="addCar()">
+		</cb-icon-button>
+	</div>
 
 	<div class="col-12">
 		<cb-places-autocomplete [form]="form"

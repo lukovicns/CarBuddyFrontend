@@ -13,21 +13,29 @@ export const passwordControl = (initialValue: string) => new FormControl(initial
 	Validators.pattern(constants.passwordPattern),
 ]);
 
-export const numberControl = (initialValue: number, min?: number, max?: number) => new FormControl(initialValue, [
+export const numberControl = (initialValue: number, min = 1, max = 8) => new FormControl(initialValue, [
 	Validators.required,
-	Validators.min(min || 1),
-	Validators.max(max || 8),
+	Validators.min(min),
+	Validators.max(max),
 ]);
 
-export function requiredTextControl(initialValue: string, minLength?: number) {
+export function requiredTextControl(initialValue: string, minLength?: number, maxLength?: number) {
 	const control = new FormControl(initialValue);
+	control.setValidators(appendValidators(minLength, maxLength));
 
+	return control;
+}
+
+function appendValidators(minLength?: number, maxLength?: number) {
 	let validators = [Validators.required];
-
+	
 	if (minLength) {
 		validators = [...validators, Validators.minLength(minLength)];
 	}
+	
+	if (maxLength) {
+		validators = [...validators, Validators.maxLength(maxLength)];
+	}
 
-	control.setValidators(validators);
-	return control;
+	return validators;
 }

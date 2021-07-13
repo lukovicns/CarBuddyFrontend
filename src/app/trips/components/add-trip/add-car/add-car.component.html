@@ -2,6 +2,18 @@
 	<h3 class="label">
 		{{ constants.addCar }}
 	</h3>
+
+	<cb-form-field [form]="form"
+		[control]="this.form.get('brand')!"
+		[label]="'Brand'"
+		[placeholder]="'Enter your car brand here'">
+	</cb-form-field>
+
+	<cb-form-field [form]="form"
+		[control]="this.form.get('model')!"
+		[label]="'Model'"
+		[placeholder]="'Enter your car model here'">
+	</cb-form-field>
 </div>
 
 <ng-template #hasCar>

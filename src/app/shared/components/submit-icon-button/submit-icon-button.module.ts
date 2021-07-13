@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ButtonLoaderModule } from '@components/button-loader/button-loader.module';
+import { IconButtonModule } from '@components/icon-button/icon-button.module';
 import { SubmitIconButtonComponent } from '@components/submit-icon-button/submit-icon-button.component';
 
 @NgModule({
@@ -15,10 +12,7 @@ import { SubmitIconButtonComponent } from '@components/submit-icon-button/submit
 	imports: [
 		ButtonLoaderModule,
 		CommonModule,
-		MatButtonModule,
-		MatIconModule,
-		MatProgressSpinnerModule,
-		MatTooltipModule,
+		IconButtonModule,
 	],
 	exports: [
 		SubmitIconButtonComponent,

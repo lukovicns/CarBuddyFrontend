@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -37,7 +38,7 @@ import { AddCarComponent } from './components/add-trip/add-car/add-car.component
 		MakeReservationComponent,
 		HistoryComponent,
 		AddTripComponent,
-  AddCarComponent,
+		AddCarComponent,
 	],
 	imports: [
 		AvatarModule,
@@ -48,6 +49,7 @@ import { AddCarComponent } from './components/add-trip/add-car/add-car.component
 		FormFieldModule,
 		IconButtonModule,
 		MatButtonModule,
+		MatDialogModule,
 		MatIconModule,
 		MatPaginatorModule,
 		NavigationModule,

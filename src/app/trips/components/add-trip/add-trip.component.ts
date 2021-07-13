@@ -44,6 +44,10 @@ export class AddTripComponent implements OnInit {
 		console.log(this.form.value);
 	}
 
+	addCar(): void {
+		//
+	}
+
 	private initializeForm(): void {
 		this.form = new FormGroup({
 			fromAddress: requiredTextControl(''),

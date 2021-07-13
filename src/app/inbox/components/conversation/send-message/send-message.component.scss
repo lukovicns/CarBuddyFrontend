@@ -6,4 +6,10 @@
 			padding-bottom: 0;
 		}
 	}
+
+	cb-submit-icon-button > cb-button-loader > .loader {
+		position: relative;
+		left: 6px;
+		top: 6px;
+	}
 }
