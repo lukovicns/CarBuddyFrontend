@@ -48,6 +48,13 @@ export interface Constants {
 	sessionExpired: string;
 	addTrip: string;
 	addCar: string;
+	carBrand: string;
+	carBrandPlaceholder: string;
+	carModel: string;
+	carModelPlaceholder: string;
+	seats: string;
+	cancel: string;
+	carAdded: string;
 
 	contactDriver: (name: string) => string;
 }
@@ -100,6 +107,13 @@ export const constants: Constants = {
 	sessionExpired: 'Session has expired. Please login again.',
 	addTrip: 'Add trip',
 	addCar: 'Add car',
+	carBrand: 'Car brand',
+	carBrandPlaceholder: 'Enter your car brand here...',
+	carModel: 'Car model',
+	carModelPlaceholder: 'Enter your car model here...',
+	seats: 'Seats',
+	cancel: 'Cancel',
+	carAdded: 'Car added',
 
 	contactDriver: (name: string) => `Contact ${truncate(name)}`,
 };

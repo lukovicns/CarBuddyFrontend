@@ -1,0 +1,49 @@
+<div class="row">
+	<h3 class="label">
+		{{ constants.addCar }}
+	</h3>
+
+	<form [formGroup]="form"
+		(ngSubmit)="addCar()"
+		autocomplete="off"
+		spellcheck="false">
+		<div class="col-12">
+			<cb-form-field [form]="form"
+				[control]="this.form.get('brand')!"
+				[label]="constants.carBrand"
+				[placeholder]="constants.carBrandPlaceholder">
+			</cb-form-field>
+		</div>
+
+		<div class="col-12">
+			<cb-form-field [form]="form"
+				[control]="this.form.get('model')!"
+				[label]="constants.carModel"
+				[placeholder]="constants.carModelPlaceholder">
+			</cb-form-field>
+		</div>
+
+		<div class="col-12">
+			<cb-number-input-buttons [control]="this.form.get('numberOfSeats')!"
+				[label]="constants.seats"
+				[min]="1"
+				[max]="8">
+			</cb-number-input-buttons>
+		</div>
+
+		<div class="col-12">
+			<cb-submit-button [label]="constants.addCar"
+				[isDisabled]="form.invalid"
+				[isPending]="(isPending$ | async)!">
+			</cb-submit-button>
+
+			<button mat-flat-button
+				color="warn"
+				class="cancel"
+				type="button"
+				(click)="close()">
+				{{ constants.cancel }}
+			</button>
+		</div>
+	</form>
+</div>

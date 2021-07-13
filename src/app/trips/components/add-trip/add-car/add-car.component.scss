@@ -1,3 +1,14 @@
-.label {
-	margin-left: 2px;
+@import "colors";
+
+.check {
+	color: $lightGreen;
+	position: relative;
+	top: 8px;
+	left: 8px;
+}
+
+span {
+	position: relative;
+	left: 15px;
+	top: 1px;
 }

@@ -1,21 +1,16 @@
-<div *ngIf="car.isEmpty; else hasCar">
-	<h3 class="label">
-		{{ constants.addCar }}
-	</h3>
+<ng-container *ngIf="!isCarAdded; else carAdded">
+	<cb-icon-button *ngIf="car.isEmpty; else hasCar"
+		icon="add"
+		[tooltip]="constants.addCar"
+		(onClick)="openDialog()">
+	</cb-icon-button>
 
-	<cb-form-field [form]="form"
-		[control]="this.form.get('brand')!"
-		[label]="'Brand'"
-		[placeholder]="'Enter your car brand here'">
-	</cb-form-field>
+	<ng-template #hasCar>
+		Has car!
+	</ng-template>
+</ng-container>
 
-	<cb-form-field [form]="form"
-		[control]="this.form.get('model')!"
-		[label]="'Model'"
-		[placeholder]="'Enter your car model here'">
-	</cb-form-field>
-</div>
-
-<ng-template #hasCar>
-	<h1>Has car!</h1>
+<ng-template #carAdded>
+	<mat-icon class="check">check</mat-icon>
+	<span>{{ constants.carAdded }}</span>
 </ng-template>

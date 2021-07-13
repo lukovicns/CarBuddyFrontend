@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-import { makeReservationUrl, searchTripsUrl, tripUrl } from '@constants/urls';
 import { TripSummary } from '@models/trip-summary.model';
 import { SearchCriteria } from '@models/search-criteria.model';
 import { Trip } from '@models/trip.model';
@@ -15,6 +14,12 @@ import { ErrorHandlerService } from '@services/error-handler.service';
 import { AuthorizationService } from '@services/authorization.service';
 import { TripStoreService } from '@services/trip-store.service';
 import { toInstances } from '@shared/functions';
+import {
+	makeReservationUrl,
+	searchTripsUrl,
+	tripsUrl,
+	tripUrl, 
+} from '@constants/urls';
 
 @Injectable({
 	providedIn: 'root',
@@ -61,6 +66,15 @@ export class TripService {
 						this.errorHandler.handle(error);
 						this.router.navigate(['/trips']);
 					},
+				}),
+			);
+	}
+
+	addTrip(data: any): Observable<any> {
+		return this.http.post<any>(tripsUrl, data)
+			.pipe(
+				tap({
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 				}),
 			);
 	}

@@ -10,7 +10,8 @@ export const chatUrl = `${baseUrl}/chat`;
 export const notificationUrl = `${baseUrl}/notification`;
 
 export const searchTripsUrl = (page: number, size: number) => `${apiUrl}/trips/search?page=${page}&size=${size}`;
-export const tripUrl = (id: string) => `${apiUrl}/trips/${id}`;
+export const tripsUrl = `${apiUrl}/trips`;
+export const tripUrl = (id: string) => `${tripsUrl}/${id}`;
 export const makeReservationUrl = (id: string) => `${tripUrl(id)}/make-reservation`;
 export const carsUrl = (userId: string) => `${apiUrl}/cars?userId=${userId}`;
 export const conversationsUrl = (recipientId: string) => `${apiUrl}/conversations/${recipientId}?pageNumber=1&pageSize=20`;

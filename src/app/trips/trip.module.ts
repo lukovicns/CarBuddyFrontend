@@ -24,20 +24,23 @@ import { MakeReservationComponent } from '@components/trip/make-reservation/make
 import { HistoryComponent } from '@components/history/history.component';
 import { AddTripComponent } from '@components/add-trip/add-trip.component';
 import { CardFormModule } from '@components/card-form/card-form.module';
+import { NumberInputButtonsModule } from '@components/number-input-buttons/number-input-buttons.module';
+import { AddCarDialogComponent } from '@components/add-trip/add-car-dialog/add-car-dialog.component';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
 import { AddCarComponent } from './components/add-trip/add-car/add-car.component';
 
 @NgModule({
 	declarations: [
-		SearchTripsComponent,
-		TripsComponent,
-		TripComponent,
-		TripDetailsComponent,
-		DriverInfoComponent,
-		MakeReservationComponent,
-		HistoryComponent,
+		AddCarDialogComponent,
 		AddTripComponent,
+		DriverInfoComponent,
+		HistoryComponent,
+		MakeReservationComponent,
+		SearchTripsComponent,
+		TripComponent,
+		TripsComponent,
+		TripDetailsComponent,
 		AddCarComponent,
 	],
 	imports: [
@@ -53,6 +56,7 @@ import { AddCarComponent } from './components/add-trip/add-car/add-car.component
 		MatIconModule,
 		MatPaginatorModule,
 		NavigationModule,
+		NumberInputButtonsModule,
 		MatProgressBarModule,
 		PlacesAutocompleteModule,
 		ProgressBarModule,

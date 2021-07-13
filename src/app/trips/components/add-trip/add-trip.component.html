@@ -2,9 +2,10 @@
 	[header]="constants.addTrip"
 	(onSubmit)="addTrip()">
 	<div class="col-12">
-		<cb-icon-button icon="add"
-			(onClick)="addCar()">
-		</cb-icon-button>
+		<cb-add-car *ngIf="car$ | async as car"
+			[form]="carForm"
+			[car]="car">
+		</cb-add-car>
 	</div>
 
 	<div class="col-12">
