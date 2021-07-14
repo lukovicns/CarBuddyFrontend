@@ -39,6 +39,10 @@ export class TripService {
 		private tripStore: TripStoreService,
 	) { }
 
+	get currentUserId(): string {
+		return this.authorizationService.currentUserId;
+	}
+
 	loadTrips(criteria: SearchCriteria, pagination: Pagination): void {
 		this.trips.next(null);
 		this.http.post<ListResponse<TripSummary>>(
@@ -71,19 +75,21 @@ export class TripService {
 	}
 
 	addTrip(data: any): Observable<any> {
-		return this.http.post<any>(tripsUrl, data)
-			.pipe(
-				tap({
-					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
-				}),
-			);
+		return this.http.post<any>(tripsUrl, {
+			...data,
+			driverId: this.currentUserId,
+		}).pipe(
+			tap({
+				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+			}),
+		);
 	}
 
 	makeReservation(tripId: string, numberOfPassengers: number): Observable<any> {
 		this.tripStore.setReservationPending(true);
 
 		return this.http.put(makeReservationUrl(tripId), {
-			userId: this.authorizationService.currentUserId,
+			userId: this.currentUserId,
 			numberOfPassengers,
 		}).pipe(
 			tap({
