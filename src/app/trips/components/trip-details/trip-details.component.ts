@@ -8,7 +8,7 @@ import {
 import { constants, Constants } from '@constants/constants';
 import { Trip } from '@models/trip.model';
 import { TripSummary } from '@models/trip-summary.model';
-import { TripDetailsRow } from '@models/trip-details-row.type';
+import { TripDetails } from '@models/trip-details.type';
 
 @Component({
 	selector: 'cb-trip-details',
@@ -19,7 +19,7 @@ import { TripDetailsRow } from '@models/trip-details-row.type';
 export class TripDetailsComponent implements OnInit {
 	@Input() trip: Trip | TripSummary;
 
-	rows: TripDetailsRow[];
+	rows: TripDetails[];
 
 	readonly constants: Constants = constants;
 
