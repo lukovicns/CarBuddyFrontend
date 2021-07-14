@@ -51,8 +51,8 @@ export class AddTripComponent implements OnInit, OnDestroy {
 			});
 	}
 
-	get isCarEmpty(): boolean {
-		return !!this.car && this.car.isEmpty;
+	get hasCar(): boolean {
+		return !!this.car && !this.car.isEmpty;
 	}
 
 	ngOnInit(): void {
@@ -76,6 +76,8 @@ export class AddTripComponent implements OnInit, OnDestroy {
 			fromAddress: requiredTextControl(''),
 			toAddress: requiredTextControl(''),
 			date: requiredTextControl(''),
+			startTime: requiredTextControl(''),
+			arriveTime: requiredTextControl(''),
 			price: numberControl(500, 1, 100000),
 		});
 	}

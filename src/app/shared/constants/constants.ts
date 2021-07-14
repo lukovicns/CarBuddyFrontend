@@ -2,7 +2,7 @@ import { truncate } from '@shared/functions';
 
 export interface Constants {
 	search: string;
-	searchForTrips: string;
+	searchTrips: string;
 	register: string;
 	login: string;
 	registerHere: string;
@@ -34,6 +34,8 @@ export interface Constants {
 	pleaseWait: string;
 	startDate: string;
 	startDatePlaceholder: string;
+	startTime: string;
+	arriveTime: string;
 	price: string;
 	pricePlaceholder: string;
 	seatsLeft: string;
@@ -61,7 +63,7 @@ export interface Constants {
 
 export const constants: Constants = {
 	search: 'Search',
-	searchForTrips: 'Search for trips',
+	searchTrips: 'Search trips',
 	register: 'Register',
 	login: 'Login',
 	registerHere: 'Register here',
@@ -93,6 +95,8 @@ export const constants: Constants = {
 	pleaseWait: 'Please wait...',
 	startDate: 'Start date',
 	startDatePlaceholder: 'Choose start date',
+	startTime: 'Start time',
+	arriveTime: 'Arrive time',
 	price: 'Price',
 	pricePlaceholder: 'How much does it cost?',
 	seatsLeft: 'Seats left',

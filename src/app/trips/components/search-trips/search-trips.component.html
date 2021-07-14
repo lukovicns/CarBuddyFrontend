@@ -1,15 +1,14 @@
 <cb-card-form [form]="form"
-	[header]="constants.search"
-	[subheader]="constants.searchForTrips"
+	[header]="constants.searchTrips"
 	(onSubmit)="search()">
-	<div class="col-12">
+	<div class="col-6">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('fromCity')!"
 			[label]="constants.fromCity"
 			[placeholder]="constants.fromCityPlaceholder">
 		</cb-places-autocomplete>
 	</div>
-	<div class="col-12">
+	<div class="col-6">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('toCity')!"
 			[label]="constants.toCity"
@@ -18,11 +17,11 @@
 	</div>
 	<div class="col-12">
 		<cb-date-picker [form]="form"
+			[control]="form.get('date')!"
 			[label]="constants.startDate"
 			[placeholder]="constants.startDatePlaceholder"
 			[startDate]="today"
-			[minDate]="today"
-			name="date">
+			[minDate]="today">
 		</cb-date-picker>
 	</div>
 	<div class="col-12">

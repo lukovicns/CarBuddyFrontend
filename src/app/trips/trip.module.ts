@@ -28,6 +28,7 @@ import { NumberInputButtonsModule } from '@components/number-input-buttons/numbe
 import { AddCarDialogComponent } from '@components/add-trip/add-car-dialog/add-car-dialog.component';
 import { AddCarComponent } from '@components/add-trip/add-car/add-car.component';
 import { DropdownModule } from '@components/dropdown/dropdown.module';
+import { TimePickerModule } from '@components/time-picker/time-picker.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
 
@@ -65,6 +66,7 @@ import { TripRoutingModule } from '@modules/trip-routing.module';
 		ProgressBarModule,
 		ReactiveFormsModule,
 		SubmitButtonModule,
+		TimePickerModule,
 		TripRoutingModule,
 	],
 })

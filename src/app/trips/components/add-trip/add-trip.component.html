@@ -1,18 +1,12 @@
 <cb-card-form [form]="form"
 	[header]="constants.addTrip"
 	(onSubmit)="addTrip()">
-	<div class="col-12">
-		<ng-container *ngIf="isCarEmpty; else hasCar">
-			<cb-add-car></cb-add-car>
-		</ng-container>
-
-		<ng-template #hasCar>
-			<mat-icon class="check">check</mat-icon>
-			<span>{{ constants.carAdded }}</span>
-		</ng-template>
+	<div *ngIf="!hasCar"
+		class="col-12">
+		<cb-add-car></cb-add-car>
 	</div>
 
-	<div class="col-12">
+	<div class="col-6">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('fromAddress')!"
 			[label]="constants.fromAddress"
@@ -20,7 +14,8 @@
 			searchType="address">
 		</cb-places-autocomplete>
 	</div>
-	<div class="col-12">
+
+	<div class="col-6">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('toAddress')!"
 			[label]="constants.toAddress"
@@ -28,15 +23,31 @@
 			searchType="address">
 		</cb-places-autocomplete>
 	</div>
+
 	<div class="col-12">
 		<cb-date-picker [form]="form"
+			[control]="form.get('date')!"
 			[label]="constants.startDate"
 			[placeholder]="constants.startDatePlaceholder"
 			[startDate]="today"
-			[minDate]="today"
-			name="date">
+			[minDate]="today">
 		</cb-date-picker>
 	</div>
+
+	<div class="col-6">
+		<cb-time-picker [form]="form"
+			[control]="this.form.get('startTime')!"
+			[label]="constants.startTime">
+		</cb-time-picker>
+	</div>
+
+	<div class="col-6">
+		<cb-time-picker [form]="form"
+			[control]="this.form.get('arriveTime')!"
+			[label]="constants.arriveTime">
+		</cb-time-picker>
+	</div>
+
 	<div class="col-12">
 		<cb-form-field [form]="form"
 			[control]="this.form.get('price')!"
@@ -45,9 +56,10 @@
 			type="number">
 		</cb-form-field>
 	</div>
+
 	<div class="col-12">
 		<cb-submit-button [label]="constants.addTrip"
-			[isDisabled]="form.invalid || isCarEmpty"
+			[isDisabled]="form.invalid || !hasCar"
 			[isPending]="(isPending$ | async)!">
 		</cb-submit-button>
 	</div>

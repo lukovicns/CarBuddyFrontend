@@ -4,6 +4,7 @@ export class Car {
 	model: string;
 	photo: string;
 	numberOfSeats: number;
+	name: string;
 
 	constructor(data: any) {
 		this.id = data.id;
@@ -11,6 +12,7 @@ export class Car {
 		this.model = data.model || '';
 		this.photo = data.photo || '';
 		this.numberOfSeats = data.numberOfSeats || 0;
+		this.name = `${data.brand} ${data.model}`.trim();
 	}
 
 	get isEmpty(): boolean {
