@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 
 import { AgmCoreModule } from '@agm/core';
@@ -12,7 +13,6 @@ import { AppRoutingModule } from '@app/app-routing.module';
 import { NavigationModule } from '@components/navigation/navigation.module';
 import { AuthorizationInterceptor } from '@interceptors/authorization.interceptor';
 import { InboxModule } from '@modules/inbox/inbox.module';
-import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
 	declarations: [
@@ -24,8 +24,8 @@ import { SharedModule } from '@shared/shared.module';
 		BrowserModule,
 		HttpClientModule,
 		InboxModule,
+		MatSnackBarModule,
 		NavigationModule,
-		SharedModule,
 		AgmCoreModule.forRoot({
 			apiKey: 'AIzaSyD2VUNllokT2MYaY6COgPAPTrw1Zj1-Irg',
 			libraries: ['places'],

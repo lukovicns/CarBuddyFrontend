@@ -1,16 +1,4 @@
-<ng-container *ngIf="!isCarAdded; else carAdded">
-	<cb-icon-button *ngIf="car.isEmpty; else hasCar"
-		icon="add"
-		[tooltip]="constants.addCar"
-		(onClick)="openDialog()">
-	</cb-icon-button>
-
-	<ng-template #hasCar>
-		Has car!
-	</ng-template>
-</ng-container>
-
-<ng-template #carAdded>
-	<mat-icon class="check">check</mat-icon>
-	<span>{{ constants.carAdded }}</span>
-</ng-template>
+<cb-icon-button icon="add"
+	[tooltip]="constants.addCar"
+	(onClick)="openDialog()">
+</cb-icon-button>

@@ -23,6 +23,7 @@ export class PlacesAutocompleteComponent implements OnInit {
 	@Input() control: AbstractControl;
 	@Input() label: string;
 	@Input() placeholder: string;
+	@Input() searchType = '(cities)';
 	@ViewChild('searchInput') searchInput: ElementRef;
 
 	formControlName: string;
@@ -42,7 +43,7 @@ export class PlacesAutocompleteComponent implements OnInit {
 	private handlePlacesAutocomplete(): void {
 		this.mapsAPILoader.load().then(() => {
 			let autocomplete = new google.maps.places.Autocomplete(this.searchInput.nativeElement, {
-				types: ['(cities)'],
+				types: [this.searchType],
 				componentRestrictions: { country: 'rs' },
 			});
 			autocomplete.addListener('place_changed', () => {

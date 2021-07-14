@@ -2,24 +2,30 @@
 	[header]="constants.addTrip"
 	(onSubmit)="addTrip()">
 	<div class="col-12">
-		<cb-add-car *ngIf="car$ | async as car"
-			[form]="carForm"
-			[car]="car">
-		</cb-add-car>
+		<ng-container *ngIf="isCarEmpty; else hasCar">
+			<cb-add-car></cb-add-car>
+		</ng-container>
+
+		<ng-template #hasCar>
+			<mat-icon class="check">check</mat-icon>
+			<span>{{ constants.carAdded }}</span>
+		</ng-template>
 	</div>
 
 	<div class="col-12">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('fromAddress')!"
 			[label]="constants.fromAddress"
-			[placeholder]="constants.fromAddressPlaceholder">
+			[placeholder]="constants.fromAddressPlaceholder"
+			searchType="address">
 		</cb-places-autocomplete>
 	</div>
 	<div class="col-12">
 		<cb-places-autocomplete [form]="form"
 			[control]="this.form.get('toAddress')!"
 			[label]="constants.toAddress"
-			[placeholder]="constants.toAddressPlaceholder">
+			[placeholder]="constants.toAddressPlaceholder"
+			searchType="address">
 		</cb-places-autocomplete>
 	</div>
 	<div class="col-12">
@@ -41,7 +47,7 @@
 	</div>
 	<div class="col-12">
 		<cb-submit-button [label]="constants.addTrip"
-			[isDisabled]="form.invalid"
+			[isDisabled]="form.invalid || isCarEmpty"
 			[isPending]="(isPending$ | async)!">
 		</cb-submit-button>
 	</div>

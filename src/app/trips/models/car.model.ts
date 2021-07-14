@@ -16,7 +16,6 @@ export class Car {
 	get isEmpty(): boolean {
 		return !this.brand
 			&& !this.model
-			&& !this.photo
 			&& this.numberOfSeats === 0;
 	} 
 }

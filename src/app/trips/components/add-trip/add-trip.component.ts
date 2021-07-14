@@ -1,7 +1,14 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
+import {
+	Component,
+	ChangeDetectionStrategy,
+	OnInit,
+	ChangeDetectorRef,
+	OnDestroy, 
+} from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { constants, Constants } from '@constants/constants';
@@ -18,32 +25,45 @@ import { TripStoreService } from '@services/trip-store.service';
 	styleUrls: ['./add-trip.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddTripComponent implements OnInit {
-	car$: Observable<Car | null>;
+export class AddTripComponent implements OnInit, OnDestroy {
 	isPending$: Observable<boolean>;
+	car: Car | null;
 	form: FormGroup;
 	today = moment();
 
 	readonly constants: Constants = constants;
 
+	private destroy$ = new Subject<void>();
+
 	constructor(
+		private cdRef: ChangeDetectorRef,
 		private carService: CarService,
 		private carStore: CarStoreService,
 		private tripService: TripService,
 		private tripStore: TripStoreService,
 	) {
-		this.car$ = this.carStore.car$;
 		this.isPending$ = this.tripStore.isAddTripPending$;
+		this.carStore.car$
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((car: Car | null) => {
+				this.car = car;
+				this.cdRef.markForCheck();
+			});
 	}
 
-	get carForm(): FormGroup {
-		return this.form.get('car') as FormGroup;
+	get isCarEmpty(): boolean {
+		return !!this.car && this.car.isEmpty;
 	}
 
 	ngOnInit(): void {
 		this.initializeForm();
 		this.carService.getUserCar()
 			.subscribe();
+	}
+
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
 	}
 
 	addTrip(): void {
@@ -53,12 +73,6 @@ export class AddTripComponent implements OnInit {
 
 	private initializeForm(): void {
 		this.form = new FormGroup({
-			car: new FormGroup({
-				brand: requiredTextControl(''),
-				model: requiredTextControl('', 2, 20),
-				photo: new FormControl(''),
-				numberOfSeats: numberControl(1, 1, 8),
-			}),
 			fromAddress: requiredTextControl(''),
 			toAddress: requiredTextControl(''),
 			date: requiredTextControl(''),

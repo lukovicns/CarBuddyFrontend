@@ -1,15 +1,10 @@
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import {
-	Component,
-	ChangeDetectionStrategy,
-	Input,
-	ChangeDetectorRef, 
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 
 import { AddCarDialogComponent } from '@components/add-trip/add-car-dialog/add-car-dialog.component';
+import { numberControl, requiredTextControl } from '@constants/form-controls';
 import { constants, Constants } from '@constants/constants';
-import { Car } from '@models/car.model';
 import { CarService } from '@services/car.service';
 
 @Component({
@@ -18,19 +13,24 @@ import { CarService } from '@services/car.service';
 	styleUrls: ['./add-car.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AddCarComponent {
-	@Input() form: FormGroup;
-	@Input() car: Car;
-
-	isCarAdded: boolean;
+export class AddCarComponent implements OnInit {
+	form: FormGroup;
 
 	readonly constants: Constants = constants;
 
 	constructor(
-		private cdRef: ChangeDetectorRef,
 		private dialog: MatDialog,
 		private carService: CarService,
 	) { }
+
+	ngOnInit(): void {
+		this.form = new FormGroup({
+			brand: requiredTextControl(''),
+			model: requiredTextControl('', 2, 20),
+			photo: new FormControl(''),
+			numberOfSeats: numberControl(1, 1, 8),
+		});
+	}
 
 	openDialog(): void {
 		const dialogRef = this.dialog.open(AddCarDialogComponent, {
@@ -46,9 +46,6 @@ export class AddCarComponent {
 
 	private addCar(): void {
 		this.carService.addCar(this.form.value)
-			.subscribe(() => {
-				this.isCarAdded = true;
-				this.cdRef.markForCheck();
-			});
+			.subscribe();
 	}
 }

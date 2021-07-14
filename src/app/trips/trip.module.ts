@@ -26,9 +26,10 @@ import { AddTripComponent } from '@components/add-trip/add-trip.component';
 import { CardFormModule } from '@components/card-form/card-form.module';
 import { NumberInputButtonsModule } from '@components/number-input-buttons/number-input-buttons.module';
 import { AddCarDialogComponent } from '@components/add-trip/add-car-dialog/add-car-dialog.component';
+import { AddCarComponent } from '@components/add-trip/add-car/add-car.component';
+import { DropdownModule } from '@components/dropdown/dropdown.module';
 import { FormFieldModule } from '@form-field/form-field.module';
 import { TripRoutingModule } from '@modules/trip-routing.module';
-import { AddCarComponent } from './components/add-trip/add-car/add-car.component';
 
 @NgModule({
 	declarations: [
@@ -49,9 +50,11 @@ import { AddCarComponent } from './components/add-trip/add-car/add-car.component
 		CardModule,
 		CommonModule,
 		DatePickerModule,
+		DropdownModule,
 		FormFieldModule,
 		IconButtonModule,
 		MatButtonModule,
+		MatIconModule,
 		MatDialogModule,
 		MatIconModule,
 		MatPaginatorModule,

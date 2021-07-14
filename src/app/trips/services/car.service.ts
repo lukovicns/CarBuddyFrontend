@@ -26,7 +26,7 @@ export class CarService {
 	getUserCar(): Observable<Car | null> {
 		return this.carStore.hasCar
 			? this.carStore.car$
-			: this.http.get<Car>(userCarUrl(this.authorizationService.currentUserId))
+			: this.http.get<Car>(userCarUrl(this.currentUserId))
 				.pipe(
 					tap({
 						next: (car: Car) => this.carStore.setCar(car),
@@ -40,12 +40,19 @@ export class CarService {
 	}
 
 	addCar(data: any): Observable<Car> {
-		return this.http.post<Car>(carsUrl, data)
-			.pipe(
-				map((car: Car) => new Car(car)),
-				tap({
-					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
-				}),
-			);
+		return this.http.post<Car>(carsUrl, {
+			...data,
+			driverId: this.currentUserId,
+		}).pipe(
+			map((car: Car) => new Car(car)),
+			tap({
+				next: (car: Car) => this.carStore.setCar(car),
+				error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+			}),
+		);
+	}
+
+	private get currentUserId(): string {
+		return this.authorizationService.currentUserId;
 	}
 }

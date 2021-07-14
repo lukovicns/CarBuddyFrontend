@@ -1,4 +1,19 @@
+@import "colors";
+
 .col-12:first-of-type {
 	margin-top: 5px;
 	height: 40px;
+}
+
+.check {
+	color: $lightGreen;
+	position: relative;
+	top: 8px;
+	left: 8px;
+}
+
+span {
+	position: relative;
+	left: 15px;
+	top: 1px;
 }

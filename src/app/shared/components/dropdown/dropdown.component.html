@@ -1,0 +1,13 @@
+<mat-form-field [formGroup]="form"
+	class="col-12">
+	<mat-label>{{ placeholder }}</mat-label>
+	<mat-select [formControlName]="formControlName">
+		<mat-option *ngFor="let item of items"
+			[value]="item.id">
+			{{ item.name }}
+		</mat-option>
+	</mat-select>
+	<mat-error *ngIf="control.errors?.required">
+		{{ errorMessages.required(label) }}
+	</mat-error>
+</mat-form-field>
