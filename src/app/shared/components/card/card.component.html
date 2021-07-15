@@ -11,7 +11,7 @@
 	<img *ngIf="imageUrl"
 		[src]="imageUrl"
 		[alt]="imageAlt" />
-	<mat-card-content>
+	<mat-card-content (scroll)="onScroll($event)">
 		<ng-content select="[content]"></ng-content>
 	</mat-card-content>
 	<mat-card-actions>

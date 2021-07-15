@@ -1,4 +1,9 @@
-import { Component, Input } from '@angular/core';
+import {
+	Component,
+	EventEmitter,
+	Input,
+	Output, 
+} from '@angular/core';
 
 @Component({
 	selector: 'cb-card',
@@ -8,4 +13,15 @@ import { Component, Input } from '@angular/core';
 export class CardComponent {
 	@Input() imageUrl: string;
 	@Input() imageAlt: string;
+	@Output() onScrollTop = new EventEmitter<void>();
+
+	onScroll(event: Event): void {
+		if (this.isTopScroll(event.target as HTMLElement)) {
+			this.onScrollTop.emit();
+		}
+	}
+
+	private isTopScroll(element: HTMLElement): boolean {
+		return element && element.scrollTop === 0;
+	}
 }

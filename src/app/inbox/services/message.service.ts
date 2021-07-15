@@ -25,15 +25,24 @@ export class MessageService {
 	) { }
 
 	getMessages(conversationId: string): Observable<ChatMessage[]> {
-		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, conversationId))
+		return this.getChatMessages(conversationId)
 			.pipe(
-				map((response: ListResponse<ChatMessage>) => toInstances(ChatMessage, response.content)),
 				tap({
 					next: (messages: ChatMessage[]) => this.messageStore.setMessages(messages),
-					error: (error: HttpErrorResponse) => {
-						this.errorHandler.handle(error);
-						this.messageStore.setMessages([]);
-					},
+					error: () => this.messageStore.setMessages([]),
+				}),
+			);
+	}
+
+	appendMessages(conversationId: string): Observable<ChatMessage[]> {
+		this.messageStore.setLoading(true);
+		this.messageStore.increasePageNumber();
+
+		return this.getChatMessages(conversationId, this.messageStore.currentPageNumber)
+			.pipe(
+				tap({
+					next: (messages: ChatMessage[]) => this.messageStore.appendMessages(messages),
+					complete: () => this.messageStore.setLoading(false),
 				}),
 			);
 	}
@@ -44,6 +53,16 @@ export class MessageService {
 				map((message: ChatMessage) => new ChatMessage(message)),
 				tap({
 					next: (message: ChatMessage) => this.messageStore.appendMessage(message),
+					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
+				}),
+			);
+	}
+
+	private getChatMessages(conversationId: string, pageNumber = 1): Observable<ChatMessage[]> {
+		return this.http.get<ListResponse<ChatMessage>>(messagesUrl(this.currentUserId, conversationId, pageNumber))
+			.pipe(
+				map((response: ListResponse<ChatMessage>) => toInstances(ChatMessage, response.content)),
+				tap({
 					error: (error: HttpErrorResponse) => this.errorHandler.handle(error),
 				}),
 			);

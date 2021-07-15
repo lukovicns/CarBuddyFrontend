@@ -7,10 +7,13 @@ import {
 	OnChanges,
 	ViewChild,
 	ElementRef,
+	AfterViewInit,
+	OnDestroy,
 	AfterViewChecked,
 } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { filter, map, takeUntil } from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
@@ -25,45 +28,77 @@ import { MessageStoreService } from '@services/message-store.service';
 	styleUrls: ['./conversation.component.scss'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ConversationComponent implements OnChanges, AfterViewChecked {
+export class ConversationComponent implements OnChanges, AfterViewInit, AfterViewChecked, OnDestroy {
 	@Input() selectedConversation: Conversation;
-	@ViewChild('scrollableCard', { read: ElementRef }) scrollableCard: ElementRef;
+	@ViewChild('scrollableContent') scrollableContent: ElementRef;
 
 	messages$: Observable<ChatMessage[] | null>;
+	isLoading$: Observable<boolean>;
 	recipient: MessageParticipant;
 
 	form: FormGroup;
 
 	readonly constants: Constants = constants;
 
+	private destroy$ = new Subject<void>();
+	private scrollableContentLoaded = false;
+
 	constructor(
 		private messageService: MessageService,
 		private messageStore: MessageStoreService,
 	) {
 		this.messages$ = this.messageStore.messages$;
+		this.isLoading$ = this.messageStore.isLoadingMessages$;
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
-		const selectedConversation = changes.selectedConversation?.currentValue;
+		const conversation = changes.selectedConversation?.currentValue;
 
-		if (selectedConversation) {
-			this.recipient = selectedConversation.participant;
-			this.messageService.getMessages(selectedConversation.id)
-				.subscribe();
+		if (conversation) {
+			this.handleConversationChanged(conversation);
 		}
+	}
+
+	ngAfterViewInit(): void {
+		this.appendMessagesOnScroll();
 	}
 
 	ngAfterViewChecked(): void {
-		this.scrollToBottom(this.scrollableCard?.nativeElement);
+		if (!this.scrollableContentLoaded) {
+			this.scrollToBottom(this.scrollableContent.nativeElement);
+			this.scrollableContentLoaded = true;
+		}
+	}
+
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
+	}
+
+	private handleConversationChanged(conversation: Conversation): void {
+		this.recipient = conversation.participant;
+		this.messageStore.resetPageNumber();
+		this.messageService.getMessages(conversation.id)
+			.subscribe();
+	}
+
+	private appendMessagesOnScroll(): void {
+		fromEvent(this.scrollableContent.nativeElement as HTMLElement, 'scroll')
+			.pipe(
+				map((event: Event) => event.target as HTMLElement),
+				filter((element: HTMLElement) => element.scrollTop === 0),
+				takeUntil(this.destroy$),
+			)
+			.subscribe(() => {
+				this.messageService.appendMessages(this.selectedConversation.id)
+					.subscribe();
+			});
 	}
 
 	private scrollToBottom(element: HTMLElement): void {
-		if (element) {
-			const matCard = element.querySelector('mat-card > mat-card-content')!;
-			matCard.scrollTo({
-				left: 0,
-				top: matCard.scrollHeight,
-			});
-		}
+		element.scrollTo({
+			left: 0,
+			top: element.scrollHeight,
+		});
 	}
 }
