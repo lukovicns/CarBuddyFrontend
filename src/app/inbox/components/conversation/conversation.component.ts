@@ -13,7 +13,12 @@ import {
 } from '@angular/core';
 
 import { fromEvent, Observable, Subject } from 'rxjs';
-import { filter, map, takeUntil } from 'rxjs/operators';
+import {
+	filter,
+	map,
+	switchMap,
+	takeUntil, 
+} from 'rxjs/operators';
 
 import { constants, Constants } from '@constants/constants';
 import { ChatMessage } from '@models/chat-message.model';
@@ -87,12 +92,10 @@ export class ConversationComponent implements OnChanges, AfterViewInit, AfterVie
 			.pipe(
 				map((event: Event) => event.target as HTMLElement),
 				filter((element: HTMLElement) => element.scrollTop === 0),
+				switchMap(() => this.messageService.appendMessages(this.selectedConversation.id)),
 				takeUntil(this.destroy$),
 			)
-			.subscribe(() => {
-				this.messageService.appendMessages(this.selectedConversation.id)
-					.subscribe();
-			});
+			.subscribe();
 	}
 
 	private scrollToBottom(element: HTMLElement): void {
